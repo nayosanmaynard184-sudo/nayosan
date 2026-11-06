@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="Maynard K. Nay-osan — Aspiring Software Developer & First-Year BS Computer Science Student at University of the Cordilleras.">
+  <meta name="theme-color" content="#0b0d11">
+  <meta property="og:title" content="Maynard K. Nay-osan — Portfolio">
+  <meta property="og:description" content="Aspiring Software Developer & First-Year BS Computer Science Student at University of the Cordilleras.">
+  <meta property="og:type" content="website">
+  <title>Maynard K. Nay-osan — Portfolio</title>
+
+  <!-- Preconnect & Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=IBM+Plex+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Atmospheric Background System -->
+  <div class="medieval-bg" aria-hidden="true"></div>
+  <div class="atmospheric-mist" aria-hidden="true"></div>
+  
+  <!-- Interactive Canvas 2D Smoke Cursor Trail -->
+  <canvas id="smoke-canvas" aria-hidden="true"></canvas>
+
+  <!-- Ambient Floating Dust Canvas -->
+  <canvas id="dust-canvas" aria-hidden="true"></canvas>
+
+  <div class="app-shell">
+    <!-- Top Navigation Bar (Fixed 68px) -->
+    <header class="topbar">
+      <!-- Zone 1: Brand Monogram -->
+      <a class="brand-mark" href="#home" data-go-section="home" aria-label="Home">
+        <span class="brand-shield">MN</span>
+        <span class="brand-text">
+          <span class="brand-name">NAY-OSAN</span>
+          <span class="brand-sub">PORTFOLIO</span>
+        </span>
+      </a>
+
+      <!-- Zone 2: Navigation Links -->
+      <nav aria-label="Main Navigation">
+        <ul class="nav-links">
+          <li class="nav-item active"><a href="#home" data-target="home"><span class="nav-num">01</span> / Home</a></li>
+          <li class="nav-item"><a href="#about" data-target="about"><span class="nav-num">02</span> / About</a></li>
+          <li class="nav-item"><a href="#education" data-target="education"><span class="nav-num">03</span> / Education</a></li>
+          <li class="nav-item"><a href="#skills" data-target="skills"><span class="nav-num">04</span> / Skills</a></li>
+          <li class="nav-item"><a href="#projects" data-target="projects"><span class="nav-num">05</span> / Projects</a></li>
+        </ul>
+      </nav>
+
+      <!-- Zone 3: Actions & Theme Switcher -->
+      <div class="header-actions">
+        <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="Switch theme" title="Switch theme">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+            <circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2" fill="none"/>
+            <line x1="12" y1="1" x2="12" y2="3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <line x1="12" y1="21" x2="12" y2="23" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <line x1="1" y1="12" x2="3" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <line x1="21" y1="12" x2="23" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Viewport: Fixed 100dvh Content Area -->
+    <main class="main-viewport">
+      <div class="view-stage">
+
+        <!-- ============================================================
+             SECTION 1: HOME
+             ============================================================ -->
+        <!-- ============================================================
+             SECTION 1: HOME
+             ============================================================ -->
+        <section class="section-view active" id="view-home" aria-label="Home Section">
+          <div class="home-grid">
+            <!-- Left: Portrait & Celestial Astrolabe -->
+            <div class="portrait-stage">
+              <div class="astrolabe-ring astrolabe-outer">
+                <span class="astrolabe-star star-top">✦</span>
+                <span class="astrolabe-star star-right">✦</span>
+                <span class="astrolabe-star star-bottom">✦</span>
+                <span class="astrolabe-star star-left">✦</span>
+              </div>
+              <div class="astrolabe-ring astrolabe-mid"></div>
+              <div class="astrolabe-ring astrolabe-inner"></div>
+
+              <figure class="portrait-frame">
+                <img class="portrait-img" src="assets/portrait.jpg" alt="Portrait of Maynard Nay-osan in a dark suit and tie">
+                <div class="portrait-vignette" aria-hidden="true"></div>
+                <figcaption class="portrait-caption">Sadanga · Baguio City, PH</figcaption>
+              </figure>
+            </div>
+
+            <!-- Right: Introduction & Key Details -->
+            <div class="home-content">
+              <div class="kicker">
+                <span>HELLO, I'M</span>
+                <span class="kicker-line"></span>
+                <span>FIRST-YEAR COMPUTER SCIENCE STUDENT</span>
+                <span class="lvl-tag" style="margin-left: auto;">LEVEL 01</span>
+              </div>
+
+              <h1 class="hero-name">
+                Maynard <span class="accent-italic">Nay-osan</span>
+              </h1>
+
+              <div class="hero-role">
+                Aspiring Software Developer
+              </div>
+
+              <!-- Quick Academic & Geographical Info Chips -->
+              <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: -0.3rem;">
+                <span class="lang-chip">🎓 BS Computer Science · 1st Year</span>
+                <span class="lang-chip">🏛️ University of the Cordilleras (UC)</span>
+                <span class="lang-chip">📍 Sadanga, Mt. Province / Baguio City, PH</span>
+                <span class="lang-chip" style="border-color: #34d399; color: #34d399;">● Status: CS Student</span>
+              </div>
+
+              <!-- Short Introduction Paragraphs -->
+              <div class="hero-lead" style="display: flex; flex-direction: column; gap: 0.55rem; font-size: 0.91rem; line-height: 1.65;">
+                <p>
+                  Hello! I'm <strong>Maynard Nay-osan</strong>, a first-year Computer Science student at the <strong>University of the Cordilleras</strong>. I'm currently building my foundation in programming and exploring the world of software development.
+                </p>
+                <p>
+                  I am learning <strong>Java</strong> and <strong>Python</strong> while developing my problem-solving and logical thinking skills through coursework and coding exercises. My goal is to continuously improve my technical abilities and eventually become a skilled software developer.
+                </p>
+              </div>
+
+              <!-- Currently Learning Section -->
+              <div class="currently-learning-box">
+                <div class="learning-label">
+                  <span>⚡ Currently Learning:</span>
+                </div>
+                <div class="learning-tags">
+                  <div class="lang-chip">
+                    <span class="lang-chip-dot"></span>
+                    <strong>Java</strong>
+                    <span style="color: var(--text-muted); font-size: 0.65rem;">(Coursework &amp; OOP)</span>
+                  </div>
+                  <div class="lang-chip">
+                    <span class="lang-chip-dot"></span>
+                    <strong>Python</strong>
+                    <span style="color: var(--text-muted); font-size: 0.65rem;">(Logic &amp; Problem Solving)</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Action Buttons Strip -->
+              <div class="hero-actions">
+                <a class="btn btn-primary" href="#about" data-go-section="about">
+                  Explore About Me <span aria-hidden="true">→</span>
+                </a>
+                <a class="btn btn-secondary" href="https://github.com/sankura-san" target="_blank" rel="noopener noreferrer">
+                  GitHub Profile <span aria-hidden="true">↗</span>
+                </a>
+                <a class="btn btn-secondary" href="mailto:nayosanmaynard184@gmail.com">
+                  Contact Me
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================================
+             SECTION 2: ABOUT ME (Labio-Inspired Player Info, Advancements, Bio & Inventory)
+             ============================================================ -->
+        <section class="section-view" id="view-about" aria-label="About Section">
+          <div class="about-grid">
+            <!-- Left Column: Player Information Card -->
+            <aside class="player-card" aria-label="Player Information Profile">
+              <div class="player-header">
+                <div class="player-thumb-ring">
+                  <img src="assets/portrait.jpg" alt="Maynard Nay-osan avatar">
+                </div>
+                <div class="player-title-block">
+                  <h3>Maynard Nay-osan</h3>
+                  <div class="player-role-badge">Class: Aspiring Software Developer</div>
+                </div>
+              </div>
+
+              <!-- Level 01 & XP Progression Bar -->
+              <div class="player-xp-strip">
+                <span class="lvl-tag">LVL 01</span>
+                <div class="xp-bar-track" aria-label="Level Progression">
+                  <div class="xp-bar-fill"></div>
+                </div>
+                <span class="xp-percent">78% XP</span>
+              </div>
+
+              <!-- Player Details Table -->
+              <div class="player-specs-table" aria-label="Personal and Academic Details">
+                <div class="spec-row">
+                  <span class="spec-key">Full Name</span>
+                  <span class="spec-val">Maynard Nay-osan</span>
+                </div>
+                <div class="spec-row">
+                  <span class="spec-key">Class / Role</span>
+                  <span class="spec-val">Aspiring Software Developer</span>
+                </div>
+                <div class="spec-row">
+                  <span class="spec-key">Status</span>
+                  <span class="spec-val">College Student</span>
+                </div>
+                <div class="spec-row">
+                  <span class="spec-key">University</span>
+                  <span class="spec-val">University of the Cordilleras</span>
+                </div>
+                <div class="spec-row">
+                  <span class="spec-key">Program</span>
+                  <span class="spec-val">BS Computer Science</span>
+                </div>
+                <div class="spec-row">
+                  <span class="spec-key">Year Level</span>
+                  <span class="spec-val">First Year</span>
+                </div>
+                <div class="spec-row">
+                  <span class="spec-key">Location</span>
+                  <span class="spec-val">Sadanga, Mountain Province</span>
+                </div>
+                <div class="spec-row">
+                  <span class="spec-key">Birthplace</span>
+                  <span class="spec-val">Bontoc, Mountain Province</span>
+                </div>
+                <div class="spec-row">
+                  <span class="spec-key">Languages</span>
+                  <span class="spec-val" style="color: var(--accent-gold);">Java &amp; Python</span>
+                </div>
+                <div class="spec-row">
+                  <span class="spec-key">Hobbies</span>
+                  <span class="spec-val">Drawing, Chess, Anime</span>
+                </div>
+                <div class="spec-row" style="border-bottom: none; margin-top: 0.2rem;">
+                  <span class="spec-key">Contact</span>
+                  <span class="spec-val"><a href="mailto:nayosanmaynard184@gmail.com">nayosanmaynard184@gmail.com</a></span>
+                </div>
+              </div>
+            </aside>
+
+            <!-- Right Column: Advancements, Biography & Inventory Sub-Tabs -->
+            <div class="about-stage">
+              <!-- Sub-Tab Navigation Bar -->
+              <div class="about-tabbar" role="tablist" aria-label="About Navigation Tabs">
+                <button class="ab-tab active" type="button" role="tab" id="tab-btn-advancements" aria-selected="true" aria-controls="ab-panel-advancements" data-tab="advancements">
+                  <span>🏆</span>
+                  <span>My Advancements</span>
+                  <span class="ab-tab-badge">2/4</span>
+                </button>
+                <button class="ab-tab" type="button" role="tab" id="tab-btn-bio" aria-selected="false" aria-controls="ab-panel-bio" data-tab="bio">
+                  <span>📖</span>
+                  <span>More About Me</span>
+                </button>
+                <button class="ab-tab" type="button" role="tab" id="tab-btn-inventory" aria-selected="false" aria-controls="ab-panel-inventory" data-tab="inventory">
+                  <span>🎒</span>
+                  <span>Inventory · Hobbies</span>
+                  <span class="ab-tab-badge">5 Items</span>
+                </button>
+              </div>
+
+              <!-- Sub-Panels Container -->
+              <div class="ab-panels">
+
+                <!-- PANEL 1: Advancements System -->
+                <div class="ab-panel active" id="ab-panel-advancements" role="tabpanel" aria-labelledby="tab-btn-advancements">
+                  <div class="advancements-container">
+                    <div class="adv-banner">
+                      <span class="adv-banner-title">🏆 Scholar Advancements &amp; Progress</span>
+                      <span class="adv-banner-progress">2 / 4 Milestones Completed (50%)</span>
+                    </div>
+
+                    <div class="advancements-grid">
+                      <!-- Achievement 01 -->
+                      <div class="adv-card completed">
+                        <div class="adv-icon-slot">🌱</div>
+                        <div class="adv-info">
+                          <div class="adv-header-row">
+                            <span class="adv-num">ACHIEVEMENT 01</span>
+                            <span class="adv-status-tag done">COMPLETED</span>
+                          </div>
+                          <h4 class="adv-title">First Steps</h4>
+                          <p class="adv-desc">Started my journey in Computer Science.</p>
+                        </div>
+                      </div>
+
+                      <!-- Achievement 02 -->
+                      <div class="adv-card in-progress">
+                        <div class="adv-icon-slot">⚡</div>
+                        <div class="adv-info">
+                          <div class="adv-header-row">
+                            <span class="adv-num">ACHIEVEMENT 02</span>
+                            <span class="adv-status-tag prog">IN PROGRESS</span>
+                          </div>
+                          <h4 class="adv-title">Programming Foundations</h4>
+                          <p class="adv-desc">Studying Java and Python and learning fundamental programming concepts.</p>
+                        </div>
+                      </div>
+
+                      <!-- Achievement 03 -->
+                      <div class="adv-card completed">
+                        <div class="adv-icon-slot">⚔️</div>
+                        <div class="adv-info">
+                          <div class="adv-header-row">
+                            <span class="adv-num">ACHIEVEMENT 03</span>
+                            <span class="adv-status-tag done">COMPLETED</span>
+                          </div>
+                          <h4 class="adv-title">Coding Practice</h4>
+                          <p class="adv-desc">Completed programming exercises and coursework using Java and Python.</p>
+                        </div>
+                      </div>
+
+                      <!-- Achievement 04 -->
+                      <div class="adv-card in-progress">
+                        <div class="adv-icon-slot">🛡️</div>
+                        <div class="adv-info">
+                          <div class="adv-header-row">
+                            <span class="adv-num">ACHIEVEMENT 04</span>
+                            <span class="adv-status-tag prog">IN PROGRESS</span>
+                          </div>
+                          <h4 class="adv-title">Portfolio Development</h4>
+                          <p class="adv-desc">Building my personal developer portfolio to showcase my progress and future projects.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- PANEL 2: Personal Biography -->
+                <div class="ab-panel" id="ab-panel-bio" role="tabpanel" aria-labelledby="tab-btn-bio">
+                  <div class="bio-card">
+                    <h3><span>📖</span> Personal Biography</h3>
+                    <div class="bio-text-content">
+                      <p>
+                        I'm <strong>Maynard</strong>, a Computer Science student from <strong>Sadanga, Mountain Province</strong>. I was born in <strong>Bontoc</strong> and raised in Sadanga.
+                      </p>
+                      <p>
+                        I chose Computer Science because I want to understand how technology works and learn how to create useful software. As a beginner, I'm still developing my programming knowledge, particularly in <strong>Java and Python</strong>.
+                      </p>
+                      <p>
+                        I enjoy learning through coding exercises and experimenting with different programming concepts. Although I'm still at the beginning of my journey, I want to gradually improve my skills through practice, coursework, and personal projects.
+                      </p>
+                      <p>
+                        Outside academics, I enjoy <strong>drawing and painting, playing chess, reading manhwa, and watching anime</strong>. These are some of the interests that keep me entertained and allow me to explore creativity, strategy, and storytelling.
+                      </p>
+                      <p>
+                        This portfolio represents my current progress as a Computer Science student. It is a place where I can document what I have learned, showcase my work, and continue growing as a future software developer.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- PANEL 3: Inventory (Hobbies & Interests Hotbar) -->
+                <div class="ab-panel" id="ab-panel-inventory" role="tabpanel" aria-labelledby="tab-btn-inventory">
+                  <div class="inventory-stage">
+                    <div class="inventory-header-strip">
+                      <span>🎒 INVENTORY · HOBBIES &amp; INTERESTS</span>
+                      <span>PRESS 1–5 OR CLICK TO INSPECT ITEM</span>
+                    </div>
+
+                    <!-- 5-Slot Hotbar -->
+                    <div class="hotbar-slots-row" role="region" aria-label="Inventory hotbar slots">
+                      <button class="inv-slot selected" type="button" data-slot="1" data-name="Drawing" data-type="Creative Pursuit" data-desc="An interest in visual creativity and illustration." data-icon="🎨">
+                        <span class="inv-slot-number">1</span>
+                        <span class="inv-slot-icon">🎨</span>
+                      </button>
+                      <button class="inv-slot" type="button" data-slot="2" data-name="Painting" data-type="Artistic Expression" data-desc="Exploring colors, styles, and artistic expression." data-icon="🖌️">
+                        <span class="inv-slot-number">2</span>
+                        <span class="inv-slot-icon">🖌️</span>
+                      </button>
+                      <button class="inv-slot" type="button" data-slot="3" data-name="Chess" data-type="Strategic Thinking" data-desc="Enjoying strategy, planning, and logical thinking." data-icon="♟️">
+                        <span class="inv-slot-number">3</span>
+                        <span class="inv-slot-icon">♟️</span>
+                      </button>
+                      <button class="inv-slot" type="button" data-slot="4" data-name="Manhwa" data-type="Illustrated Literature" data-desc="Reading illustrated Korean stories." data-icon="📖">
+                        <span class="inv-slot-number">4</span>
+                        <span class="inv-slot-icon">📖</span>
+                      </button>
+                      <button class="inv-slot" type="button" data-slot="5" data-name="Anime" data-type="Animated Storytelling" data-desc="Enjoying animated storytelling and different genres." data-icon="🎬">
+                        <span class="inv-slot-number">5</span>
+                        <span class="inv-slot-icon">🎬</span>
+                      </button>
+                    </div>
+
+                    <!-- Item Lore Inspector -->
+                    <div class="item-lore-panel" id="item-lore-panel">
+                      <div class="lore-large-icon" id="lore-icon" aria-hidden="true">🎨</div>
+                      <div class="lore-details">
+                        <span class="lore-type-tag" id="lore-type">Creative Pursuit · Slot 1</span>
+                        <h4 class="lore-title" id="lore-title">Drawing</h4>
+                        <p class="lore-description" id="lore-desc">An interest in visual creativity and illustration.</p>
+                        <span class="lore-instruction">Use number keys [1–5] or click slots to inspect each hobby.</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================================
+             SECTION 3: EDUCATION
+             ============================================================ -->
+        <section class="section-view" id="view-education" aria-label="Education Section">
+          <div class="education-container">
+            <div class="section-head">
+              <div class="kicker">
+                <span>ACADEMIC FOUNDATION</span>
+                <span class="kicker-line"></span>
+              </div>
+              <h2>Educational Background</h2>
+              <p>My continuous learning journey progressing from Mountain Province to university studies in Baguio City.</p>
+            </div>
+
+            <div class="timeline-grid">
+              <!-- College -->
+              <div class="timeline-card">
+                <span class="timeline-badge">HIGHER EDUCATION · CURRENT</span>
+                <h3 class="timeline-institution">University of the Cordilleras</h3>
+                <div class="timeline-program">Bachelor of Science in Computer Science (BSCS)</div>
+                <p style="font-size: 0.84rem; color: var(--text-muted);">
+                  First-year undergraduate studies focusing on computer science fundamentals, programming logic in Java and Python, and algorithmic problem-solving.
+                </p>
+                <div class="timeline-meta">1st Year · Baguio City, Philippines</div>
+              </div>
+
+              <!-- High School -->
+              <div class="timeline-card">
+                <span class="timeline-badge">SECONDARY EDUCATION · COMPLETED</span>
+                <h3 class="timeline-institution">Sadanga National Technical Vocational and Skills Training High School</h3>
+                <div class="timeline-program">Senior &amp; Junior High School (Grade 7 – 12)</div>
+                <p style="font-size: 0.84rem; color: var(--text-muted);">
+                  Completed high school education with technical-vocational foundation, fostering analytical problem-solving and structured study habits.
+                </p>
+                <div class="timeline-meta">Sadanga, Mountain Province</div>
+              </div>
+
+              <!-- Elementary -->
+              <div class="timeline-card">
+                <span class="timeline-badge">PRIMARY EDUCATION · COMPLETED</span>
+                <h3 class="timeline-institution">Sadanga Central School</h3>
+                <div class="timeline-program">Elementary Foundation</div>
+                <p style="font-size: 0.84rem; color: var(--text-muted);">
+                  Completed foundational primary education, building core curiosity in science, mathematics, and creativity.
+                </p>
+                <div class="timeline-meta">Sadanga, Mountain Province</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================================
+             SECTION 4: SKILLS
+             ============================================================ -->
+        <section class="section-view" id="view-skills" aria-label="Skills Section">
+          <div class="skills-container">
+            <div class="section-head">
+              <div class="kicker">
+                <span>TECHNICAL PROFILE</span>
+                <span class="kicker-line"></span>
+              </div>
+              <h2>Skills &amp; Programming Knowledge</h2>
+              <p>Distinguishing core studied languages, fundamentals, developer tools, and areas currently under active development.</p>
+            </div>
+
+            <div class="skills-grid">
+              <!-- Card 1: Core Languages -->
+              <div class="skill-card">
+                <div class="skill-card-head">
+                  <span>✦</span> Core Languages
+                </div>
+                <div class="skill-badge-list">
+                  <div class="skill-item">
+                    <strong>Java</strong>
+                    <span class="skill-level">Studied &amp; Practiced</span>
+                  </div>
+                  <div class="skill-item">
+                    <strong>Python</strong>
+                    <span class="skill-level">Studied &amp; Practiced</span>
+                  </div>
+                </div>
+                <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: auto;">
+                  Practiced through University coursework, programming problem sets, and algorithmic challenges.
+                </p>
+              </div>
+
+              <!-- Card 2: Programming Fundamentals -->
+              <div class="skill-card">
+                <div class="skill-card-head">
+                  <span>✦</span> Fundamentals
+                </div>
+                <div class="skill-badge-list">
+                  <div class="skill-item">
+                    <span>Variables &amp; Types</span>
+                    <span class="skill-level">Core</span>
+                  </div>
+                  <div class="skill-item">
+                    <span>Conditional Logic</span>
+                    <span class="skill-level">Core</span>
+                  </div>
+                  <div class="skill-item">
+                    <span>Loops &amp; Iteration</span>
+                    <span class="skill-level">Core</span>
+                  </div>
+                  <div class="skill-item">
+                    <span>Functions &amp; Methods</span>
+                    <span class="skill-level">Core</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Card 3: Developer Tools -->
+              <div class="skill-card">
+                <div class="skill-card-head">
+                  <span>✦</span> Tools &amp; Environment
+                </div>
+                <div class="skill-badge-list">
+                  <div class="skill-item">
+                    <strong>Git</strong>
+                    <span class="skill-level">Version Control</span>
+                  </div>
+                  <div class="skill-item">
+                    <strong>GitHub</strong>
+                    <span class="skill-level">Repository Hosting</span>
+                  </div>
+                  <div class="skill-item">
+                    <span>VS Code</span>
+                    <span class="skill-level">Code Editor</span>
+                  </div>
+                  <div class="skill-item">
+                    <span>Terminal / CLI</span>
+                    <span class="skill-level">Basic Commands</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Card 4: Currently Learning -->
+              <div class="skill-card">
+                <div class="skill-card-head">
+                  <span>✦</span> In Active Development
+                </div>
+                <div class="skill-badge-list">
+                  <div class="skill-item">
+                    <span>Object-Oriented Design</span>
+                    <span class="skill-level">Learning</span>
+                  </div>
+                  <div class="skill-item">
+                    <span>Data Structures</span>
+                    <span class="skill-level">Learning</span>
+                  </div>
+                  <div class="skill-item">
+                    <span>Web Fundamentals</span>
+                    <span class="skill-level">Learning</span>
+                  </div>
+                  <div class="skill-item">
+                    <span>Algorithm Optimization</span>
+                    <span class="skill-level">Learning</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================================
+             SECTION 5: PROJECTS
+             ============================================================ -->
+        <section class="section-view" id="view-projects" aria-label="Projects Section">
+          <div class="projects-container">
+            <div class="section-head">
+              <div class="kicker">
+                <span>PRACTICAL IMPLEMENTATIONS</span>
+                <span class="kicker-line"></span>
+              </div>
+              <h2>Software Projects</h2>
+              <p>Authentic programming activities, coursework solutions, and in-progress software developments.</p>
+            </div>
+
+            <div class="projects-grid">
+              <!-- Project 1: Coursework Exercises -->
+              <div class="project-card">
+                <div class="project-status-tag">
+                  <span>✦</span> Coursework Projects
+                </div>
+                <h3 class="project-title">Academic Algorithms &amp; Logic Lab</h3>
+                <p class="project-desc">
+                  Curated repository of programming exercises and algorithms written in Java and Python for University of the Cordilleras coursework, covering control flow, sorting, and modular routines.
+                </p>
+                <div class="project-tech">
+                  <span class="tech-tag">Java</span>
+                  <span class="tech-tag">Python</span>
+                  <span class="tech-tag">Algorithms</span>
+                </div>
+              </div>
+
+              <!-- Project 2: Utility Tool -->
+              <div class="project-card">
+                <div class="project-status-tag">
+                  <span>✦</span> In Planning · Coming Soon
+                </div>
+                <h3 class="project-title">Student Workflow Automation Tool</h3>
+                <p class="project-desc">
+                  A lightweight Python CLI utility in development designed to streamline file organization and study scheduling for college coursework.
+                </p>
+                <div class="project-tech">
+                  <span class="tech-tag">Python</span>
+                  <span class="tech-tag">CLI</span>
+                  <span class="tech-tag">Automation</span>
+                </div>
+              </div>
+
+              <!-- Project 3: Portfolio Website -->
+              <div class="project-card">
+                <div class="project-status-tag active">
+                  <span>●</span> Active Project
+                </div>
+                <h3 class="project-title">Medieval Gothic Portfolio</h3>
+                <p class="project-desc">
+                  A fixed-screen web portfolio built with pure HTML5, CSS3, and Canvas 2D smoke trail physics. Features dual medieval themes, celestial astrolabe framing, and full responsive design.
+                </p>
+                <div class="project-tech">
+                  <span class="tech-tag">HTML5</span>
+                  <span class="tech-tag">CSS3</span>
+                  <span class="tech-tag">Canvas 2D</span>
+                  <span class="tech-tag">JavaScript</span>
+                </div>
+              </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 0.5rem;">
+              <a class="btn btn-primary" href="https://github.com/sankura-san" target="_blank" rel="noopener noreferrer">
+                Explore All Code on GitHub <span aria-hidden="true">↗</span>
+              </a>
+              <a class="btn btn-secondary" style="margin-left: 0.75rem;" href="assets/maynard-portfolio-medieval.zip" download="maynard-portfolio-medieval.zip">
+                Download Portfolio ZIP Package ↓
+              </a>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+
+    <!-- Footer Bar (Fixed 44px) -->
+    <footer class="footer-bar">
+      <div class="footer-nav-hint">
+        <span>[← / → Arrow Keys to Navigate]</span>
+      </div>
+
+      <div class="footer-pager">
+        <span id="footer-page-indicator">01 / 05</span>
+        <button id="btn-continue" class="footer-btn-continue" type="button">
+          <span>Continue</span> <span aria-hidden="true">→</span>
+        </button>
+      </div>
+
+      <div class="footer-links">
+        <a class="footer-link" href="https://github.com/sankura-san" target="_blank" rel="noopener noreferrer">
+          GitHub: @sankura-san
+        </a>
+        <span aria-hidden="true">·</span>
+        <a class="footer-link" href="mailto:nayosanmaynard184@gmail.com">
+          nayosanmaynard184@gmail.com
+        </a>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Scripts -->
+  <script type="module" src="js/smoke.js"></script>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

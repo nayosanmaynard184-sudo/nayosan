@@ -1,0 +1,6 @@
+{
+  "name": "Maynard K. Nay-osan — Medieval Gothic Portfolio",
+  "description": "Personal portfolio of Maynard K. Nay-osan with medieval gothic aesthetics, atmospheric candlelight, and real-time WebGL fluid smoke simulation.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
