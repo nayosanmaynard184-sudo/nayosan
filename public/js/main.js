@@ -184,10 +184,12 @@
     const name = slotButton.getAttribute('data-name');
     const type = slotButton.getAttribute('data-type');
     const desc = slotButton.getAttribute('data-desc');
-    const icon = slotButton.getAttribute('data-icon');
     const slotNum = slotButton.getAttribute('data-slot');
+    const iconContainer = slotButton.querySelector('.inv-slot-icon');
 
-    if (loreIcon) loreIcon.textContent = icon || '🎨';
+    if (loreIcon && iconContainer) {
+      loreIcon.innerHTML = iconContainer.innerHTML;
+    }
     if (loreType) loreType.textContent = `${type} · Slot ${slotNum}`;
     if (loreTitle) loreTitle.textContent = name;
     if (loreDesc) loreDesc.textContent = desc;
@@ -245,19 +247,15 @@
       themeToggleBtn.setAttribute('aria-label', isLight ? 'Switch to Dark Gothic theme' : 'Switch to Light Scriptorium theme');
       
       themeToggleBtn.innerHTML = isLight
-        ? `<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
-            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        ? `<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+            <polygon points="15 4 16 6.5 18.5 7.5 16 8.5 15 11 14 8.5 11.5 7.5 14 6.5 15 4" fill="currentColor"/>
           </svg>`
-        : `<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
-            <circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2" fill="none"/>
-            <line x1="12" y1="1" x2="12" y2="3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <line x1="12" y1="21" x2="12" y2="23" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <line x1="1" y1="12" x2="3" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <line x1="21" y1="12" x2="23" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        : `<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="4.5"/>
+            <path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22"/>
+            <path d="M4.93 4.93l1.8 1.8M17.27 17.27l1.8 1.8M4.93 19.07l1.8-1.8M17.27 6.73l1.8-1.8"/>
+            <circle cx="12" cy="12" r="1.5" fill="currentColor"/>
           </svg>`;
     }
   }

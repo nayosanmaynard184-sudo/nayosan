@@ -1,17 +1,4 @@
-/**
- * Maynard K. Nay-osan — Medieval Gothic Portfolio
- * Interactive Smoke Cursor Trail Animation (Canvas 2D)
- * 
- * Based on the author's multi-lobed puff particle physics:
- * - Continuous unbroken smoke trail following pointer trajectory
- * - Offscreen multi-lobed organic puff sprites
- * - Natural momentum transfer, thermal buoyancy, and subtle sinusoidal turbulence
- * - Gradual expansion, diffusion, and soft alpha falloff
- * - Dual-theme support: soft warm cream, ivory, and subtle antique gold tones (Dark)
- *   and warm translucent charcoal/sepia tones (Light)
- */
-
-(function () {
+(() => {
   'use strict';
 
   const canvas = document.getElementById('smoke-canvas');
@@ -20,16 +7,15 @@
   const ctx = canvas.getContext('2d', { alpha: true });
   if (!ctx) return;
 
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  // Smoke Simulation Parameters
+  // Refined Subtle Smoke Simulation Parameters
+  // Tuned for elegant, whisper-soft incense trail that does not obscure text
   const settings = {
-    maxParticles: 320,
-    particlesPerStep: 3,
-    spacing: 8,          // Distance between interpolated emission steps
-    baseLife: 2.1,       // Lingering lifespan in seconds
-    rise: 14,            // Thermal upward drift
-    drag: 0.985,         // Momentum friction
+    maxParticles: 130,      // Reduced to keep screen clean and unobtrusive
+    particlesPerStep: 1,    // 1 delicate particle per step instead of heavy clumps
+    spacing: 16,            // Gentle interpolation spacing
+    baseLife: 1.3,          // Dissipates swiftly so smoke never builds up into clouds
+    rise: 16,               // Upward thermal buoyancy like altar incense
+    drag: 0.982             // Natural atmospheric friction
   };
 
   let width = 0;
@@ -39,76 +25,64 @@
   let particles = [];
   let pointer = { x: 0, y: 0, active: false };
   let previous = null;
-  let spriteIvory = null;
-  let spriteGold = null;
-  let isLightMode = document.documentElement.getAttribute('data-theme') === 'light';
+  let sprite = null;
 
-  // Helper: Generate an organic, multi-lobed smoke puff sprite on an offscreen canvas
-  function createSmokeSprite(color1, color2, color3) {
-    const size = 140;
+  /**
+   * Creates an offscreen multi-lobed organic puff sprite.
+   * Colors are specifically calibrated to be subtle, warm, and 100% compatible
+   * with both dark/gold text and light/dark theme backgrounds without covering letters.
+   */
+  function makeSmokeSprite() {
+    const size = 128;
     const offscreen = document.createElement('canvas');
     offscreen.width = size;
     offscreen.height = size;
     const g = offscreen.getContext('2d');
 
-    const cx = size / 2;
-    const cy = size / 2;
+    const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+    const gradient = g.createRadialGradient(64, 64, 2, 64, 64, 60);
 
-    // Base central radial glow
-    const gradient = g.createRadialGradient(cx, cy, 2, cx, cy, size * 0.44);
-    gradient.addColorStop(0, color1);
-    gradient.addColorStop(0.32, color2);
-    gradient.addColorStop(0.68, color3);
-    gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
+    if (isLight) {
+      // Light Scriptorium Theme: Gentle warm parchment incense mist
+      // Low opacity so dark letters remain 100% readable without smudging
+      gradient.addColorStop(0, 'rgba(150, 135, 115, 0.11)');
+      gradient.addColorStop(0.35, 'rgba(175, 160, 140, 0.06)');
+      gradient.addColorStop(0.70, 'rgba(200, 185, 165, 0.02)');
+      gradient.addColorStop(1, 'rgba(220, 205, 185, 0)');
+    } else {
+      // Dark Gothic Theme: Warm candlelight amber/gold incense mist
+      // Soft warm golden-amber core with transparent charcoal feathering.
+      // Replaces bright cold white so it does NOT wash out or cover white text!
+      gradient.addColorStop(0, 'rgba(215, 175, 115, 0.13)');
+      gradient.addColorStop(0.35, 'rgba(165, 135, 95, 0.07)');
+      gradient.addColorStop(0.70, 'rgba(110, 90, 70, 0.025)');
+      gradient.addColorStop(1, 'rgba(50, 40, 30, 0)');
+    }
+
     g.fillStyle = gradient;
     g.fillRect(0, 0, size, size);
 
-    // Multi-lobed irregular puffs around center for realistic non-circular smoke
-    const lobeCount = 8;
-    for (let i = 0; i < lobeCount; i++) {
-      const angle = (Math.PI * 2 * i) / lobeCount + (i % 2) * 0.2;
-      const dist = 18 + (i % 3) * 6;
-      const lx = cx + Math.cos(angle) * dist;
-      const ly = cy + Math.sin(angle) * dist;
-      const radius = 28 + (i % 4) * 6;
+    // Subtle uneven lobes for organic flowing puff silhouette
+    for (let i = 0; i < 7; i++) {
+      const angle = (Math.PI * 2 * i) / 7;
+      const x = 64 + Math.cos(angle) * 18;
+      const y = 64 + Math.sin(angle) * 16;
+      const r = 20 + (i % 3) * 4;
+      const lobe = g.createRadialGradient(x, y, 1, x, y, r);
 
-      const lobe = g.createRadialGradient(lx, ly, 1, lx, ly, radius);
-      lobe.addColorStop(0, color2);
-      lobe.addColorStop(0.7, color3);
-      lobe.addColorStop(1, 'rgba(0, 0, 0, 0)');
+      if (isLight) {
+        lobe.addColorStop(0, 'rgba(160, 145, 125, 0.035)');
+        lobe.addColorStop(1, 'rgba(210, 195, 175, 0)');
+      } else {
+        lobe.addColorStop(0, 'rgba(195, 155, 105, 0.045)');
+        lobe.addColorStop(1, 'rgba(120, 95, 70, 0)');
+      }
+
       g.fillStyle = lobe;
-      g.fillRect(lx - radius, ly - radius, radius * 2, radius * 2);
+      g.fillRect(x - r, y - r, r * 2, r * 2);
     }
 
     return offscreen;
-  }
-
-  function initSprites() {
-    if (isLightMode) {
-      // Light Mode: Soft charcoal, warm taupe, and subtle sepia
-      spriteIvory = createSmokeSprite(
-        'rgba(75, 68, 60, 0.24)',
-        'rgba(115, 102, 90, 0.15)',
-        'rgba(150, 135, 120, 0.05)'
-      );
-      spriteGold = createSmokeSprite(
-        'rgba(110, 85, 55, 0.22)',
-        'rgba(145, 115, 80, 0.13)',
-        'rgba(175, 145, 110, 0.04)'
-      );
-    } else {
-      // Dark Mode: Soft warm cream, ivory, warm gray, and subtle antique gold tones
-      spriteIvory = createSmokeSprite(
-        'rgba(242, 235, 222, 0.25)',
-        'rgba(215, 202, 185, 0.15)',
-        'rgba(165, 150, 135, 0.05)'
-      );
-      spriteGold = createSmokeSprite(
-        'rgba(235, 205, 150, 0.22)',
-        'rgba(205, 175, 120, 0.14)',
-        'rgba(170, 140, 95, 0.05)'
-      );
-    }
   }
 
   function resize() {
@@ -122,27 +96,21 @@
     ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
   }
 
-  // Add individual smoke particle
   function addParticle(x, y, velocityX, velocityY) {
-    if (prefersReducedMotion) return;
-
-    const spread = 0.8 + Math.random() * 0.6;
-    const isGold = Math.random() < 0.35; // 35% antique gold, 65% warm ivory
+    const spread = 0.7 + Math.random() * 0.5;
 
     particles.push({
-      x: x + (Math.random() - 0.5) * 14,
-      y: y + (Math.random() - 0.5) * 14,
-      vx: velocityX * 0.14 + (Math.random() - 0.5) * 24,
-      vy: velocityY * 0.12 - settings.rise - Math.random() * 16,
-      size: (26 + Math.random() * 32) * spread,
-      growth: 14 + Math.random() * 22, // Expands as it rises
-      life: settings.baseLife * (0.75 + Math.random() * 0.5),
-      maxLife: settings.baseLife * (0.75 + Math.random() * 0.5),
+      x: x + (Math.random() - 0.5) * 8,
+      y: y + (Math.random() - 0.5) * 8,
+      vx: velocityX * 0.10 + (Math.random() - 0.5) * 16,
+      vy: velocityY * 0.08 - settings.rise - Math.random() * 12,
+      size: (12 + Math.random() * 18) * spread,  // Narrow, delicate initial size
+      growth: 6 + Math.random() * 10,             // Gentle, controlled expansion
+      life: settings.baseLife * (0.7 + Math.random() * 0.5),
+      maxLife: settings.baseLife * (0.7 + Math.random() * 0.5),
       rotation: Math.random() * Math.PI * 2,
       spin: (Math.random() - 0.5) * 0.45,
-      wobble: Math.random() * Math.PI * 2,
-      wobbleSpeed: 1.5 + Math.random() * 1.5,
-      sprite: isGold ? spriteGold : spriteIvory,
+      wobble: Math.random() * Math.PI * 2
     });
 
     if (particles.length > settings.maxParticles) {
@@ -150,13 +118,10 @@
     }
   }
 
-  // Interpolate emission along pointer trajectory
   function emitBetween(from, to) {
     const dx = to.x - from.x;
     const dy = to.y - from.y;
     const distance = Math.hypot(dx, dy);
-    if (distance < 2) return;
-
     const steps = Math.max(1, Math.ceil(distance / settings.spacing));
     const velocityX = dx / Math.max(distance, 1);
     const velocityY = dy / Math.max(distance, 1);
@@ -166,16 +131,17 @@
       const x = from.x + dx * t;
       const y = from.y + dy * t;
       for (let j = 0; j < settings.particlesPerStep; j++) {
-        addParticle(x, y, velocityX * 90, velocityY * 90);
+        addParticle(x, y, velocityX * 70, velocityY * 70);
       }
     }
   }
 
-  function setPointerPosition(clientX, clientY) {
-    const next = { x: clientX, y: clientY };
+  function setPointerPosition(event) {
+    const next = { x: event.clientX, y: event.clientY };
     pointer.x = next.x;
     pointer.y = next.y;
     pointer.active = true;
+
     if (previous) emitBetween(previous, next);
     previous = next;
   }
@@ -192,15 +158,14 @@
         continue;
       }
 
-      // Micro-turbulence
-      const turbulence = Math.sin(time * p.wobbleSpeed + p.wobble + p.y * 0.008);
-      p.vx += turbulence * 9 * step;
-      p.vy -= 3.5 * step; // Buoyant upward drift
+      const turbulence = Math.sin(time * 1.5 + p.wobble + p.y * 0.008);
+      p.vx += turbulence * 6 * step;
+      p.vy -= 2.0 * step;
       p.vx *= settings.drag;
       p.vy *= settings.drag;
       p.x += p.vx * step;
       p.y += p.vy * step;
-      p.size += p.growth * step; // Natural smoke expansion
+      p.size += p.growth * step;
       p.rotation += p.spin * step;
     }
   }
@@ -208,16 +173,18 @@
   function draw() {
     ctx.clearRect(0, 0, width, height);
 
-    // Composite mode: screen in dark mode for soft glowing smoke; normal blend in light mode
-    ctx.globalCompositeOperation = isLightMode ? 'source-over' : 'screen';
+    const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+    // Dark mode: screen mode with warm amber core for delicate candlelight glow
+    // Light mode: source-over with subtle alpha so dark letters remain completely crisp
+    ctx.globalCompositeOperation = isLight ? 'source-over' : 'screen';
 
-    for (let i = 0; i < particles.length; i++) {
-      const p = particles[i];
+    for (const p of particles) {
       const progress = p.life / p.maxLife;
       const fadeIn = Math.min(1, (1 - progress) * 8);
-      const alpha = Math.pow(progress, 1.4) * fadeIn * 0.88;
-      
-      const wobbleScale = 1 + Math.sin(p.wobble + performance.now() * 0.0008) * 0.08;
+      // Subtle alpha (0.32 max) prevents smoke from accumulating into opaque clouds
+      const alpha = Math.pow(progress, 1.4) * fadeIn * (isLight ? 0.28 : 0.34);
+
+      const wobbleScale = 1 + Math.sin(p.wobble + performance.now() * 0.0006) * 0.06;
       const sizeX = p.size * wobbleScale;
       const sizeY = p.size * (1.2 - (wobbleScale - 1));
 
@@ -225,7 +192,7 @@
       ctx.translate(p.x, p.y);
       ctx.rotate(p.rotation);
       ctx.globalAlpha = alpha;
-      ctx.drawImage(p.sprite, -sizeX / 2, -sizeY / 2, sizeX, sizeY);
+      ctx.drawImage(sprite, -sizeX / 2, -sizeY / 2, sizeX, sizeY);
       ctx.restore();
     }
 
@@ -233,67 +200,52 @@
     ctx.globalCompositeOperation = 'source-over';
   }
 
-  let animationId = null;
   function frame(now) {
-    animationId = requestAnimationFrame(frame);
     const delta = lastTime ? (now - lastTime) / 1000 : 0;
     lastTime = now;
     update(delta);
     draw();
+    requestAnimationFrame(frame);
   }
 
-  // Global Smoke controller
+  // Global Smoke API
   window.Smoke = {
-    setTheme(light) {
-      isLightMode = !!light;
-      initSprites();
+    setTheme() {
+      sprite = makeSmokeSprite();
     },
     emit(x, y, vx, vy) {
       addParticle(x, y, vx || 0, vy || 0);
     }
   };
 
-  initSprites();
+  sprite = makeSmokeSprite();
   resize();
 
   window.addEventListener('resize', resize, { passive: true });
-
-  window.addEventListener('pointermove', (e) => {
-    setPointerPosition(e.clientX, e.clientY);
-  }, { passive: true });
-
-  window.addEventListener('pointerdown', (e) => {
-    setPointerPosition(e.clientX, e.clientY);
-  }, { passive: true });
-
+  window.addEventListener('pointermove', setPointerPosition, { passive: true });
+  window.addEventListener('pointerdown', setPointerPosition, { passive: true });
   window.addEventListener('touchmove', (e) => {
     if (e.touches && e.touches[0]) {
-      setPointerPosition(e.touches[0].clientX, e.touches[0].clientY);
+      setPointerPosition(e.touches[0]);
     }
   }, { passive: true });
-
   window.addEventListener('pointerleave', () => { previous = null; }, { passive: true });
   window.addEventListener('blur', () => { previous = null; }, { passive: true });
 
-  document.addEventListener('visibilitychange', () => {
-    if (document.hidden) {
-      if (animationId) cancelAnimationFrame(animationId);
-      previous = null;
-    } else {
-      lastTime = performance.now();
-      animationId = requestAnimationFrame(frame);
-    }
+  // Watch for theme attribute changes to refresh sprite
+  const themeObserver = new MutationObserver(() => {
+    sprite = makeSmokeSprite();
   });
+  themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
 
-  // Initial ambient smoke puff so visitor immediately sees the atmosphere
+  // Gentle initial whisper of smoke
   setTimeout(() => {
     const cx = window.innerWidth * 0.35;
     const cy = window.innerHeight * 0.45;
-    for (let i = 0; i < 8; i++) {
-      addParticle(cx, cy, (Math.random() - 0.5) * 40, (Math.random() - 0.5) * 30);
+    for (let i = 0; i < 4; i++) {
+      addParticle(cx, cy, (Math.random() - 0.5) * 20, (Math.random() - 0.5) * 15);
     }
   }, 400);
 
-  animationId = requestAnimationFrame(frame);
-
+  requestAnimationFrame(frame);
 })();

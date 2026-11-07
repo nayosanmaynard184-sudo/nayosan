@@ -55,16 +55,9 @@
       <!-- Zone 3: Actions & Theme Switcher -->
       <div class="header-actions">
         <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="Switch theme" title="Switch theme">
-          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
-            <circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2" fill="none"/>
-            <line x1="12" y1="1" x2="12" y2="3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <line x1="12" y1="21" x2="12" y2="23" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <line x1="1" y1="12" x2="3" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <line x1="21" y1="12" x2="23" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <svg class="med-theme-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+            <polygon points="15 4 16 6.5 18.5 7.5 16 8.5 15 11 14 8.5 11.5 7.5 14 6.5 15 4" fill="currentColor"/>
           </svg>
         </button>
       </div>
@@ -119,10 +112,30 @@
 
               <!-- Quick Academic & Geographical Info Chips -->
               <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: -0.3rem;">
-                <span class="lang-chip">🎓 BS Computer Science · 1st Year</span>
-                <span class="lang-chip">🏛️ University of the Cordilleras (UC)</span>
-                <span class="lang-chip">📍 Sadanga, Mt. Province / Baguio City, PH</span>
-                <span class="lang-chip" style="border-color: #34d399; color: #34d399;">● Status: CS Student</span>
+                <span class="lang-chip">
+                  <span class="med-chip-icon">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5z"/><path d="M6 2v20"/><path d="M13 7l4-2-2 6"/></svg>
+                  </span>
+                  BS Computer Science · 1st Year
+                </span>
+                <span class="lang-chip">
+                  <span class="med-chip-icon">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3 3.5V9h4l-2 12H7L5 9h4V5.5L12 2z"/><line x1="12" y1="2" x2="12" y2="21"/><circle cx="12" cy="7" r="1" fill="currentColor"/></svg>
+                  </span>
+                  University of the Cordilleras (UC)
+                </span>
+                <span class="lang-chip">
+                  <span class="med-chip-icon">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15 9 22 12 15 15 12 22 9 15 2 12 9 9 12 2"/><circle cx="12" cy="12" r="2.5" fill="currentColor"/></svg>
+                  </span>
+                  Sadanga, Mt. Province / Baguio City, PH
+                </span>
+                <span class="lang-chip" style="border-color: #34d399; color: #34d399;">
+                  <span class="med-chip-icon" style="color: #34d399;">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><circle cx="12" cy="11" r="2" fill="currentColor"/></svg>
+                  </span>
+                  Status: CS Student
+                </span>
               </div>
 
               <!-- Short Introduction Paragraphs -->
@@ -138,7 +151,10 @@
               <!-- Currently Learning Section -->
               <div class="currently-learning-box">
                 <div class="learning-label">
-                  <span>⚡ Currently Learning:</span>
+                  <span class="med-chip-icon">
+                    <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c-3.5 4-7 8-7 13a7 7 0 0 0 14 0c0-5-3.5-9-7-13z"/><path d="M12 11c-1.5 2-2 3-2 4.5a2 2 0 0 0 4 0c0-1.5-.5-2.5-2-4.5z" fill="currentColor"/></svg>
+                  </span>
+                  <span>Currently Learning:</span>
                 </div>
                 <div class="learning-tags">
                   <div class="lang-chip">
@@ -250,16 +266,22 @@
               <!-- Sub-Tab Navigation Bar -->
               <div class="about-tabbar" role="tablist" aria-label="About Navigation Tabs">
                 <button class="ab-tab active" type="button" role="tab" id="tab-btn-advancements" aria-selected="true" aria-controls="ab-panel-advancements" data-tab="advancements">
-                  <span>🏆</span>
+                  <span class="ab-tab-icon">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l7 3.5v5.5c0 5-3.5 9-7 11-3.5-2-7-6-7-11V5.5L12 2z"/><path d="M12 7v8M9 10h6"/></svg>
+                  </span>
                   <span>My Advancements</span>
                   <span class="ab-tab-badge">2/4</span>
                 </button>
                 <button class="ab-tab" type="button" role="tab" id="tab-btn-bio" aria-selected="false" aria-controls="ab-panel-bio" data-tab="bio">
-                  <span>📖</span>
+                  <span class="ab-tab-icon">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a2.5 2.5 0 0 1-2.5-2.5z"/><path d="M7 2v20M11 7h5M11 11h5M11 15h3"/><circle cx="16" cy="15" r="1" fill="currentColor"/></svg>
+                  </span>
                   <span>More About Me</span>
                 </button>
                 <button class="ab-tab" type="button" role="tab" id="tab-btn-inventory" aria-selected="false" aria-controls="ab-panel-inventory" data-tab="inventory">
-                  <span>🎒</span>
+                  <span class="ab-tab-icon">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="14" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 12h18"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/><path d="M12 14v4"/></svg>
+                  </span>
                   <span>Inventory · Hobbies</span>
                   <span class="ab-tab-badge">5 Items</span>
                 </button>
@@ -272,14 +294,26 @@
                 <div class="ab-panel active" id="ab-panel-advancements" role="tabpanel" aria-labelledby="tab-btn-advancements">
                   <div class="advancements-container">
                     <div class="adv-banner">
-                      <span class="adv-banner-title">🏆 Scholar Advancements &amp; Progress</span>
+                      <span class="adv-banner-title">
+                        <span class="med-chip-icon">
+                          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l7 3.5v5.5c0 5-3.5 9-7 11-3.5-2-7-6-7-11V5.5L12 2z"/><path d="M12 7v8M9 10h6"/></svg>
+                        </span>
+                        Scholar Advancements &amp; Progress
+                      </span>
                       <span class="adv-banner-progress">2 / 4 Milestones Completed (50%)</span>
                     </div>
 
                     <div class="advancements-grid">
                       <!-- Achievement 01 -->
                       <div class="adv-card completed">
-                        <div class="adv-icon-slot">🌱</div>
+                        <div class="adv-icon-slot" title="First Steps">
+                          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 3v6"/>
+                            <path d="M7 11c0-2.5 2-4.5 5-4.5s5 2 5 4.5H7z"/>
+                            <path d="M8 11c0 5 4 9 4 10.5 0-1.5 4-5.5 4-10.5"/>
+                            <line x1="12" y1="14" x2="12" y2="18"/>
+                          </svg>
+                        </div>
                         <div class="adv-info">
                           <div class="adv-header-row">
                             <span class="adv-num">ACHIEVEMENT 01</span>
@@ -292,7 +326,12 @@
 
                       <!-- Achievement 02 -->
                       <div class="adv-card in-progress">
-                        <div class="adv-icon-slot">⚡</div>
+                        <div class="adv-icon-slot" title="Programming Foundations">
+                          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="12 2 15 8 22 9 17 14 18 21 12 17 6 21 7 14 2 9 9 8 12 2"/>
+                            <circle cx="12" cy="12" r="2.5" fill="currentColor"/>
+                          </svg>
+                        </div>
                         <div class="adv-info">
                           <div class="adv-header-row">
                             <span class="adv-num">ACHIEVEMENT 02</span>
@@ -305,7 +344,13 @@
 
                       <!-- Achievement 03 -->
                       <div class="adv-card completed">
-                        <div class="adv-icon-slot">⚔️</div>
+                        <div class="adv-icon-slot" title="Coding Practice">
+                          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M5 5l14 14M19 5L5 19"/>
+                            <path d="M7 4l2 2-3 3-2-2zM17 4l-2 2 3 3 2-2z"/>
+                            <circle cx="12" cy="12" r="3"/>
+                          </svg>
+                        </div>
                         <div class="adv-info">
                           <div class="adv-header-row">
                             <span class="adv-num">ACHIEVEMENT 03</span>
@@ -318,7 +363,13 @@
 
                       <!-- Achievement 04 -->
                       <div class="adv-card in-progress">
-                        <div class="adv-icon-slot">🛡️</div>
+                        <div class="adv-icon-slot" title="Portfolio Development">
+                          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 21V9l2-2 2 2v2h8V9l2-2 2 2v12H4z"/>
+                            <path d="M10 21v-5a2 2 0 0 1 4 0v5"/>
+                            <path d="M6 7V4l2 1 2-1v3M14 7V4l2 1 2-1v3"/>
+                          </svg>
+                        </div>
                         <div class="adv-info">
                           <div class="adv-header-row">
                             <span class="adv-num">ACHIEVEMENT 04</span>
@@ -360,37 +411,93 @@
                 <div class="ab-panel" id="ab-panel-inventory" role="tabpanel" aria-labelledby="tab-btn-inventory">
                   <div class="inventory-stage">
                     <div class="inventory-header-strip">
-                      <span>🎒 INVENTORY · HOBBIES &amp; INTERESTS</span>
+                      <span>
+                        <span class="med-chip-icon">
+                          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="14" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 12h18"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/><path d="M12 14v4"/></svg>
+                        </span>
+                        INVENTORY · HOBBIES &amp; INTERESTS
+                      </span>
                       <span>PRESS 1–5 OR CLICK TO INSPECT ITEM</span>
                     </div>
 
                     <!-- 5-Slot Hotbar -->
                     <div class="hotbar-slots-row" role="region" aria-label="Inventory hotbar slots">
-                      <button class="inv-slot selected" type="button" data-slot="1" data-name="Drawing" data-type="Creative Pursuit" data-desc="An interest in visual creativity and illustration." data-icon="🎨">
+                      <button class="inv-slot selected" type="button" data-slot="1" data-name="Drawing" data-type="Creative Pursuit" data-desc="An interest in visual creativity and illustration." aria-label="Slot 1: Drawing">
                         <span class="inv-slot-number">1</span>
-                        <span class="inv-slot-icon">🎨</span>
+                        <span class="inv-slot-icon">
+                          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M6 3h12a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/>
+                            <line x1="8" y1="8" x2="16" y2="8"/>
+                            <line x1="8" y1="12" x2="14" y2="12"/>
+                            <line x1="8" y1="16" x2="11" y2="16"/>
+                            <path d="M18 14l-5 5-2-1 1-2 5-5 1 3z"/>
+                          </svg>
+                        </span>
                       </button>
-                      <button class="inv-slot" type="button" data-slot="2" data-name="Painting" data-type="Artistic Expression" data-desc="Exploring colors, styles, and artistic expression." data-icon="🖌️">
+                      <button class="inv-slot" type="button" data-slot="2" data-name="Painting" data-type="Artistic Expression" data-desc="Exploring colors, styles, and artistic expression." aria-label="Slot 2: Painting">
                         <span class="inv-slot-number">2</span>
-                        <span class="inv-slot-icon">🖌️</span>
+                        <span class="inv-slot-icon">
+                          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 3C6.5 3 2 7.5 2 13c0 5 4 9 9 9 2 0 3-1.5 3-3 0-1-.5-1.5-.9-2.2-.4-.7-.9-1.5-.9-2.3 0-1.5 1.2-2.5 2.5-2.5h2.5c3.5 0 6.3-2.8 6.3-6.3C21.4 5.2 17.2 3 12 3z"/>
+                            <circle cx="7" cy="10" r="1.2" fill="currentColor"/>
+                            <circle cx="10.5" cy="7.5" r="1.2" fill="currentColor"/>
+                            <circle cx="15.5" cy="8" r="1.2" fill="currentColor"/>
+                            <circle cx="15" cy="18" r="1.5"/>
+                            <path d="M19 15l-5 5"/>
+                          </svg>
+                        </span>
                       </button>
-                      <button class="inv-slot" type="button" data-slot="3" data-name="Chess" data-type="Strategic Thinking" data-desc="Enjoying strategy, planning, and logical thinking." data-icon="♟️">
+                      <button class="inv-slot" type="button" data-slot="3" data-name="Chess" data-type="Strategic Thinking" data-desc="Enjoying strategy, planning, and logical thinking." aria-label="Slot 3: Chess">
                         <span class="inv-slot-number">3</span>
-                        <span class="inv-slot-icon">♟️</span>
+                        <span class="inv-slot-icon">
+                          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M7 21h10v-2H7v2z"/>
+                            <path d="M8 19l1-4h6l1 4"/>
+                            <path d="M9 15c-1.5-2-1.5-5 0-7l1.5-3 3 1c1.5.5 2.5 2 2.5 3.5 0 1.5-1.5 3-3 3.5"/>
+                            <path d="M11 7l-3 2 1.5 3"/>
+                            <circle cx="11.5" cy="7.5" r="1" fill="currentColor"/>
+                          </svg>
+                        </span>
                       </button>
-                      <button class="inv-slot" type="button" data-slot="4" data-name="Manhwa" data-type="Illustrated Literature" data-desc="Reading illustrated Korean stories." data-icon="📖">
+                      <button class="inv-slot" type="button" data-slot="4" data-name="Manhwa" data-type="Illustrated Literature" data-desc="Reading illustrated Korean stories." aria-label="Slot 4: Manhwa">
                         <span class="inv-slot-number">4</span>
-                        <span class="inv-slot-icon">📖</span>
+                        <span class="inv-slot-icon">
+                          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="5" y="3" width="14" height="18" rx="2"/>
+                            <path d="M5 3c1.5 1 3 1 4.5 0v18c-1.5-1-3-1-4.5 0"/>
+                            <line x1="12" y1="7" x2="16" y2="7"/>
+                            <line x1="12" y1="11" x2="16" y2="11"/>
+                            <rect x="11" y="14" width="5" height="4" rx="0.5"/>
+                            <path d="M9.5 21l1.5 2 1.5-2"/>
+                          </svg>
+                        </span>
                       </button>
-                      <button class="inv-slot" type="button" data-slot="5" data-name="Anime" data-type="Animated Storytelling" data-desc="Enjoying animated storytelling and different genres." data-icon="🎬">
+                      <button class="inv-slot" type="button" data-slot="5" data-name="Anime" data-type="Animated Storytelling" data-desc="Enjoying animated storytelling and different genres." aria-label="Slot 5: Anime">
                         <span class="inv-slot-number">5</span>
-                        <span class="inv-slot-icon">🎬</span>
+                        <span class="inv-slot-icon">
+                          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M6 9c0-4 2.7-7 6-7s6 3 6 7c0 5-2.5 10-6 12-3.5-2-6-7-6-12z"/>
+                            <ellipse cx="9.5" cy="10" rx="1.5" ry="1"/>
+                            <ellipse cx="14.5" cy="10" rx="1.5" ry="1"/>
+                            <path d="M12 12.5v2M9.5 16.5c1.5 1 3.5 1 5 0"/>
+                            <path d="M5 8c-1.5-1.5-2-3.5-2-3.5s2.5.5 3.5 2"/>
+                            <path d="M19 8c1.5-1.5 2-3.5 2-3.5s-2.5.5-3.5 2"/>
+                          </svg>
+                        </span>
                       </button>
                     </div>
 
                     <!-- Item Lore Inspector -->
                     <div class="item-lore-panel" id="item-lore-panel">
-                      <div class="lore-large-icon" id="lore-icon" aria-hidden="true">🎨</div>
+                      <div class="lore-large-icon" id="lore-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M6 3h12a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/>
+                          <line x1="8" y1="8" x2="16" y2="8"/>
+                          <line x1="8" y1="12" x2="14" y2="12"/>
+                          <line x1="8" y1="16" x2="11" y2="16"/>
+                          <path d="M18 14l-5 5-2-1 1-2 5-5 1 3z"/>
+                        </svg>
+                      </div>
                       <div class="lore-details">
                         <span class="lore-type-tag" id="lore-type">Creative Pursuit · Slot 1</span>
                         <h4 class="lore-title" id="lore-title">Drawing</h4>
