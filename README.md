@@ -12,7 +12,7 @@ Built around an **Ancient Gothic Library / Sunlit Scriptorium** dual-theme aesth
    - Features Maynard's updated headshot portrait (`assets/profile-picture.png`) framed inside the animated celestial astrolabe.
    - Displays core identity, academic program (BS Computer Science · 1st Year, University of the Cordilleras), location (Sadanga, Mountain Province / Baguio City, PH), introductory summary, active learning focus (**Java** & **Python**), and quick actions.
 2. **02 — Personal Info (`#personal-info`)**:
-   - **Player Info (Left Column)**: Full Name, Gender (`Male`), Birthday (`May 20, 2008`), Age (`18`), Location (`Sadanga, Mountain Province`), Status (`Single`), University (`University of the Cordilleras`), Program (`BS Computer Science`), Year Level (`First Year`), and Class / Role (`Aspiring Software Developer`).
+   - **Player Info (Left Column)**: Full Name, Gender (`Male`), Birthday (`May 20, 2008`), Age (`18`), Location (`Sadanga, Mountain Province`), Status (`Single`), Phone (`09272977135`), University (`University of the Cordilleras`), Program (`BS Computer Science`), Year Level (`First Year`), and Class / Role (`Aspiring Software Developer`).
    - **Section Selector (3 Sections)**: Independently switch between **More About Me**, **Skills & Knowledge** (5 compact cards in a balanced 3-column, 2-row desktop grid), and **My Advancement** (4 milestones).
 3. **03 — Achievements (`#achievements`)**:
    - Presents all five chronological educational milestones simultaneously on **one viewport page** on desktop (`1366 × 768`, `1440 × 900`, `1920 × 1080`) and stacks cleanly on tablet and mobile without hiding cards:
@@ -45,12 +45,12 @@ Built around an **Ancient Gothic Library / Sunlit Scriptorium** dual-theme aesth
 │   └── main.js                  # 3-page router, modals, section filters, theme & dust canvas
 ├── assets/
 │   ├── profile-picture.png              # Formal portrait headshot
-│   ├── achievements/                    # Original educational certificates, diploma, and UC Student ID (front)
-│   │   ├── elementary-certificate.jpg
-│   │   ├── junior-high-certificate.jpg
-│   │   ├── senior-high-diploma.jpg
-│   │   ├── tesda-nc2-carpentry.jpg
-│   │   └── uc-student-id.jpg
+│   ├── achievements/                    # Authoritative original educational certificates, diploma, and UC Student ID (front)
+│   │   ├── elementary-school.jpg
+│   │   ├── junior-high-school.jpg
+│   │   ├── senior-high-school.jpg
+│   │   ├── tesda-nc2.jpg
+│   │   └── uc-student-id-front.jpg
 │   ├── medieval-interior-dark.webp      # Dark Gothic library interior background
 │   ├── medieval-interior-light.webp     # Sunlit Gothic scriptorium background
 │   ├── medieval-interior-dark.jpg       # High-res JPG fallback

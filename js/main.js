@@ -388,35 +388,35 @@
   // ==========================================
   const ACHIEVEMENT_EVIDENCE = [
     {
-      src: 'assets/achievements/elementary-certificate.jpg',
+      src: 'assets/achievements/elementary-school.jpg',
       alt: 'Certificate of Elementary School Completion from Sadanga Central School dated April 3, 2020',
       kicker: '01 — ELEMENTARY EDUCATION',
       title: 'Certificate of Elementary School Completion',
       caption: 'Maynard K. Nay-osan · Sadanga Central School · Department of Education, Philippines · April 3, 2020',
     },
     {
-      src: 'assets/achievements/junior-high-certificate.jpg',
+      src: 'assets/achievements/junior-high-school.jpg',
       alt: 'Certificate of Junior High School Completion from Sadanga National Technical-Vocational & Skills Training High School dated May 29, 2024',
       kicker: '02 — JUNIOR HIGH SCHOOL (GRADES 7–10)',
       title: 'Certificate of Junior High School Completion',
       caption: 'Maynard K. Nay-osan · Sadanga National Tech-Voc & Skills Training High School · Department of Education, Philippines · May 29, 2024',
     },
     {
-      src: 'assets/achievements/senior-high-diploma.jpg',
+      src: 'assets/achievements/senior-high-school.jpg',
       alt: 'Senior High School Diploma in Academic Track HUMSS from Sadanga National Technical-Vocational & Skills Training High School dated March 31, 2026',
       kicker: '03 — SENIOR HIGH SCHOOL (GRADES 11–12)',
       title: 'Senior High School Diploma — Academic Track (HUMSS)',
       caption: 'Maynard K. Nay-osan · Sadanga National Tech-Voc & Skills Training High School · Department of Education, Philippines · March 31, 2026',
     },
     {
-      src: 'assets/achievements/tesda-nc2-carpentry.jpg',
+      src: 'assets/achievements/tesda-nc2.jpg',
       alt: 'TESDA National Certificate II in Carpentry issued March 10, 2026 and valid until March 9, 2031',
       kicker: '04 — NATIONAL CERTIFICATE II',
       title: 'TESDA National Certificate II — Carpentry',
       caption: 'Maynard K. Nay-osan · Technical Education and Skills Development Authority (TESDA) · Issued: March 10, 2026 · Valid Until: March 9, 2031',
     },
     {
-      src: 'assets/achievements/uc-student-id.jpg',
+      src: 'assets/achievements/uc-student-id-front.jpg',
       alt: 'University of the Cordilleras front Student ID supporting current BS Computer Science enrollment',
       kicker: '05 — UNIVERSITY OF THE CORDILLERAS',
       title: 'University of the Cordilleras Student ID (Front · Supporting Enrollment Evidence)',
