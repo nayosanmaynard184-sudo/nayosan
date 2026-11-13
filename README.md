@@ -15,13 +15,13 @@ Built around an **Ancient Gothic Library / Sunlit Scriptorium** dual-theme aesth
    - **Player Info (Left Column)**: Full Name, Gender (`Male`), Birthday (`May 20, 2008`), Age (`18`), Location (`Sadanga, Mountain Province`), Status (`Single`), University (`University of the Cordilleras`), Program (`BS Computer Science`), Year Level (`First Year`), and Class / Role (`Aspiring Software Developer`).
    - **Section Selector (3 Sections)**: Independently switch between **More About Me**, **Skills & Knowledge** (5 compact cards in a balanced 3-column, 2-row desktop grid), and **My Advancement** (4 milestones).
 3. **03 — Achievements (`#achievements`)**:
-   - Presents Maynard's five chronological educational milestones in a **Medieval Royal Archive** desktop 5-column layout (zero vertical scroll on desktop) and a horizontal swipeable carousel on tablet/mobile:
-     1. **01 — Elementary Education**: Sadanga Central School (`Katunayan` / Completion Certificate, DepEd · April 3, 2020)
-     2. **02 — Junior High School**: Sadanga National Technical-Vocational & Skills Training High School (`Katunayan` / Grades 7–10, DepEd · May 29, 2024)
-     3. **03 — Senior High School**: Sadanga National Technical-Vocational & Skills Training High School (`Katibayan` / Academic Track — HUMSS Diploma, Grades 11–12, DepEd · March 31, 2026)
+   - Presents all five chronological educational milestones simultaneously on **one viewport page** on desktop (`1366 × 768`, `1440 × 900`, `1920 × 1080`) and stacks cleanly on tablet and mobile without hiding cards:
+     1. **01 — Elementary Education**: Sadanga Central School (`Certificate of Elementary School Completion`, Department of Education, Philippines · April 3, 2020)
+     2. **02 — Junior High School**: Sadanga National Technical-Vocational & Skills Training High School (`Certificate of Junior High School Completion`, Grades 7–10, Department of Education, Philippines · May 29, 2024)
+     3. **03 — Senior High School**: Sadanga National Technical-Vocational & Skills Training High School (`Senior High School Diploma`, Academic Track — HUMSS, Grades 11–12, Department of Education, Philippines · March 31, 2026)
      4. **04 — National Certificate II (NC II)**: TESDA Carpentry Qualification (Issued March 10, 2026 · Valid Until March 9, 2031), with an interactive **View Qualification Details** modal listing all **21 Units of Competency** (9 Basic, 4 Common, 8 Core)
-     5. **05 — University of the Cordilleras**: Bachelor of Science in Computer Science (`First Year | AY 2026–2027`, marked **Currently Enrolled** with front Student ID supporting evidence)
-   - Includes a clickable certificate & Student ID **Lightbox Viewer** with privacy-redacted copies of all five documents.
+     5. **05 — University of the Cordilleras**: Bachelor of Science in Computer Science (`First Year | AY 2026–2027`, labeled **Currently Enrolled** with front Student ID supporting evidence)
+   - Includes a clickable certificate & Student ID **Lightbox Viewer** preserving the authentic uploaded document photographs cleanly via `object-fit: contain`.
 
 ---
 
@@ -42,10 +42,10 @@ Built around an **Ancient Gothic Library / Sunlit Scriptorium** dual-theme aesth
 │   └── style.css                # Dual-theme Medieval Gothic stylesheet (100dvh desktop + responsive mobile)
 ├── js/
 │   ├── smoke.js                 # Interactive Canvas 2D smoke cursor trail
-│   └── main.js                  # 3-page router, modals, mobile carousel, section filters, theme & dust canvas
+│   └── main.js                  # 3-page router, modals, section filters, theme & dust canvas
 ├── assets/
 │   ├── profile-picture.png              # Formal portrait headshot
-│   ├── achievements/                    # Privacy-redacted certificates, diploma, and UC Student ID (front)
+│   ├── achievements/                    # Original educational certificates, diploma, and UC Student ID (front)
 │   │   ├── elementary-certificate.jpg
 │   │   ├── junior-high-certificate.jpg
 │   │   ├── senior-high-diploma.jpg

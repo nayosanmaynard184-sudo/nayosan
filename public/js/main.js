@@ -384,43 +384,43 @@
   }
 
   // ==========================================
-  // 4. Page 03: Achievements Lightbox, NC II Modal & Mobile Carousel
+  // 4. Page 03: Achievements Lightbox & TESDA NC II Modal
   // ==========================================
   const ACHIEVEMENT_EVIDENCE = [
     {
       src: 'assets/achievements/elementary-certificate.jpg',
-      alt: 'Katunayan Certificate of Elementary School Completion from Sadanga Central School dated April 3, 2020 (LRN redacted)',
+      alt: 'Certificate of Elementary School Completion from Sadanga Central School dated April 3, 2020',
       kicker: '01 — ELEMENTARY EDUCATION',
-      title: 'Katunayan / Certificate of Elementary School Completion',
-      caption: 'Maynard K. Nay-osan · Sadanga Central School · DepEd · April 3, 2020 (Signed at Bontoc, Mountain Province · Sensitive identifiers redacted)',
+      title: 'Certificate of Elementary School Completion',
+      caption: 'Maynard K. Nay-osan · Sadanga Central School · Department of Education, Philippines · April 3, 2020',
     },
     {
       src: 'assets/achievements/junior-high-certificate.jpg',
-      alt: 'Katunayan Certificate of Junior High School Completion from Sadanga National Technical-Vocational and Skills Training High School dated May 29, 2024 (LRN redacted)',
+      alt: 'Certificate of Junior High School Completion from Sadanga National Technical-Vocational & Skills Training High School dated May 29, 2024',
       kicker: '02 — JUNIOR HIGH SCHOOL (GRADES 7–10)',
-      title: 'Katunayan / Certificate of Junior High School Completion',
-      caption: 'Maynard K. Nay-osan · Sadanga National Tech-Voc & Skills Training High School · DepEd · May 29, 2024 (Sensitive identifiers redacted)',
+      title: 'Certificate of Junior High School Completion',
+      caption: 'Maynard K. Nay-osan · Sadanga National Tech-Voc & Skills Training High School · Department of Education, Philippines · May 29, 2024',
     },
     {
       src: 'assets/achievements/senior-high-diploma.jpg',
-      alt: 'Katibayan Senior High School Diploma in Academic Track HUMSS from Sadanga National Technical-Vocational and Skills Training High School dated March 31, 2026 (LRN redacted)',
+      alt: 'Senior High School Diploma in Academic Track HUMSS from Sadanga National Technical-Vocational & Skills Training High School dated March 31, 2026',
       kicker: '03 — SENIOR HIGH SCHOOL (GRADES 11–12)',
-      title: 'Katibayan / Senior High School Diploma — Academic Track (HUMSS)',
-      caption: 'Maynard K. Nay-osan · Sadanga National Tech-Voc & Skills Training High School · DepEd · March 31, 2026 (Sensitive identifiers redacted)',
+      title: 'Senior High School Diploma — Academic Track (HUMSS)',
+      caption: 'Maynard K. Nay-osan · Sadanga National Tech-Voc & Skills Training High School · Department of Education, Philippines · March 31, 2026',
     },
     {
       src: 'assets/achievements/tesda-nc2-carpentry.jpg',
-      alt: 'TESDA National Certificate II in Carpentry issued March 10, 2026 and valid until March 9, 2031 (sensitive identifiers redacted)',
-      kicker: '04 — NATIONAL CERTIFICATE II (NC II)',
+      alt: 'TESDA National Certificate II in Carpentry issued March 10, 2026 and valid until March 9, 2031',
+      kicker: '04 — NATIONAL CERTIFICATE II',
       title: 'TESDA National Certificate II — Carpentry',
-      caption: 'Maynard K. Nay-osan · Technical Education and Skills Development Authority · Issued: March 10, 2026 · Valid Until: March 9, 2031 (Sensitive identifiers redacted)',
+      caption: 'Maynard K. Nay-osan · Technical Education and Skills Development Authority (TESDA) · Issued: March 10, 2026 · Valid Until: March 9, 2031',
     },
     {
       src: 'assets/achievements/uc-student-id.jpg',
-      alt: 'University of the Cordilleras front Student ID supporting current BS Computer Science enrollment (student number redacted)',
+      alt: 'University of the Cordilleras front Student ID supporting current BS Computer Science enrollment',
       kicker: '05 — UNIVERSITY OF THE CORDILLERAS',
       title: 'University of the Cordilleras Student ID (Front · Supporting Enrollment Evidence)',
-      caption: 'Maynard K. Nay-osan · Bachelor of Science in Computer Science · First Year | AY 2026–2027 · Currently Enrolled (Student number redacted)',
+      caption: 'Maynard K. Nay-osan · Bachelor of Science in Computer Science · First Year | AY 2026–2027 · Currently Enrolled',
     },
   ];
 
@@ -524,82 +524,6 @@
       if (e.target === nc2ModalOverlay) closeNc2Modal();
     });
   }
-
-  // Mobile / Tablet Milestone Carousel Controls
-  const achTrack = document.getElementById('achievements-track');
-  const achSlides = achTrack ? Array.from(achTrack.querySelectorAll('.archive-card')) : [];
-  const achDots = document.querySelectorAll('[data-ach-slide]');
-  const achPrevSlideBtn = document.getElementById('ach-prev-slide');
-  const achNextSlideBtn = document.getElementById('ach-next-slide');
-  const achSlideCounter = document.getElementById('ach-slide-counter');
-  let activeSlideIndex = 0;
-
-  function setCarouselIndicator(index) {
-    const safeIdx = Math.max(0, Math.min(index, achSlides.length - 1));
-    activeSlideIndex = safeIdx;
-
-    achDots.forEach((dot) => {
-      const match = parseInt(dot.getAttribute('data-ach-slide') || '0', 10) === safeIdx;
-      dot.classList.toggle('active', match);
-      dot.setAttribute('aria-selected', match ? 'true' : 'false');
-    });
-
-    if (achSlideCounter) {
-      achSlideCounter.textContent = `${String(safeIdx + 1).padStart(2, '0')} / ${String(achSlides.length).padStart(2, '0')}`;
-    }
-
-    if (achPrevSlideBtn) achPrevSlideBtn.disabled = safeIdx === 0;
-    if (achNextSlideBtn) achNextSlideBtn.disabled = safeIdx === achSlides.length - 1;
-  }
-
-  function goToMilestoneSlide(index) {
-    if (!achTrack || achSlides.length === 0) return;
-    const safeIdx = Math.max(0, Math.min(index, achSlides.length - 1));
-    const targetCard = achSlides[safeIdx];
-    if (targetCard) {
-      const targetLeft = targetCard.offsetLeft - achTrack.offsetLeft;
-      achTrack.scrollTo({ left: targetLeft, behavior: 'smooth' });
-      setCarouselIndicator(safeIdx);
-    }
-  }
-
-  achDots.forEach((dot) => {
-    dot.addEventListener('click', () => {
-      const idx = parseInt(dot.getAttribute('data-ach-slide') || '0', 10);
-      goToMilestoneSlide(Number.isNaN(idx) ? 0 : idx);
-    });
-  });
-
-  if (achPrevSlideBtn) {
-    achPrevSlideBtn.addEventListener('click', () => goToMilestoneSlide(activeSlideIndex - 1));
-  }
-  if (achNextSlideBtn) {
-    achNextSlideBtn.addEventListener('click', () => goToMilestoneSlide(activeSlideIndex + 1));
-  }
-
-  if (achTrack) {
-    let scrollDebounce;
-    achTrack.addEventListener('scroll', () => {
-      clearTimeout(scrollDebounce);
-      scrollDebounce = setTimeout(() => {
-        if (achSlides.length === 0) return;
-        const center = achTrack.scrollLeft + achTrack.clientWidth / 2;
-        let closestIdx = 0;
-        let closestDist = Infinity;
-        achSlides.forEach((slide, idx) => {
-          const slideCenter = slide.offsetLeft - achTrack.offsetLeft + slide.offsetWidth / 2;
-          const dist = Math.abs(center - slideCenter);
-          if (dist < closestDist) {
-            closestDist = dist;
-            closestIdx = idx;
-          }
-        });
-        setCarouselIndicator(closestIdx);
-      }, 60);
-    }, { passive: true });
-  }
-
-  setCarouselIndicator(0);
 
   // Initialize route on load
   initRoute();
