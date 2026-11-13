@@ -84,7 +84,6 @@
               <figure class="portrait-frame">
                 <img class="portrait-img" src="assets/profile-picture.png" alt="Professional headshot portrait of Maynard Nay-osan in a dark suit jacket and white collared shirt">
                 <div class="portrait-vignette" aria-hidden="true"></div>
-                <figcaption class="portrait-caption">Sadanga · Baguio City, PH</figcaption>
               </figure>
             </div>
 
@@ -225,8 +224,7 @@
                 </div>
                 <div class="spec-row">
                   <span class="spec-key">Birthday</span>
-                  <!-- TODO: Replace placeholder with actual birthday when ready -->
-                  <span class="spec-val spec-placeholder">To be added</span>
+                  <span class="spec-val">May 20, 2008</span>
                 </div>
                 <div class="spec-row">
                   <span class="spec-key">Age</span>
@@ -235,10 +233,6 @@
                 <div class="spec-row">
                   <span class="spec-key">Location</span>
                   <span class="spec-val">Sadanga, Mountain Province</span>
-                </div>
-                <div class="spec-row">
-                  <span class="spec-key">Birthplace</span>
-                  <span class="spec-val">Bontoc, Mountain Province</span>
                 </div>
                 <div class="spec-row">
                   <span class="spec-key">Status</span>
@@ -265,15 +259,9 @@
 
             <!-- Right Column: 2. More About Me -> 3. Skills -> 4. My Advancement -->
             <div class="about-stage">
-              <!-- Quick Filter / View Bar -->
-              <div class="about-tabbar" role="tablist" aria-label="Personal Info Section Filter">
-                <button class="ab-tab active" type="button" role="tab" id="tab-btn-all" aria-selected="true" data-pi-filter="all">
-                  <span class="ab-tab-icon">
-                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
-                  </span>
-                  <span>All Sections</span>
-                </button>
-                <button class="ab-tab" type="button" role="tab" id="tab-btn-bio" aria-selected="false" data-pi-filter="bio">
+              <!-- Section Selector (3 Sections Only) -->
+              <div class="about-tabbar" role="tablist" aria-label="Personal Info Section Selector">
+                <button class="ab-tab active" type="button" role="tab" id="tab-btn-bio" aria-selected="true" data-pi-filter="bio">
                   <span class="ab-tab-icon">
                     <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a2.5 2.5 0 0 1-2.5-2.5z"/><path d="M7 2v20M11 7h5M11 11h5M11 15h3"/></svg>
                   </span>
@@ -292,12 +280,13 @@
                   <span>My Advancement</span>
                   <span class="ab-tab-badge">2/4</span>
                 </button>
+                <span class="pi-tab-counter" id="pi-tab-counter" aria-live="polite">01 / 03</span>
               </div>
 
-              <!-- Ordered Content Container (Scrolls internally on desktop so outer page stays 100dvh fixed) -->
-              <div class="pi-scroll-stage" id="pi-scroll-stage">
+              <!-- Ordered Content Container -->
+              <div class="pi-panels-stage" id="pi-panels-stage">
 
-                <!-- 2. MORE ABOUT ME (Must appear BEFORE My Advancement) -->
+                <!-- 2. MORE ABOUT ME -->
                 <article class="pi-block active" id="pi-block-bio" data-pi-section="bio" aria-label="More About Me">
                   <div class="bio-card">
                     <div class="pi-block-head">
@@ -347,7 +336,7 @@
                 </article>
 
                 <!-- 3. SKILLS AND TECHNICAL KNOWLEDGE -->
-                <article class="pi-block active" id="pi-block-skills" data-pi-section="skills" aria-label="Skills and Technical Knowledge">
+                <article class="pi-block" id="pi-block-skills" data-pi-section="skills" aria-label="Skills and Technical Knowledge">
                   <div class="skills-panel-wrapper">
                     <div class="pi-block-head">
                       <div class="pi-block-title">
@@ -360,27 +349,27 @@
                     </div>
 
                     <div class="pi-skills-grid">
-                      <!-- 1. Programming Skills -->
-                      <div class="skill-card">
+                      <!-- 01. Programming Skills -->
+                      <div class="skill-card skill-pos-1">
                         <div class="skill-card-head">
-                          <span>✦</span> 1. Programming Skills
+                          <span>✦</span> 01. Programming Skills
                         </div>
                         <div class="skill-badge-list">
                           <div class="skill-item">
                             <strong>Java</strong>
-                            <span class="skill-level">Studied and Practiced</span>
+                            <span class="skill-level">Studied &amp; Practiced</span>
                           </div>
                           <div class="skill-item">
                             <strong>Python</strong>
-                            <span class="skill-level">Studied and Practiced</span>
+                            <span class="skill-level">Studied &amp; Practiced</span>
                           </div>
                         </div>
                       </div>
 
-                      <!-- 2. Programming Fundamentals -->
-                      <div class="skill-card">
+                      <!-- 02. Programming Fundamentals -->
+                      <div class="skill-card skill-pos-2">
                         <div class="skill-card-head">
-                          <span>✦</span> 2. Programming Fundamentals
+                          <span>✦</span> 02. Programming Fundamentals
                         </div>
                         <div class="skill-badge-list">
                           <div class="skill-item">
@@ -397,15 +386,15 @@
                           </div>
                           <div class="skill-item">
                             <span>Object-Oriented Programming</span>
-                            <span class="skill-level">Currently Developing</span>
+                            <span class="skill-level">Developing</span>
                           </div>
                         </div>
                       </div>
 
-                      <!-- 3. Web Development -->
-                      <div class="skill-card">
+                      <!-- 03. Web Development -->
+                      <div class="skill-card skill-pos-3">
                         <div class="skill-card-head">
-                          <span>✦</span> 3. Web Development
+                          <span>✦</span> 03. Web Development
                         </div>
                         <div class="skill-badge-list">
                           <div class="skill-item">
@@ -416,15 +405,15 @@
                           </div>
                           <div class="skill-item">
                             <strong>JavaScript</strong>
-                            <span class="skill-level">Learning and Practicing</span>
+                            <span class="skill-level">Learning &amp; Practicing</span>
                           </div>
                         </div>
                       </div>
 
-                      <!-- 4. Development Tools -->
-                      <div class="skill-card">
+                      <!-- 04. Development Tools -->
+                      <div class="skill-card skill-pos-4">
                         <div class="skill-card-head">
-                          <span>✦</span> 4. Development Tools
+                          <span>✦</span> 04. Development Tools
                         </div>
                         <div class="skill-badge-list">
                           <div class="skill-item">
@@ -442,27 +431,23 @@
                         </div>
                       </div>
 
-                      <!-- 5. Currently Developing -->
-                      <div class="skill-card skill-card-wide">
+                      <!-- 05. Currently Developing -->
+                      <div class="skill-card skill-pos-5">
                         <div class="skill-card-head">
-                          <span>✦</span> 5. Currently Developing
+                          <span>✦</span> 05. Currently Developing
                         </div>
-                        <div class="skill-badge-list skill-badge-list-grid">
+                        <div class="skill-badge-list">
                           <div class="skill-item">
                             <span>Object-Oriented Design</span>
-                            <span class="skill-level">Active Focus</span>
                           </div>
                           <div class="skill-item">
                             <span>Data Structures</span>
-                            <span class="skill-level">Active Focus</span>
                           </div>
                           <div class="skill-item">
                             <span>Web Development Fundamentals</span>
-                            <span class="skill-level">Active Focus</span>
                           </div>
                           <div class="skill-item">
                             <span>Algorithmic Problem-Solving</span>
-                            <span class="skill-level">Active Focus</span>
                           </div>
                         </div>
                       </div>
@@ -470,8 +455,8 @@
                   </div>
                 </article>
 
-                <!-- 4. MY ADVANCEMENT (Must appear AFTER More About Me) -->
-                <article class="pi-block active" id="pi-block-advancement" data-pi-section="advancement" aria-label="My Advancement">
+                <!-- 4. MY ADVANCEMENT -->
+                <article class="pi-block" id="pi-block-advancement" data-pi-section="advancement" aria-label="My Advancement">
                   <div class="advancements-container">
                     <div class="adv-banner">
                       <span class="adv-banner-title">
@@ -569,121 +554,203 @@
         </section>
 
         <!-- ============================================================
-             PAGE 03: ACHIEVEMENTS (Repurposed from Education)
+             PAGE 03: MY ACHIEVEMENTS (Medieval Royal Archive)
              ============================================================ -->
-        <section class="section-view" id="view-achievements" aria-label="Achievements Section">
+        <section class="section-view" id="view-achievements" aria-label="My Achievements Section">
           <div class="achievements-container">
-            <div class="section-head">
-              <div class="kicker">
-                <span>RECORDS &amp; DOCUMENTATION</span>
+            <!-- Archive Page Heading & Short Introduction -->
+            <header class="archive-head">
+              <div class="kicker archive-kicker">
+                <span class="archive-ornament" aria-hidden="true">❖</span>
+                <span>ROYAL ACADEMIC ARCHIVE · 2020 — PRESENT</span>
                 <span class="kicker-line"></span>
               </div>
-              <h2>Achievements</h2>
-              <p>A dedicated showcase prepared for academic achievements, verified certificates, event participation, and supporting evidence.</p>
+              <h2 class="archive-title">MY ACHIEVEMENTS</h2>
+              <p class="archive-intro">
+                My educational journey represents the milestones, qualifications, and experiences that have shaped my academic development. From completing my elementary and secondary education to earning a National Certificate II qualification and pursuing Computer Science at the University of the Cordilleras, every milestone represents another step in my continuous pursuit of knowledge and personal growth.
+              </p>
+            </header>
+
+            <!-- Mobile / Tablet Milestone Carousel Navigation (Hidden on Desktop) -->
+            <div class="ach-mobile-controls" id="ach-mobile-controls" aria-label="Milestone Carousel Navigation">
+              <button type="button" class="ach-carousel-btn" id="ach-prev-slide" aria-label="Previous milestone">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+                <span>Prev</span>
+              </button>
+              <div class="ach-dot-nav" role="tablist" aria-label="Select milestone">
+                <button type="button" class="ach-dot-btn active" data-ach-slide="0" aria-label="Milestone 01: Elementary">01</button>
+                <button type="button" class="ach-dot-btn" data-ach-slide="1" aria-label="Milestone 02: Junior High">02</button>
+                <button type="button" class="ach-dot-btn" data-ach-slide="2" aria-label="Milestone 03: Senior High">03</button>
+                <button type="button" class="ach-dot-btn" data-ach-slide="3" aria-label="Milestone 04: TESDA NC II">04</button>
+                <button type="button" class="ach-dot-btn" data-ach-slide="4" aria-label="Milestone 05: University">05</button>
+              </div>
+              <span class="ach-slide-counter" id="ach-slide-counter">01 / 05</span>
+              <button type="button" class="ach-carousel-btn" id="ach-next-slide" aria-label="Next milestone">
+                <span>Next</span>
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
             </div>
 
-            <div class="achievements-showcase-grid">
-              <!-- Showcase Slot 1: Academic Achievements -->
-              <article class="achievement-showcase-card">
-                <div class="achievement-evidence-slot">
-                  <!-- To add evidence photo later, replace this placeholder div with:
-                       <img src="assets/academic-achievement.jpg" alt="Academic achievement evidence"> -->
-                  <div class="evidence-placeholder">
-                    <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M12 2l3 5.5 6 .9-4.3 4.2 1 6-5.7-3-5.7 3 1-6L3 8.4l6-.9L12 2z"/>
-                    </svg>
-                    <span class="evidence-label">Photograph / Certificate</span>
-                    <span class="evidence-coming-soon">Coming Soon</span>
-                  </div>
+            <!-- Five Chronological Milestones Grid (Desktop 5-Column / Mobile Horizontal Carousel) -->
+            <div class="achievements-showcase-grid" id="achievements-track">
+
+              <!-- 01 — ELEMENTARY EDUCATION -->
+              <article class="achievement-showcase-card archive-card" data-milestone="0">
+                <div class="archive-card-top">
+                  <span class="archive-numeral" aria-hidden="true">01</span>
+                  <span class="archive-seal-tag">Elementary</span>
                 </div>
+
+                <button type="button" class="achievement-evidence-slot archive-frame" data-lightbox-index="0" aria-label="Enlarge Elementary School Completion Certificate">
+                  <img src="assets/achievements/elementary-certificate.jpg" alt="Katunayan Certificate of Elementary School Completion from Sadanga Central School dated April 3, 2020 (LRN redacted)">
+                  <span class="evidence-zoom-pill" aria-hidden="true">Inspect</span>
+                </button>
+
                 <div class="achievement-card-body">
-                  <div class="achievement-category">Academic Achievements</div>
-                  <h3 class="achievement-card-title">Scholastic Honors &amp; Distinctions</h3>
-                  <p class="achievement-card-desc">Reserved for future university honors, academic awards, and formal scholastic recognitions with supporting records.</p>
-                  <div class="achievement-card-meta">
-                    <span>Date: Coming Soon</span>
-                    <span>Awaiting Evidence</span>
+                  <div class="achievement-category">Katunayan · Completion Certificate</div>
+                  <h3 class="achievement-card-title">Sadanga Central School</h3>
+                  <div class="archive-meta-stack">
+                    <span>DepEd · Bontoc, Mountain Province</span>
+                    <span class="archive-date">April 3, 2020</span>
+                  </div>
+                  <p class="achievement-card-desc">
+                    Completed my elementary education at Sadanga Central School, marking the beginning of my academic journey.
+                  </p>
+                  <div class="archive-card-actions">
+                    <button type="button" class="archive-btn" data-lightbox-index="0">View Certificate</button>
                   </div>
                 </div>
               </article>
 
-              <!-- Showcase Slot 2: Certificates -->
-              <article class="achievement-showcase-card">
-                <div class="achievement-evidence-slot">
-                  <!-- To add certificate image later, replace this placeholder div with:
-                       <img src="assets/certificate-01.jpg" alt="Technical certificate"> -->
-                  <div class="evidence-placeholder">
-                    <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                      <rect x="4" y="3" width="16" height="18" rx="2"/>
-                      <line x1="8" y1="8" x2="16" y2="8"/>
-                      <line x1="8" y1="12" x2="14" y2="12"/>
-                      <circle cx="12" cy="17" r="2"/>
-                    </svg>
-                  <span class="evidence-label">Certificate Document</span>
-                    <span class="evidence-coming-soon">Coming Soon</span>
-                  </div>
+              <!-- 02 — JUNIOR HIGH SCHOOL -->
+              <article class="achievement-showcase-card archive-card" data-milestone="1">
+                <div class="archive-card-top">
+                  <span class="archive-numeral" aria-hidden="true">02</span>
+                  <span class="archive-seal-tag">Grades 7–10</span>
                 </div>
+
+                <button type="button" class="achievement-evidence-slot archive-frame" data-lightbox-index="1" aria-label="Enlarge Junior High School Completion Certificate">
+                  <img src="assets/achievements/junior-high-certificate.jpg" alt="Katunayan Certificate of Junior High School Completion from Sadanga National Technical-Vocational and Skills Training High School dated May 29, 2024 (LRN redacted)">
+                  <span class="evidence-zoom-pill" aria-hidden="true">Inspect</span>
+                </button>
+
                 <div class="achievement-card-body">
-                  <div class="achievement-category">Certificates</div>
-                  <h3 class="achievement-card-title">Course &amp; Workshop Certificates</h3>
-                  <p class="achievement-card-desc">Space reserved for completed programming certificates, seminar credentials, and verified training documents.</p>
-                  <div class="achievement-card-meta">
-                    <span>Date: Coming Soon</span>
-                    <span>Awaiting Evidence</span>
+                  <div class="achievement-category">Junior High School · Katunayan</div>
+                  <h3 class="achievement-card-title">Sadanga National Tech-Voc &amp; Skills Training HS</h3>
+                  <div class="archive-meta-stack">
+                    <span>DepEd · Bontoc, Mountain Province</span>
+                    <span class="archive-date">May 29, 2024</span>
+                  </div>
+                  <p class="achievement-card-desc">
+                    Successfully completed junior high school, gaining foundational academic knowledge and developing important learning skills.
+                  </p>
+                  <div class="archive-card-actions">
+                    <button type="button" class="archive-btn" data-lightbox-index="1">View Certificate</button>
                   </div>
                 </div>
               </article>
 
-              <!-- Showcase Slot 3: Participation in Activities & Events -->
-              <article class="achievement-showcase-card">
-                <div class="achievement-evidence-slot">
-                  <!-- To add event photo later, replace this placeholder div with:
-                       <img src="assets/event-participation.jpg" alt="Event participation photo"> -->
-                  <div class="evidence-placeholder">
-                    <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M12 2l7 3.5v5.5c0 5-3.5 9-7 11-3.5-2-7-6-7-11V5.5L12 2z"/>
-                      <path d="M12 8v6M9 11h6"/>
-                    </svg>
-                    <span class="evidence-label">Event Photograph</span>
-                    <span class="evidence-coming-soon">Coming Soon</span>
-                  </div>
+              <!-- 03 — SENIOR HIGH SCHOOL -->
+              <article class="achievement-showcase-card archive-card" data-milestone="2">
+                <div class="archive-card-top">
+                  <span class="archive-numeral" aria-hidden="true">03</span>
+                  <span class="archive-seal-tag">Grades 11–12</span>
                 </div>
+
+                <button type="button" class="achievement-evidence-slot archive-frame" data-lightbox-index="2" aria-label="Enlarge Senior High School Diploma">
+                  <img src="assets/achievements/senior-high-diploma.jpg" alt="Katibayan Senior High School Diploma in Academic Track HUMSS from Sadanga National Technical-Vocational and Skills Training High School dated March 31, 2026 (LRN redacted)">
+                  <span class="evidence-zoom-pill" aria-hidden="true">Inspect</span>
+                </button>
+
                 <div class="achievement-card-body">
-                  <div class="achievement-category">Activities &amp; Events</div>
-                  <h3 class="achievement-card-title">Tech Events &amp; Campus Activities</h3>
-                  <p class="achievement-card-desc">Prepared for coding challenges, hackathons, student organization involvement, and tech community participation.</p>
-                  <div class="achievement-card-meta">
-                    <span>Date: Coming Soon</span>
-                    <span>Awaiting Evidence</span>
+                  <div class="achievement-category">Academic Track · HUMSS Diploma</div>
+                  <h3 class="achievement-card-title">Sadanga National Tech-Voc &amp; Skills Training HS</h3>
+                  <div class="archive-meta-stack">
+                    <span>DepEd · Bontoc, Mountain Province</span>
+                    <span class="archive-date">March 31, 2026</span>
+                  </div>
+                  <p class="achievement-card-desc">
+                    Completed senior high school under the Humanities and Social Sciences strand, strengthening my communication, analytical, and critical-thinking skills.
+                  </p>
+                  <div class="archive-card-actions">
+                    <button type="button" class="archive-btn" data-lightbox-index="2">View Diploma</button>
                   </div>
                 </div>
               </article>
 
-              <!-- Showcase Slot 4: Academic Projects & Accomplishments -->
-              <article class="achievement-showcase-card">
-                <div class="achievement-evidence-slot">
-                  <!-- To add project screenshot/evidence later, replace this placeholder div with:
-                       <img src="assets/project-evidence.jpg" alt="Academic project accomplishment"> -->
-                  <div class="evidence-placeholder">
-                    <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5z"/>
-                      <path d="M9 9l2 2 4-4"/>
-                    </svg>
-                    <span class="evidence-label">Supporting Evidence</span>
-                    <span class="evidence-coming-soon">Coming Soon</span>
-                  </div>
+              <!-- 04 — NATIONAL CERTIFICATE II (NC II) -->
+              <article class="achievement-showcase-card archive-card" data-milestone="3">
+                <div class="archive-card-top">
+                  <span class="archive-numeral" aria-hidden="true">04</span>
+                  <span class="archive-seal-tag">TESDA NC II</span>
                 </div>
+
+                <button type="button" class="achievement-evidence-slot archive-frame" data-lightbox-index="3" aria-label="Enlarge TESDA National Certificate II in Carpentry">
+                  <img src="assets/achievements/tesda-nc2-carpentry.jpg" alt="TESDA National Certificate II in Carpentry issued March 10, 2026 and valid until March 9, 2031 (sensitive identifiers redacted)">
+                  <span class="evidence-zoom-pill" aria-hidden="true">Inspect</span>
+                </button>
+
                 <div class="achievement-card-body">
-                  <div class="achievement-category">Academic Accomplishments</div>
-                  <h3 class="achievement-card-title">Coursework &amp; Project Milestones</h3>
-                  <p class="achievement-card-desc">Dedicated space for notable coursework deliverables, documented software outputs, and team accomplishments.</p>
-                  <div class="achievement-card-meta">
-                    <span>Date: Coming Soon</span>
-                    <span>Awaiting Evidence</span>
+                  <div class="achievement-category">National Certificate II · TESDA</div>
+                  <h3 class="achievement-card-title">Carpentry Qualification</h3>
+                  <div class="archive-meta-stack">
+                    <span>Issued: Mar 10, 2026</span>
+                    <span class="archive-date">Valid Until: Mar 9, 2031</span>
+                  </div>
+                  <p class="achievement-card-desc">
+                    Earned a TESDA National Certificate II in Carpentry, demonstrating competency in construction-related tasks, woodworking, and the proper use of tools and materials.
+                  </p>
+                  <div class="archive-card-actions archive-card-actions-dual">
+                    <button type="button" class="archive-btn" data-lightbox-index="3">View Certificate</button>
+                    <button type="button" class="archive-btn archive-btn-gold" id="open-nc2-modal">View Qualification Details</button>
                   </div>
                 </div>
               </article>
+
+              <!-- 05 — UNIVERSITY OF THE CORDILLERAS -->
+              <article class="achievement-showcase-card archive-card archive-card-active" data-milestone="4">
+                <div class="archive-card-top">
+                  <span class="archive-numeral" aria-hidden="true">05</span>
+                  <span class="archive-status-badge">Currently Enrolled</span>
+                </div>
+
+                <button type="button" class="achievement-evidence-slot archive-frame" data-lightbox-index="4" aria-label="Enlarge University of the Cordilleras Student ID">
+                  <img src="assets/achievements/uc-student-id.jpg" alt="University of the Cordilleras front Student ID supporting current BS Computer Science enrollment (student number redacted)">
+                  <span class="evidence-zoom-pill" aria-hidden="true">Inspect</span>
+                </button>
+
+                <div class="achievement-card-body">
+                  <div class="achievement-category">First Year | AY 2026–2027 · In Progress</div>
+                  <h3 class="achievement-card-title">University of the Cordilleras</h3>
+                  <div class="archive-meta-stack">
+                    <span>BS Computer Science</span>
+                    <span class="archive-date">Student ID Evidence</span>
+                  </div>
+                  <p class="achievement-card-desc">
+                    Currently pursuing a Bachelor of Science in Computer Science at the University of the Cordilleras, developing my knowledge of programming, computing fundamentals, and software development.
+                  </p>
+                  <div class="archive-card-actions">
+                    <button type="button" class="archive-btn" data-lightbox-index="4">View Student ID</button>
+                  </div>
+                </div>
+              </article>
+
             </div>
+
+            <!-- Compact Closing Statement -->
+            <footer class="archive-closing" aria-label="Closing Statement">
+              <div class="archive-closing-rule" aria-hidden="true">
+                <span class="rule-wing"></span>
+                <span class="rule-diamond">✦</span>
+                <span class="rule-wing"></span>
+              </div>
+              <div class="archive-closing-content">
+                <h3 class="archive-closing-title">THE JOURNEY CONTINUES</h3>
+                <p class="archive-closing-text">
+                  Every milestone represents a step forward. As I continue my academic journey, I look forward to gaining new knowledge, developing my skills, and achieving more in the future.
+                </p>
+              </div>
+            </footer>
           </div>
         </section>
 
@@ -692,10 +759,6 @@
 
     <!-- Footer Bar (Fixed 48px) -->
     <footer class="footer-bar">
-      <div class="footer-nav-hint">
-        <span>[← / → Arrow Keys to Navigate]</span>
-      </div>
-
       <div class="footer-pager" role="navigation" aria-label="Page Navigation Controls">
         <button id="btn-prev" class="footer-btn-nav" type="button" aria-label="Previous page" disabled>
           <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -732,6 +795,101 @@
         </a>
       </div>
     </footer>
+  </div>
+
+  <!-- Certificate & Student ID Image Lightbox Viewer -->
+  <div class="archive-modal-overlay" id="achievement-lightbox" role="dialog" aria-modal="true" aria-labelledby="lightbox-title" aria-hidden="true">
+    <div class="archive-lightbox-panel">
+      <div class="archive-modal-header">
+        <div class="archive-modal-heading">
+          <span class="archive-modal-kicker" id="lightbox-kicker">01 — ELEMENTARY EDUCATION</span>
+          <h3 id="lightbox-title">Katunayan / Certificate of Elementary School Completion</h3>
+        </div>
+        <button type="button" class="archive-modal-close" id="lightbox-close" aria-label="Close document viewer">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+
+      <div class="archive-lightbox-stage">
+        <button type="button" class="lightbox-nav-btn" id="lightbox-prev" aria-label="Previous document">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <div class="lightbox-image-wrap">
+          <img id="lightbox-img" src="assets/achievements/elementary-certificate.jpg" alt="Milestone evidence preview">
+        </div>
+        <button type="button" class="lightbox-nav-btn" id="lightbox-next" aria-label="Next document">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+
+      <div class="archive-lightbox-footer">
+        <p id="lightbox-caption">Maynard K. Nay-osan · Sadanga Central School · DepEd · April 3, 2020 (Sensitive identifiers redacted for privacy)</p>
+        <span class="lightbox-counter" id="lightbox-counter">01 / 05</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- TESDA NC II Qualification Details Modal (21 Units of Competency) -->
+  <div class="archive-modal-overlay" id="nc2-modal" role="dialog" aria-modal="true" aria-labelledby="nc2-modal-title" aria-hidden="true">
+    <div class="archive-modal-panel">
+      <div class="archive-modal-header">
+        <div class="archive-modal-heading">
+          <span class="archive-modal-kicker">TESDA · TECHNICAL EDUCATION AND SKILLS DEVELOPMENT AUTHORITY</span>
+          <h3 id="nc2-modal-title">National Certificate II in Carpentry — Units of Competency (21)</h3>
+          <p class="archive-modal-sub">Awarded to Maynard K. Nay-osan · Issued: March 10, 2026 · Valid Until: March 9, 2031</p>
+        </div>
+        <button type="button" class="archive-modal-close" id="nc2-modal-close" aria-label="Close qualification details">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+
+      <div class="archive-modal-body">
+        <div class="nc2-competency-columns">
+          <!-- Group 1: Basic Competencies (9) -->
+          <section class="nc2-group" aria-label="Basic Competencies">
+            <h4>Basic Competencies <span class="nc2-count">(9)</span></h4>
+            <ol class="nc2-unit-list">
+              <li><span class="nc2-code">400311210</span><span>Participate in workplace communication</span></li>
+              <li><span class="nc2-code">400311211</span><span>Work in a team environment</span></li>
+              <li><span class="nc2-code">400311212</span><span>Solve/address general workplace problems</span></li>
+              <li><span class="nc2-code">400311213</span><span>Develop career and life decisions</span></li>
+              <li><span class="nc2-code">400311214</span><span>Contribute to workplace innovation</span></li>
+              <li><span class="nc2-code">400311215</span><span>Present relevant information</span></li>
+              <li><span class="nc2-code">400311216</span><span>Practice occupational safety and health policies and procedures</span></li>
+              <li><span class="nc2-code">400311217</span><span>Exercise efficient and effective sustainable practices in the workplace</span></li>
+              <li><span class="nc2-code">400311218</span><span>Practice entrepreneurial skills in the workplace</span></li>
+            </ol>
+          </section>
+
+          <!-- Group 2: Common Competencies (4) & Group 3: Core Competencies (8) -->
+          <div class="nc2-right-stack">
+            <section class="nc2-group" aria-label="Common Competencies">
+              <h4>Common Competencies <span class="nc2-count">(4)</span></h4>
+              <ol class="nc2-unit-list">
+                <li><span class="nc2-code">CON931201</span><span>Prepare construction materials and tools</span></li>
+                <li><span class="nc2-code">CON311201</span><span>Observe procedures, specifications and manuals of instruction</span></li>
+                <li><span class="nc2-code">CON311203</span><span>Perform mensurations and calculations</span></li>
+                <li><span class="nc2-code">CON311204</span><span>Maintain tools and equipment</span></li>
+              </ol>
+            </section>
+
+            <section class="nc2-group" aria-label="Core Competencies">
+              <h4>Core Competencies <span class="nc2-count">(8)</span></h4>
+              <ol class="nc2-unit-list">
+                <li><span class="nc2-code">CON711301</span><span>Layout reference lines</span></li>
+                <li><span class="nc2-code">CON711302</span><span>Fabricate, install and remove wooden formworks</span></li>
+                <li><span class="nc2-code">CON711303</span><span>Install wooden door jamb, window frame and panels</span></li>
+                <li><span class="nc2-code">CON711304</span><span>Install ceiling and wall frames and panels</span></li>
+                <li><span class="nc2-code">CON711305</span><span>Fabricate and install wooden stairs</span></li>
+                <li><span class="nc2-code">CON711306</span><span>Install wooden floor supports and panels</span></li>
+                <li><span class="nc2-code">CON711307</span><span>Fabricate and install roofing system</span></li>
+                <li><span class="nc2-code">CON711308</span><span>Fabricate and install wooden cabinet</span></li>
+              </ol>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- Scripts -->

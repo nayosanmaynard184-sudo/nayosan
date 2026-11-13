@@ -132,9 +132,34 @@
     btnContinue.addEventListener('click', nextSection);
   }
 
-  // Keyboard Navigation: Left & Right arrow keys (bounded to the 3 pages)
+  // Keyboard Navigation: Modals first, then Left & Right arrow keys (bounded to the 3 pages)
   window.addEventListener('keydown', (e) => {
     if (e.target && ['INPUT', 'TEXTAREA', 'SELECT'].includes(e.target.tagName)) return;
+
+    const lightboxEl = document.getElementById('achievement-lightbox');
+    const nc2El = document.getElementById('nc2-modal');
+
+    if (lightboxEl && lightboxEl.classList.contains('open')) {
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        closeLightbox();
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        stepLightbox(1);
+      } else if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        stepLightbox(-1);
+      }
+      return;
+    }
+
+    if (nc2El && nc2El.classList.contains('open')) {
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        closeNc2Modal();
+      }
+      return;
+    }
 
     if (e.key === 'ArrowRight') {
       e.preventDefault();
@@ -172,27 +197,32 @@
   });
 
   // ==========================================
-  // Personal Info Section Filter (All / More About Me / Skills / My Advancement)
+  // Personal Info Section Selector (3 Sections: More About Me / Skills / My Advancement)
   // ==========================================
+  const PI_SECTIONS = ['bio', 'skills', 'advancement'];
   const piTabs = document.querySelectorAll('[data-pi-filter]');
   const piBlocks = document.querySelectorAll('[data-pi-section]');
-  const piScrollStage = document.getElementById('pi-scroll-stage');
+  const piTabCounter = document.getElementById('pi-tab-counter');
 
   function selectPersonalInfoFilter(filterName) {
+    const safeFilter = PI_SECTIONS.includes(filterName) ? filterName : 'bio';
+    const sectionIndex = PI_SECTIONS.indexOf(safeFilter);
+
     piTabs.forEach((tab) => {
-      const match = tab.getAttribute('data-pi-filter') === filterName;
+      const match = tab.getAttribute('data-pi-filter') === safeFilter;
       tab.classList.toggle('active', match);
       tab.setAttribute('aria-selected', match ? 'true' : 'false');
     });
 
     piBlocks.forEach((block) => {
       const section = block.getAttribute('data-pi-section');
-      const visible = filterName === 'all' || section === filterName;
-      block.classList.toggle('active', visible);
+      block.classList.toggle('active', section === safeFilter);
     });
 
-    if (piScrollStage) {
-      piScrollStage.scrollTop = 0;
+    if (piTabCounter) {
+      const currentFormatted = String(sectionIndex + 1).padStart(2, '0');
+      const totalFormatted = String(PI_SECTIONS.length).padStart(2, '0');
+      piTabCounter.textContent = `${currentFormatted} / ${totalFormatted}`;
     }
   }
 
@@ -202,6 +232,8 @@
       if (target) selectPersonalInfoFilter(target);
     });
   });
+
+  selectPersonalInfoFilter('bio');
 
   // ==========================================
   // 2. Dual-Theme Management
@@ -350,6 +382,224 @@
       }
     });
   }
+
+  // ==========================================
+  // 4. Page 03: Achievements Lightbox, NC II Modal & Mobile Carousel
+  // ==========================================
+  const ACHIEVEMENT_EVIDENCE = [
+    {
+      src: 'assets/achievements/elementary-certificate.jpg',
+      alt: 'Katunayan Certificate of Elementary School Completion from Sadanga Central School dated April 3, 2020 (LRN redacted)',
+      kicker: '01 — ELEMENTARY EDUCATION',
+      title: 'Katunayan / Certificate of Elementary School Completion',
+      caption: 'Maynard K. Nay-osan · Sadanga Central School · DepEd · April 3, 2020 (Signed at Bontoc, Mountain Province · Sensitive identifiers redacted)',
+    },
+    {
+      src: 'assets/achievements/junior-high-certificate.jpg',
+      alt: 'Katunayan Certificate of Junior High School Completion from Sadanga National Technical-Vocational and Skills Training High School dated May 29, 2024 (LRN redacted)',
+      kicker: '02 — JUNIOR HIGH SCHOOL (GRADES 7–10)',
+      title: 'Katunayan / Certificate of Junior High School Completion',
+      caption: 'Maynard K. Nay-osan · Sadanga National Tech-Voc & Skills Training High School · DepEd · May 29, 2024 (Sensitive identifiers redacted)',
+    },
+    {
+      src: 'assets/achievements/senior-high-diploma.jpg',
+      alt: 'Katibayan Senior High School Diploma in Academic Track HUMSS from Sadanga National Technical-Vocational and Skills Training High School dated March 31, 2026 (LRN redacted)',
+      kicker: '03 — SENIOR HIGH SCHOOL (GRADES 11–12)',
+      title: 'Katibayan / Senior High School Diploma — Academic Track (HUMSS)',
+      caption: 'Maynard K. Nay-osan · Sadanga National Tech-Voc & Skills Training High School · DepEd · March 31, 2026 (Sensitive identifiers redacted)',
+    },
+    {
+      src: 'assets/achievements/tesda-nc2-carpentry.jpg',
+      alt: 'TESDA National Certificate II in Carpentry issued March 10, 2026 and valid until March 9, 2031 (sensitive identifiers redacted)',
+      kicker: '04 — NATIONAL CERTIFICATE II (NC II)',
+      title: 'TESDA National Certificate II — Carpentry',
+      caption: 'Maynard K. Nay-osan · Technical Education and Skills Development Authority · Issued: March 10, 2026 · Valid Until: March 9, 2031 (Sensitive identifiers redacted)',
+    },
+    {
+      src: 'assets/achievements/uc-student-id.jpg',
+      alt: 'University of the Cordilleras front Student ID supporting current BS Computer Science enrollment (student number redacted)',
+      kicker: '05 — UNIVERSITY OF THE CORDILLERAS',
+      title: 'University of the Cordilleras Student ID (Front · Supporting Enrollment Evidence)',
+      caption: 'Maynard K. Nay-osan · Bachelor of Science in Computer Science · First Year | AY 2026–2027 · Currently Enrolled (Student number redacted)',
+    },
+  ];
+
+  const lightboxOverlay = document.getElementById('achievement-lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  const lightboxKicker = document.getElementById('lightbox-kicker');
+  const lightboxTitle = document.getElementById('lightbox-title');
+  const lightboxCaption = document.getElementById('lightbox-caption');
+  const lightboxCounter = document.getElementById('lightbox-counter');
+  const lightboxCloseBtn = document.getElementById('lightbox-close');
+  const lightboxPrevBtn = document.getElementById('lightbox-prev');
+  const lightboxNextBtn = document.getElementById('lightbox-next');
+
+  let currentLightboxIndex = 0;
+  let lastFocusedBeforeModal = null;
+
+  function renderLightbox(index) {
+    const safeIdx = ((index % ACHIEVEMENT_EVIDENCE.length) + ACHIEVEMENT_EVIDENCE.length) % ACHIEVEMENT_EVIDENCE.length;
+    currentLightboxIndex = safeIdx;
+    const item = ACHIEVEMENT_EVIDENCE[safeIdx];
+
+    if (lightboxImg) {
+      lightboxImg.src = item.src;
+      lightboxImg.alt = item.alt;
+    }
+    if (lightboxKicker) lightboxKicker.textContent = item.kicker;
+    if (lightboxTitle) lightboxTitle.textContent = item.title;
+    if (lightboxCaption) lightboxCaption.textContent = item.caption;
+    if (lightboxCounter) {
+      lightboxCounter.textContent = `${String(safeIdx + 1).padStart(2, '0')} / ${String(ACHIEVEMENT_EVIDENCE.length).padStart(2, '0')}`;
+    }
+  }
+
+  function openLightbox(index) {
+    if (!lightboxOverlay) return;
+    lastFocusedBeforeModal = document.activeElement;
+    renderLightbox(index);
+    lightboxOverlay.classList.add('open');
+    lightboxOverlay.setAttribute('aria-hidden', 'false');
+    if (lightboxCloseBtn) lightboxCloseBtn.focus();
+  }
+
+  function closeLightbox() {
+    if (!lightboxOverlay) return;
+    lightboxOverlay.classList.remove('open');
+    lightboxOverlay.setAttribute('aria-hidden', 'true');
+    if (lastFocusedBeforeModal && typeof lastFocusedBeforeModal.focus === 'function') {
+      lastFocusedBeforeModal.focus();
+    }
+  }
+
+  function stepLightbox(delta) {
+    renderLightbox(currentLightboxIndex + delta);
+  }
+
+  document.addEventListener('click', (e) => {
+    const trigger = e.target.closest('[data-lightbox-index]');
+    if (trigger) {
+      e.preventDefault();
+      const idx = parseInt(trigger.getAttribute('data-lightbox-index') || '0', 10);
+      openLightbox(Number.isNaN(idx) ? 0 : idx);
+    }
+  });
+
+  if (lightboxCloseBtn) lightboxCloseBtn.addEventListener('click', closeLightbox);
+  if (lightboxPrevBtn) lightboxPrevBtn.addEventListener('click', () => stepLightbox(-1));
+  if (lightboxNextBtn) lightboxNextBtn.addEventListener('click', () => stepLightbox(1));
+
+  if (lightboxOverlay) {
+    lightboxOverlay.addEventListener('click', (e) => {
+      if (e.target === lightboxOverlay) closeLightbox();
+    });
+  }
+
+  // NC II Qualification Details Modal
+  const nc2ModalOverlay = document.getElementById('nc2-modal');
+  const openNc2ModalBtn = document.getElementById('open-nc2-modal');
+  const closeNc2ModalBtn = document.getElementById('nc2-modal-close');
+
+  function openNc2Modal() {
+    if (!nc2ModalOverlay) return;
+    lastFocusedBeforeModal = document.activeElement;
+    nc2ModalOverlay.classList.add('open');
+    nc2ModalOverlay.setAttribute('aria-hidden', 'false');
+    if (closeNc2ModalBtn) closeNc2ModalBtn.focus();
+  }
+
+  function closeNc2Modal() {
+    if (!nc2ModalOverlay) return;
+    nc2ModalOverlay.classList.remove('open');
+    nc2ModalOverlay.setAttribute('aria-hidden', 'true');
+    if (lastFocusedBeforeModal && typeof lastFocusedBeforeModal.focus === 'function') {
+      lastFocusedBeforeModal.focus();
+    }
+  }
+
+  if (openNc2ModalBtn) openNc2ModalBtn.addEventListener('click', openNc2Modal);
+  if (closeNc2ModalBtn) closeNc2ModalBtn.addEventListener('click', closeNc2Modal);
+  if (nc2ModalOverlay) {
+    nc2ModalOverlay.addEventListener('click', (e) => {
+      if (e.target === nc2ModalOverlay) closeNc2Modal();
+    });
+  }
+
+  // Mobile / Tablet Milestone Carousel Controls
+  const achTrack = document.getElementById('achievements-track');
+  const achSlides = achTrack ? Array.from(achTrack.querySelectorAll('.archive-card')) : [];
+  const achDots = document.querySelectorAll('[data-ach-slide]');
+  const achPrevSlideBtn = document.getElementById('ach-prev-slide');
+  const achNextSlideBtn = document.getElementById('ach-next-slide');
+  const achSlideCounter = document.getElementById('ach-slide-counter');
+  let activeSlideIndex = 0;
+
+  function setCarouselIndicator(index) {
+    const safeIdx = Math.max(0, Math.min(index, achSlides.length - 1));
+    activeSlideIndex = safeIdx;
+
+    achDots.forEach((dot) => {
+      const match = parseInt(dot.getAttribute('data-ach-slide') || '0', 10) === safeIdx;
+      dot.classList.toggle('active', match);
+      dot.setAttribute('aria-selected', match ? 'true' : 'false');
+    });
+
+    if (achSlideCounter) {
+      achSlideCounter.textContent = `${String(safeIdx + 1).padStart(2, '0')} / ${String(achSlides.length).padStart(2, '0')}`;
+    }
+
+    if (achPrevSlideBtn) achPrevSlideBtn.disabled = safeIdx === 0;
+    if (achNextSlideBtn) achNextSlideBtn.disabled = safeIdx === achSlides.length - 1;
+  }
+
+  function goToMilestoneSlide(index) {
+    if (!achTrack || achSlides.length === 0) return;
+    const safeIdx = Math.max(0, Math.min(index, achSlides.length - 1));
+    const targetCard = achSlides[safeIdx];
+    if (targetCard) {
+      const targetLeft = targetCard.offsetLeft - achTrack.offsetLeft;
+      achTrack.scrollTo({ left: targetLeft, behavior: 'smooth' });
+      setCarouselIndicator(safeIdx);
+    }
+  }
+
+  achDots.forEach((dot) => {
+    dot.addEventListener('click', () => {
+      const idx = parseInt(dot.getAttribute('data-ach-slide') || '0', 10);
+      goToMilestoneSlide(Number.isNaN(idx) ? 0 : idx);
+    });
+  });
+
+  if (achPrevSlideBtn) {
+    achPrevSlideBtn.addEventListener('click', () => goToMilestoneSlide(activeSlideIndex - 1));
+  }
+  if (achNextSlideBtn) {
+    achNextSlideBtn.addEventListener('click', () => goToMilestoneSlide(activeSlideIndex + 1));
+  }
+
+  if (achTrack) {
+    let scrollDebounce;
+    achTrack.addEventListener('scroll', () => {
+      clearTimeout(scrollDebounce);
+      scrollDebounce = setTimeout(() => {
+        if (achSlides.length === 0) return;
+        const center = achTrack.scrollLeft + achTrack.clientWidth / 2;
+        let closestIdx = 0;
+        let closestDist = Infinity;
+        achSlides.forEach((slide, idx) => {
+          const slideCenter = slide.offsetLeft - achTrack.offsetLeft + slide.offsetWidth / 2;
+          const dist = Math.abs(center - slideCenter);
+          if (dist < closestDist) {
+            closestDist = dist;
+            closestIdx = idx;
+          }
+        });
+        setCarouselIndicator(closestIdx);
+      }, 60);
+    }, { passive: true });
+  }
+
+  setCarouselIndicator(0);
 
   // Initialize route on load
   initRoute();
