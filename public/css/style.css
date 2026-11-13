@@ -36,6 +36,11 @@
   
   --shadow-card: 0 14px 34px -8px rgba(0, 0, 0, 0.65), 0 0 0 1px var(--border-line);
   --card-radius: 10px;
+  --gold-btn-text: #101216;
+  --status-done-color: #34d399;
+  --status-done-bg: rgba(52, 211, 153, 0.14);
+  --status-done-border: rgba(52, 211, 153, 0.34);
+  --status-done-glow: rgba(52, 211, 153, 0.45);
 }
 
 [data-theme="light"] {
@@ -47,7 +52,7 @@
 
   --text-main: #24211a;
   --text-muted: #665f50;
-  --text-faint: #968d7e;
+  --text-faint: #847b6c;
 
   --accent-gold: #8c6738;
   --accent-gold-light: #a98048;
@@ -56,11 +61,16 @@
 
   --border-line: rgba(140, 103, 56, 0.2);
   --border-gold: rgba(140, 103, 56, 0.48);
-  --border-subtle: rgba(0, 0, 0, 0.08);
+  --border-subtle: rgba(36, 33, 26, 0.1);
 
   --bg-image: url('../assets/medieval-interior-light.webp');
   --bg-overlay: linear-gradient(180deg, rgba(242, 238, 228, 0.76) 0%, rgba(242, 238, 228, 0.86) 100%);
   --shadow-card: 0 12px 28px -8px rgba(90, 75, 55, 0.16), 0 0 0 1px var(--border-line);
+  --gold-btn-text: #fffcf6;
+  --status-done-color: #15803d;
+  --status-done-bg: rgba(21, 128, 61, 0.11);
+  --status-done-border: rgba(21, 128, 61, 0.35);
+  --status-done-glow: rgba(21, 128, 61, 0.25);
 }
 
 /* Base Reset & Fixed Viewport */
@@ -251,7 +261,7 @@ body {
   text-transform: uppercase;
 }
 
-/* Navigation Links (01 Home to 05 Projects) */
+/* Navigation Links (Strictly 3 Pages: 01 Homepage, 02 Personal Info, 03 Achievements) */
 .nav-links {
   display: flex;
   align-items: center;
@@ -514,7 +524,7 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 20%;
+  object-position: center 14%;
   display: block;
 }
 
@@ -543,7 +553,7 @@ body {
 .home-content {
   display: flex;
   flex-direction: column;
-  gap: 1.15rem;
+  gap: 0.95rem;
 }
 
 .kicker {
@@ -614,16 +624,42 @@ body {
 }
 
 .hero-lead {
-  font-size: 0.92rem;
-  line-height: 1.7;
+  font-size: 0.91rem;
+  line-height: 1.65;
   color: var(--text-muted);
   max-width: 58ch;
-  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.45);
+}
+
+.hero-lead-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .hero-lead strong {
   color: var(--text-main);
   font-weight: 600;
+}
+
+.hero-chips-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.chip-status-active {
+  border-color: var(--status-done-border);
+}
+
+.chip-status-active .med-chip-icon {
+  color: var(--status-done-color);
+}
+
+.lang-sub {
+  color: var(--text-muted);
+  font-size: 0.67rem;
 }
 
 /* Key Qualification Cards Grid */
@@ -785,7 +821,7 @@ body {
 
 .btn-primary {
   background: var(--accent-gold);
-  color: #101216;
+  color: var(--gold-btn-text);
   border: 1px solid var(--accent-gold);
   font-weight: 600;
   box-shadow: 0 4px 14px var(--gold-glow);
@@ -811,15 +847,17 @@ body {
 }
 
 /* ==========================================================================
-   Section 2: ABOUT ME VIEW (Labio-Inspired RPG / Scholar Profile)
+   Page 02: PERSONAL INFO VIEW
+   1. Player Info (Left) -> 2. More About Me -> 3. Skills -> 4. My Advancement
    ========================================================================== */
 .about-grid {
   width: 100%;
   height: 100%;
   display: grid;
-  grid-template-columns: 370px 1fr;
-  gap: 2rem;
+  grid-template-columns: 355px 1fr;
+  gap: 1.75rem;
   align-items: stretch;
+  min-height: 0;
 }
 
 /* Left Column: Player Info Card */
@@ -827,13 +865,13 @@ body {
   background: var(--bg-card);
   border: 1px solid var(--border-gold);
   border-radius: var(--card-radius);
-  padding: 1.3rem 1.4rem;
+  padding: 1.15rem 1.3rem;
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   box-shadow: var(--shadow-card);
   display: flex;
   flex-direction: column;
-  gap: 0.85rem;
+  gap: 0.7rem;
   height: 100%;
   overflow-y: auto;
   scrollbar-width: thin;
@@ -842,18 +880,18 @@ body {
 .player-header {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  padding-bottom: 0.75rem;
+  gap: 0.9rem;
+  padding-bottom: 0.65rem;
   border-bottom: 1px solid var(--border-line);
 }
 
 .player-thumb-ring {
-  width: 68px;
-  height: 68px;
+  width: 64px;
+  height: 64px;
   border-radius: 50%;
   overflow: hidden;
   border: 2px solid var(--border-gold);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
   flex-shrink: 0;
 }
 
@@ -861,12 +899,12 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 20%;
+  object-position: center 14%;
 }
 
 .player-title-block h3 {
   font-family: var(--font-serif);
-  font-size: 1.35rem;
+  font-size: 1.3rem;
   font-weight: 500;
   color: var(--text-main);
   line-height: 1.15;
@@ -874,9 +912,9 @@ body {
 
 .player-role-badge {
   font-family: var(--font-mono);
-  font-size: 0.65rem;
+  font-size: 0.64rem;
   color: var(--accent-gold);
-  letter-spacing: 0.06em;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
   margin-top: 0.2rem;
 }
@@ -885,8 +923,8 @@ body {
 .player-xp-strip {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  padding: 0.45rem 0.65rem;
+  gap: 0.65rem;
+  padding: 0.4rem 0.65rem;
   background: rgba(201, 164, 108, 0.08);
   border: 1px solid var(--border-line);
   border-radius: 6px;
@@ -895,10 +933,10 @@ body {
 .lvl-tag {
   font-family: var(--font-mono);
   font-weight: 600;
-  font-size: 0.7rem;
-  color: #101216;
+  font-size: 0.68rem;
+  color: var(--gold-btn-text);
   background: var(--accent-gold);
-  padding: 0.15rem 0.4rem;
+  padding: 0.14rem 0.42rem;
   border-radius: 3px;
   letter-spacing: 0.04em;
 }
@@ -906,10 +944,10 @@ body {
 .xp-bar-track {
   flex: 1;
   height: 6px;
-  background: rgba(0, 0, 0, 0.35);
+  background: var(--border-subtle);
   border-radius: 3px;
   overflow: hidden;
-  border: 1px solid rgba(201, 164, 108, 0.2);
+  border: 1px solid var(--border-line);
 }
 
 .xp-bar-fill {
@@ -923,28 +961,29 @@ body {
 .xp-percent {
   font-family: var(--font-mono);
   font-size: 0.62rem;
-  color: var(--accent-gold-light);
+  color: var(--accent-gold);
 }
 
 /* Player Stats Table */
 .player-specs-table {
   display: flex;
   flex-direction: column;
-  gap: 0.45rem;
-  font-size: 0.78rem;
+  gap: 0.28rem;
+  font-size: 0.76rem;
 }
 
 .spec-row {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  padding: 0.25rem 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  gap: 0.75rem;
+  padding: 0.24rem 0;
+  border-bottom: 1px solid var(--border-subtle);
 }
 
 .spec-key {
   font-family: var(--font-mono);
-  font-size: 0.68rem;
+  font-size: 0.66rem;
   color: var(--accent-gold);
   text-transform: uppercase;
   letter-spacing: 0.04em;
@@ -955,45 +994,51 @@ body {
   color: var(--text-main);
   text-align: right;
   font-weight: 500;
-  font-size: 0.78rem;
+  font-size: 0.77rem;
+}
+
+.spec-placeholder {
+  color: var(--text-faint);
+  font-style: italic;
 }
 
 .spec-val a {
-  color: var(--accent-gold-light);
+  color: var(--accent-gold);
   text-decoration: none;
 }
 .spec-val a:hover {
   text-decoration: underline;
 }
 
-/* Right Column: Tabbed Content Stage */
+/* Right Column: Ordered Content Stage */
 .about-stage {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.85rem;
   height: 100%;
   min-height: 0;
 }
 
-/* Medieval Sub-Tabbar */
+/* Section Filter Bar */
 .about-tabbar {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
   flex-shrink: 0;
 }
 
 .ab-tab {
   display: inline-flex;
   align-items: center;
-  gap: 0.45rem;
-  padding: 0.55rem 1.1rem;
+  gap: 0.4rem;
+  padding: 0.5rem 0.95rem;
   background: var(--bg-card);
   border: 1px solid var(--border-line);
   border-radius: 6px;
   color: var(--text-muted);
   font-family: var(--font-gothic);
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   cursor: pointer;
@@ -1017,52 +1062,200 @@ body {
 .ab-tab-badge {
   font-family: var(--font-mono);
   font-size: 0.62rem;
-  padding: 0.1rem 0.35rem;
+  padding: 0.08rem 0.35rem;
   border-radius: 3px;
-  background: rgba(201, 164, 108, 0.2);
-  color: var(--accent-gold-light);
+  background: rgba(201, 164, 108, 0.18);
+  color: var(--accent-gold);
 }
 
-/* Tab Panels Container */
-.ab-panels {
+/* Internally Scrolling Stage for More About Me -> Skills -> My Advancement */
+.pi-scroll-stage {
   flex: 1 1 auto;
   min-height: 0;
-  position: relative;
-  overflow: hidden;
-}
-
-.ab-panel {
-  display: none;
-  height: 100%;
-  opacity: 0;
-  transform: translateY(6px);
-  transition: opacity 0.3s ease, transform 0.3s ease;
   overflow-y: auto;
-  scrollbar-width: thin;
-}
-
-.ab-panel.active {
   display: flex;
   flex-direction: column;
+  gap: 1.05rem;
+  padding-right: 0.45rem;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-gold) transparent;
+}
+
+.pi-scroll-stage::-webkit-scrollbar,
+.player-card::-webkit-scrollbar {
+  width: 6px;
+}
+
+.pi-scroll-stage::-webkit-scrollbar-track,
+.player-card::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.pi-scroll-stage::-webkit-scrollbar-thumb,
+.player-card::-webkit-scrollbar-thumb {
+  background: var(--border-gold);
+  border-radius: 4px;
+}
+
+.pi-block {
+  display: none;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.pi-block.active {
+  display: block;
   opacity: 1;
   transform: translateY(0);
 }
 
+.pi-block-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding-bottom: 0.55rem;
+  border-bottom: 1px solid var(--border-line);
+}
+
+.pi-block-title {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.pi-block-title h3 {
+  font-family: var(--font-serif);
+  font-size: 1.38rem;
+  font-weight: 500;
+  color: var(--text-main);
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+.pi-order-tag {
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  color: var(--accent-gold);
+  padding: 0.16rem 0.5rem;
+  border: 1px solid var(--border-gold);
+  border-radius: 4px;
+  background: rgba(201, 164, 108, 0.08);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
 /* ==========================================================================
-   Tab 1: Advancements System (Achievements)
+   2. More About Me (Personal Biography & Interests)
+   ========================================================================== */
+.bio-card {
+  padding: 1.25rem 1.45rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-line);
+  border-radius: var(--card-radius);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.bio-text-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  font-size: 0.87rem;
+  line-height: 1.65;
+  color: var(--text-muted);
+}
+
+.bio-text-content p strong {
+  color: var(--text-main);
+  font-weight: 600;
+}
+
+.hobbies-inline-strip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  padding-top: 0.6rem;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.hobby-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.78rem;
+  color: var(--text-main);
+  padding: 0.25rem 0.6rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-line);
+  border-radius: 5px;
+}
+
+.hobby-tag svg {
+  color: var(--accent-gold);
+  flex-shrink: 0;
+}
+
+.hobby-sep {
+  color: var(--accent-gold);
+  opacity: 0.55;
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   3. Skills & Technical Knowledge (Transferred into Personal Info)
+   ========================================================================== */
+.skills-panel-wrapper {
+  padding: 1.25rem 1.45rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-line);
+  border-radius: var(--card-radius);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.pi-skills-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.85rem;
+}
+
+.skill-card-wide {
+  grid-column: 1 / -1;
+}
+
+.skill-badge-list-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+}
+
+/* ==========================================================================
+   4. My Advancement (Milestones)
    ========================================================================== */
 .advancements-container {
   display: flex;
   flex-direction: column;
-  gap: 0.85rem;
-  height: 100%;
+  gap: 0.8rem;
 }
 
 .adv-banner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.6rem 1rem;
+  padding: 0.55rem 0.95rem;
   background: rgba(201, 164, 108, 0.1);
   border: 1px solid var(--border-gold);
   border-radius: 6px;
@@ -1070,6 +1263,8 @@ body {
 }
 
 .adv-banner-title {
+  display: inline-flex;
+  align-items: center;
   font-family: var(--font-gothic);
   font-weight: 600;
   letter-spacing: 0.08em;
@@ -1086,13 +1281,13 @@ body {
 .advancements-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 0.85rem;
+  gap: 0.8rem;
 }
 
 .adv-card {
   display: flex;
-  gap: 0.85rem;
-  padding: 1rem 1.15rem;
+  gap: 0.8rem;
+  padding: 0.95rem 1.1rem;
   background: var(--bg-surface);
   border: 1px solid var(--border-line);
   border-radius: var(--card-radius);
@@ -1109,7 +1304,7 @@ body {
 }
 
 .adv-card.completed {
-  border-top: 2px solid #34d399;
+  border-top: 2px solid var(--status-done-color);
 }
 
 .adv-card.in-progress {
@@ -1117,50 +1312,50 @@ body {
 }
 
 .adv-icon-slot {
-  width: 40px;
-  height: 40px;
+  width: 38px;
+  height: 38px;
   border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
   border: 1px solid var(--border-line);
-  background: rgba(0, 0, 0, 0.3);
+  background: var(--bg-card);
   transition: all 0.25s ease;
 }
 
 .adv-icon-slot svg {
-  width: 22px;
-  height: 22px;
+  width: 21px;
+  height: 21px;
   display: block;
 }
 
 .adv-card.completed .adv-icon-slot {
-  border-color: rgba(52, 211, 153, 0.4);
-  background: rgba(52, 211, 153, 0.1);
-  color: #34d399;
+  border-color: var(--status-done-border);
+  background: var(--status-done-bg);
+  color: var(--status-done-color);
 }
 
 .adv-card.completed .adv-icon-slot svg {
-  stroke: #34d399;
-  filter: drop-shadow(0 0 6px rgba(52, 211, 153, 0.5));
+  stroke: var(--status-done-color);
+  filter: drop-shadow(0 0 5px var(--status-done-glow));
 }
 
 .adv-card.in-progress .adv-icon-slot {
-  border-color: rgba(201, 164, 108, 0.4);
-  background: rgba(201, 164, 108, 0.1);
+  border-color: var(--border-gold);
+  background: rgba(201, 164, 108, 0.12);
   color: var(--accent-gold);
 }
 
 .adv-card.in-progress .adv-icon-slot svg {
   stroke: var(--accent-gold);
-  filter: drop-shadow(0 0 6px rgba(201, 164, 108, 0.5));
+  filter: drop-shadow(0 0 5px var(--gold-glow));
 }
 
 .adv-info {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: 0.22rem;
   flex: 1;
 }
 
@@ -1173,85 +1368,43 @@ body {
 
 .adv-num {
   font-family: var(--font-mono);
-  font-size: 0.65rem;
+  font-size: 0.64rem;
   color: var(--accent-gold);
 }
 
 .adv-status-tag {
   font-family: var(--font-mono);
-  font-size: 0.62rem;
-  padding: 0.1rem 0.45rem;
+  font-size: 0.6rem;
+  padding: 0.1rem 0.42rem;
   border-radius: 3px;
   letter-spacing: 0.05em;
   text-transform: uppercase;
 }
 
 .adv-status-tag.done {
-  background: rgba(52, 211, 153, 0.15);
-  color: #34d399;
-  border: 1px solid rgba(52, 211, 153, 0.3);
+  background: var(--status-done-bg);
+  color: var(--status-done-color);
+  border: 1px solid var(--status-done-border);
 }
 
 .adv-status-tag.prog {
   background: rgba(201, 164, 108, 0.15);
-  color: var(--accent-gold-light);
-  border: 1px solid rgba(201, 164, 108, 0.3);
+  color: var(--accent-gold);
+  border: 1px solid var(--border-gold);
 }
 
 .adv-title {
   font-family: var(--font-serif);
-  font-size: 1.15rem;
+  font-size: 1.12rem;
   font-weight: 500;
   color: var(--text-main);
   line-height: 1.2;
 }
 
 .adv-desc {
-  font-size: 0.82rem;
+  font-size: 0.81rem;
   color: var(--text-muted);
-  line-height: 1.5;
-}
-
-/* ==========================================================================
-   Tab 2: More About Me (Personal Biography)
-   ========================================================================== */
-.bio-card {
-  padding: 1.4rem 1.6rem;
-  background: var(--bg-surface);
-  border: 1px solid var(--border-line);
-  border-radius: var(--card-radius);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: var(--shadow-card);
-  display: flex;
-  flex-direction: column;
-  gap: 0.8rem;
-}
-
-.bio-card h3 {
-  font-family: var(--font-serif);
-  font-size: 1.45rem;
-  font-weight: 400;
-  color: var(--text-main);
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid var(--border-line);
-}
-
-.bio-text-content {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  font-size: 0.88rem;
-  line-height: 1.7;
-  color: var(--text-muted);
-}
-
-.bio-text-content p strong {
-  color: var(--text-main);
-  font-weight: 600;
+  line-height: 1.48;
 }
 
 /* ==========================================================================
@@ -1496,44 +1649,105 @@ body {
 }
 
 /* ==========================================================================
-   Section 3: EDUCATION VIEW (Academic Timeline Grid)
+   Section Header Shared & Page 03: ACHIEVEMENTS SHOWCASE VIEW
    ========================================================================== */
-.education-container {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 1.4rem;
-}
-
 .section-head {
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.35rem;
 }
 
 .section-head h2 {
   font-family: var(--font-serif);
-  font-size: clamp(2rem, 3vw, 2.7rem);
+  font-size: clamp(1.9rem, 2.8vw, 2.55rem);
   font-weight: 400;
   color: var(--text-main);
+  line-height: 1.1;
 }
 
 .section-head p {
-  font-size: 0.92rem;
+  font-size: 0.88rem;
   color: var(--text-muted);
-  max-width: 54ch;
+  max-width: 58ch;
 }
 
-.timeline-grid {
+.skill-card {
+  padding: 1.05rem 1.15rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-line);
+  border-radius: var(--card-radius);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+.skill-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--border-gold);
+}
+
+.skill-card-head {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--font-gothic);
+  font-size: 0.8rem;
+  letter-spacing: 0.07em;
+  color: var(--accent-gold);
+  text-transform: uppercase;
+}
+
+.skill-badge-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.skill-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.44rem 0.68rem;
+  background: rgba(201, 164, 108, 0.08);
+  border: 1px solid var(--border-line);
+  border-radius: 6px;
+  font-size: 0.8rem;
+  color: var(--text-main);
+}
+
+.skill-level {
+  font-family: var(--font-mono);
+  font-size: 0.63rem;
+  color: var(--accent-gold);
+  text-align: right;
+  white-space: nowrap;
+}
+
+/* Page 03: Achievements Showcase */
+.achievements-container {
+  width: 100%;
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.15rem;
+}
+
+.achievements-showcase-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.25rem;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  align-items: stretch;
 }
 
-.timeline-card {
-  padding: 1.35rem 1.45rem;
+.achievement-showcase-card {
   background: var(--bg-card);
   border: 1px solid var(--border-line);
   border-top: 2px solid var(--accent-gold);
@@ -1543,205 +1757,125 @@ body {
   box-shadow: var(--shadow-card);
   display: flex;
   flex-direction: column;
-  gap: 0.65rem;
+  overflow: hidden;
   transition: transform 0.25s ease, border-color 0.25s ease;
 }
 
-.timeline-card:hover {
+.achievement-showcase-card:hover {
   transform: translateY(-3px);
   border-color: var(--border-gold);
 }
 
-.timeline-badge {
+.achievement-evidence-slot {
+  aspect-ratio: 16 / 10;
+  width: 100%;
+  background: rgba(201, 164, 108, 0.06);
+  border-bottom: 1px solid var(--border-line);
+  padding: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.achievement-evidence-slot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 4px;
+}
+
+.evidence-placeholder {
+  width: 100%;
+  height: 100%;
+  border: 1px dashed var(--border-gold);
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  text-align: center;
+  padding: 0.5rem;
+  color: var(--text-muted);
+}
+
+.evidence-placeholder svg {
+  color: var(--accent-gold);
+  opacity: 0.88;
+}
+
+.evidence-label {
   font-family: var(--font-mono);
-  font-size: 0.68rem;
+  font-size: 0.63rem;
+  color: var(--text-main);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.evidence-coming-soon {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  color: var(--accent-gold);
+  background: rgba(201, 164, 108, 0.12);
+  border: 1px solid var(--border-line);
+  padding: 0.1rem 0.42rem;
+  border-radius: 3px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.achievement-card-body {
+  padding: 0.9rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  flex: 1;
+}
+
+.achievement-category {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
   color: var(--accent-gold);
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
-.timeline-institution {
+.achievement-card-title {
   font-family: var(--font-serif);
-  font-size: 1.25rem;
+  font-size: 1.15rem;
   font-weight: 500;
   color: var(--text-main);
-  line-height: 1.25;
+  line-height: 1.2;
 }
 
-.timeline-program {
-  font-size: 0.86rem;
+.achievement-card-desc {
+  font-size: 0.79rem;
   color: var(--text-muted);
   line-height: 1.5;
 }
 
-.timeline-meta {
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  color: var(--accent-gold-light);
+.achievement-card-meta {
   margin-top: auto;
   padding-top: 0.5rem;
   border-top: 1px solid var(--border-subtle);
-}
-
-/* ==========================================================================
-   Section 4: SKILLS VIEW (Categorized Grid)
-   ========================================================================== */
-.skills-container {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 1.3rem;
-}
-
-.skills-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1.1rem;
-}
-
-.skill-card {
-  padding: 1.35rem 1.4rem;
-  background: var(--bg-card);
-  border: 1px solid var(--border-line);
-  border-radius: var(--card-radius);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  box-shadow: var(--shadow-card);
-  display: flex;
-  flex-direction: column;
-  gap: 0.9rem;
-  transition: transform 0.25s ease, border-color 0.25s ease;
-}
-
-.skill-card:hover {
-  transform: translateY(-3px);
-  border-color: var(--border-gold);
-}
-
-.skill-card-head {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-family: var(--font-gothic);
-  font-size: 0.85rem;
-  letter-spacing: 0.08em;
-  color: var(--accent-gold);
-  text-transform: uppercase;
-}
-
-.skill-badge-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.skill-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.5rem 0.75rem;
-  background: rgba(201, 164, 108, 0.08);
-  border: 1px solid var(--border-line);
-  border-radius: 6px;
-  font-size: 0.82rem;
-  color: var(--text-main);
-}
-
-.skill-level {
+  gap: 0.4rem;
   font-family: var(--font-mono);
-  font-size: 0.65rem;
+  font-size: 0.62rem;
   color: var(--accent-gold);
 }
 
 /* ==========================================================================
-   Section 5: PROJECTS VIEW ("Coming Soon" & Featured Work)
-   ========================================================================== */
-.projects-container {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 1.3rem;
-}
-
-.projects-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.25rem;
-}
-
-.project-card {
-  padding: 1.5rem 1.6rem;
-  background: var(--bg-card);
-  border: 1px solid var(--border-line);
-  border-radius: var(--card-radius);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  box-shadow: var(--shadow-card);
-  display: flex;
-  flex-direction: column;
-  gap: 0.85rem;
-  transition: transform 0.25s ease, border-color 0.25s ease;
-}
-
-.project-card:hover {
-  transform: translateY(-3px);
-  border-color: var(--border-gold);
-}
-
-.project-status-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  color: var(--accent-gold);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-
-.project-status-tag.active {
-  color: #34d399;
-}
-
-.project-title {
-  font-family: var(--font-serif);
-  font-size: 1.35rem;
-  font-weight: 500;
-  color: var(--text-main);
-  line-height: 1.25;
-}
-
-.project-desc {
-  font-size: 0.86rem;
-  color: var(--text-muted);
-  line-height: 1.6;
-}
-
-.project-tech {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-  margin-top: auto;
-  padding-top: 0.8rem;
-  border-top: 1px solid var(--border-subtle);
-}
-
-.tech-tag {
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  color: var(--accent-gold-light);
-  background: rgba(201, 164, 108, 0.1);
-  padding: 0.15rem 0.45rem;
-  border-radius: 4px;
-  border: 1px solid var(--border-line);
-}
-
-/* ==========================================================================
-   Footer Bar (Fixed Height: 44px)
+   Footer Bar (Fixed Height: 48px)
    ========================================================================== */
 .footer-bar {
-  flex: 0 0 44px;
-  height: 44px;
+  flex: 0 0 48px;
+  height: 48px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1766,27 +1900,76 @@ body {
 .footer-pager {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.7rem;
 }
 
-.footer-btn-continue {
+.footer-btn-nav {
   background: none;
   border: 1px solid var(--border-gold);
   color: var(--text-main);
-  padding: 0.25rem 0.75rem;
+  padding: 0.25rem 0.72rem;
   border-radius: 4px;
   font-family: var(--font-mono);
   font-size: 0.68rem;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.35rem;
   transition: all 0.2s ease;
 }
 
-.footer-btn-continue:hover {
+.footer-btn-nav:hover:not(:disabled) {
   background: var(--accent-gold);
-  color: #101216;
+  border-color: var(--accent-gold);
+  color: var(--gold-btn-text);
+}
+
+.footer-btn-nav:disabled {
+  opacity: 0.38;
+  cursor: not-allowed;
+  border-color: var(--border-line);
+  color: var(--text-faint);
+}
+
+.page-number-nav {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.page-num-btn {
+  min-width: 28px;
+  height: 26px;
+  padding: 0 0.4rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-line);
+  border-radius: 4px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.page-num-btn:hover {
+  border-color: var(--border-gold);
+  color: var(--text-main);
+}
+
+.page-num-btn.active {
+  background: var(--accent-gold);
+  border-color: var(--accent-gold);
+  color: var(--gold-btn-text);
+  font-weight: 600;
+  box-shadow: 0 0 8px var(--gold-glow);
+}
+
+.page-counter {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  min-width: 48px;
+  text-align: center;
 }
 
 .footer-links {
@@ -1811,7 +1994,7 @@ body {
 /* ==========================================================================
    Responsive Adaptations
    ========================================================================== */
-@media (max-width: 1080px) {
+@media (max-width: 1120px) {
   .topbar, .footer-bar, .main-viewport {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
@@ -1831,19 +2014,13 @@ body {
   .astrolabe-mid { width: 280px; height: 280px; }
   .astrolabe-inner { width: 240px; height: 240px; }
 
-  .skills-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .achievements-container {
+    overflow-y: auto;
+    justify-content: flex-start;
+    padding-right: 0.3rem;
   }
 
-  .timeline-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .projects-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .interests-strip {
+  .achievements-showcase-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
@@ -1851,7 +2028,7 @@ body {
 /* Small Screens / Mobile: Allow clean internal scroll when vertical space is constrained */
 @media (max-width: 860px) {
   html, body {
-    overflow-y: auto; /* Allow scrolling on mobile screens */
+    overflow-y: auto;
     height: auto;
     min-height: 100%;
   }
@@ -1862,9 +2039,16 @@ body {
     overflow: visible;
   }
 
+  .topbar {
+    height: auto;
+    flex-wrap: wrap;
+    padding: 0.7rem 1rem;
+    gap: 0.75rem;
+  }
+
   .main-viewport {
     overflow: visible;
-    padding: 2rem 1.25rem;
+    padding: 1.5rem 1.1rem;
     height: auto;
   }
 
@@ -1879,27 +2063,40 @@ body {
   .home-grid {
     grid-template-columns: 1fr;
     text-align: center;
-    gap: 2rem;
+    gap: 1.75rem;
   }
 
   .portrait-stage {
     margin: 0 auto;
   }
 
-  .kicker, .hero-role, .hero-actions {
+  .kicker, .hero-role, .hero-actions, .hero-chips-row, .currently-learning-box {
     justify-content: center;
-  }
-
-  .facts-grid {
-    grid-template-columns: 1fr;
   }
 
   .about-grid {
     grid-template-columns: 1fr;
   }
 
+  .pi-scroll-stage {
+    overflow: visible;
+    padding-right: 0;
+  }
+
+  .pi-skills-grid,
+  .skill-badge-list-grid,
+  .advancements-grid,
+  .achievements-showcase-grid {
+    grid-template-columns: 1fr;
+  }
+
   .nav-links {
-    gap: 0.8rem;
+    gap: 0.85rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .nav-item a {
     font-size: 0.72rem;
   }
 
@@ -1907,7 +2104,11 @@ body {
     flex-direction: column;
     height: auto;
     gap: 0.6rem;
-    padding: 1rem 1.25rem;
+    padding: 0.9rem 1.1rem;
+  }
+
+  .footer-nav-hint {
+    display: none;
   }
 }
 

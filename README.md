@@ -1,82 +1,58 @@
-# Maynard K. Nay-osan — Medieval Gothic Portfolio Website
+# Maynard Nay-osan — Medieval Gothic Portfolio Website
 
-A sophisticated personal portfolio rebuild for **Maynard K. Nay-osan**, aspiring software developer and first-year Computer Science student at the **University of the Cordilleras (Baguio City, Philippines)**.
+Personal portfolio for **Maynard Nay-osan**, aspiring software developer and first-year BS Computer Science student at the **University of the Cordilleras (Baguio City, Philippines)**.
 
-Featuring an **Ancient Gothic Library / Medieval Castle Study** interior aesthetic, a **fixed-screen desktop layout (100dvh)** with zero vertical page scrolling, and an interactive **Canvas 2D organic smoke cursor trail**.
-
----
-
-## 🏰 Major Architectural Updates
-
-1. **Interactive Smoke Cursor Trail Animation**:
-   - Continuous organic smoke trail that emerges directly from the mouse pointer and tracks cursor movement.
-   - Interpolates emission (`emitBetween`) so even rapid mouse flicks create an unbroken, continuous ribbon of swirling smoke.
-   - Dual-theme color grading:
-     - **Dark Mode**: Soft warm cream, ivory, warm gray, and subtle antique gold tones that blend naturally into the dark stone backdrop.
-     - **Light Mode**: Soft translucent charcoal/sepia tones.
-   - Organic multi-lobed puff sprites, sinusoidal micro-turbulence, thermal upward buoyancy, and natural dispersion.
-   - Canvas has `pointer-events: none` and does not obstruct clicks, buttons, or text.
-2. **Fixed-Screen Desktop Layout (100dvh)**:
-   - Fits entirely within the visible browser viewport on desktop.
-   - Zero vertical page scrolling.
-   - Navigation bar (fixed height: 68px) and footer pager (fixed height: 44px) stay visible at all times.
-   - Section switching replaces content in-place with smooth transitions without moving the page.
-   - Intelligent responsive layout for mobile and tablet devices.
-3. **Immediate Visibility of Essential Information**:
-   - **Full Name**: Maynard K. Nay-osan
-   - **Title**: Aspiring Software Developer
-   - **Academic Status**: First-Year Computer Science Student at the University of the Cordilleras (Baguio City)
-   - **Hometown**: Sadanga, Mountain Province, Philippines
-   - **Core Languages**: Java and Python
-   - **Direct Actions**: Explore About, GitHub Profile, and Contact Me
-4. **All 5 Navigation Categories Implemented**:
-   - **01 / Home**: Immediate identity, framed portrait with Gothic astrolabe, summary cards, and contact links.
-   - **02 / About**: Biography, personal narrative, creative pursuits (drawing, chess, manhwa, anime), and learning goals.
-   - **03 / Education**: Academic timeline (University of the Cordilleras, Sadanga National Tech-Voc High School, Sadanga Central School).
-   - **04 / Skills**: Clearly distinguished studied languages (Java, Python), fundamentals, developer tools (Git, GitHub), and active learning areas.
-   - **05 / Projects**: Curated project cards (Coursework Algorithms Lab, Student Workflow Utility Tool, and this Medieval Gothic Portfolio).
-5. **Keyboard & Pager Navigation**:
-   - Navigate sections using **Left (`←`) and Right (`→`) Arrow Keys**.
-   - Footer pager (`01 / 05`) with interactive "Continue →" stepper.
+Built around an **Ancient Gothic Library / Sunlit Scriptorium** dual-theme aesthetic with a **fixed-screen desktop layout (`100dvh`)**, an interactive **Canvas 2D smoke cursor trail**, and **strictly three main pages**.
 
 ---
 
-## 📁 Repository Structure
+## Three-Page Structure
+
+1. **01 — Homepage (`#home`)**:
+   - Features Maynard's updated headshot portrait (`assets/profile-picture.png`) framed inside the animated celestial astrolabe.
+   - Displays core identity, academic program (BS Computer Science · 1st Year, University of the Cordilleras), location (Sadanga, Mountain Province / Baguio City, PH), introductory summary, active learning focus (**Java** & **Python**), and quick actions.
+2. **02 — Personal Info (`#personal-info`)**:
+   - **1. Player Info (Left Column)**: Full Name, Gender, Birthday (`To be added` placeholder), Age (`18`), Location (`Sadanga, Mountain Province`), Birthplace (`Bontoc, Mountain Province`), Status (`Single`), University (`University of the Cordilleras`), Program (`BS Computer Science`), Year Level (`First Year`), and Class / Role (`Aspiring Software Developer`).
+   - **2. More About Me**: Personal student bio covering BSCS coursework, Sadanga/Bontoc roots, Java & Python study, logical thinking, and creative hobbies (drawing & painting, chess, manhwa, anime).
+   - **3. Skills & Technical Knowledge**: Five organized categories transferred into Personal Info — Programming Skills (`Java`, `Python`), Programming Fundamentals, Web Development (`HTML`, `CSS`, `JavaScript`), Development Tools (`Git`, `GitHub`, `VS Code`, `Terminal`), and Currently Developing.
+   - **4. My Advancement**: Four milestone cards tracking First Steps, Programming Foundations, Coding Practice, and Portfolio Development.
+3. **03 — Achievements (`#achievements`)**:
+   - Dedicated showcase grid prepared with four placeholder frames (**Academic Achievements**, **Certificates**, **Activities & Events**, and **Academic Accomplishments**) marked `"Coming Soon"` with HTML comment instructions for adding future photographs, certificates, and supporting evidence.
+
+---
+
+## Navigation & Theme Controls
+
+- **Top Navigation**: `01 — Homepage`, `02 — Personal Info`, `03 — Achievements` plus Dark/Light Gothic theme toggle.
+- **Footer Controls**: `Previous` button (disabled on Page 01), numbered quick selectors (`01`, `02`, `03`), page counter (`01 / 03`), and `Continue` button (disabled on Page 03).
+- **Keyboard Shortcuts**: Navigate between the three pages with Left (`←`) and Right (`→`) Arrow keys.
+
+---
+
+## Repository Structure
 
 ```
-├── index.html                   # Unified 5-section fixed-screen portfolio
-├── about.html                   # Redirect helper to index.html#about
+├── index.html                   # 3-page fixed-screen portfolio (Homepage, Personal Info, Achievements)
+├── about.html                   # Redirect helper to index.html#personal-info
 ├── css/
-│   └── style.css                # Medieval Gothic stylesheet (100dvh layout, dark/light variables)
+│   └── style.css                # Dual-theme Medieval Gothic stylesheet (100dvh desktop + responsive mobile)
 ├── js/
 │   ├── smoke.js                 # Interactive Canvas 2D smoke cursor trail
-│   └── main.js                  # Section router, keyboard navigation, theme switcher, and dust particles
+│   └── main.js                  # 3-page router, arrow/button navigation, section filters, theme & dust canvas
 ├── assets/
-│   ├── medieval-interior-dark.webp    # Dark Gothic library interior background
-│   ├── medieval-interior-light.webp   # Sunlit Gothic scriptorium background
-│   ├── medieval-interior-dark.jpg     # High-res JPG fallback
-│   ├── medieval-interior-light.jpg    # High-res JPG fallback
-│   ├── portrait.jpg                   # Maynard K. Nay-osan's authentic portrait
-│   └── maynard-portfolio-medieval.zip # Complete downloadable ZIP package
-└── README.md                    # Documentation & GitHub Pages deployment instructions
+│   ├── profile-picture.png          # Updated formal portrait headshot
+│   ├── medieval-interior-dark.webp  # Dark Gothic library interior background
+│   ├── medieval-interior-light.webp # Sunlit Gothic scriptorium background
+│   ├── medieval-interior-dark.jpg   # High-res JPG fallback
+│   ├── medieval-interior-light.jpg  # High-res JPG fallback
+│   └── maynard-portfolio-medieval.zip # Complete downloadable portfolio archive
+└── README.md                    # Project overview and deployment instructions
 ```
 
 ---
 
-## 🚀 How to Update Your GitHub Repository (`sankura-san/sanraku-san`)
+## Updating Your GitHub Pages Repository
 
-1. **Download the ZIP Package**:
-   Download `assets/maynard-portfolio-medieval.zip` or click the download button on the Projects section.
-2. **Replace Existing Files**:
-   - Replace `index.html`
-   - Replace `css/style.css`
-   - Replace `js/smoke.js`
-   - Replace `js/main.js`
-   - Add/update `assets/` (keep `assets/portrait.jpg`)
-3. **Commit & Push to GitHub**:
-   ```bash
-   git add .
-   git commit -m "Update portfolio: 100dvh fixed-screen layout and interactive smoke cursor trail"
-   git push origin main
-   ```
-GitHub Pages will automatically serve the updated portfolio.
+1. Download `assets/maynard-portfolio-medieval.zip` or copy the updated root files (`index.html`, `about.html`, `css/style.css`, `js/main.js`, `js/smoke.js`, `assets/`, and `README.md`).
+2. When ready, replace the `Birthday` `"To be added"` placeholder in `index.html` under Player Info and insert real photograph/certificate images into the `#view-achievements` cards.
+3. Commit and push to your GitHub Pages branch (`main`).

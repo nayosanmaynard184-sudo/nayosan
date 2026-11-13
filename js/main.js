@@ -1,11 +1,12 @@
 /**
- * Maynard K. Nay-osan — Portfolio Main Interactivity & Section Routing
- * 
+ * Maynard Nay-osan — Portfolio Main Interactivity & 3-Page Router
+ *
  * Features:
- * - 5-Section Fixed-Screen Router (Home, About, Education, Skills, Projects)
- * - Zero page scroll; in-place animated section replacements
- * - Keyboard navigation (Left / Right Arrow keys)
- * - Footer pager & "Continue →" stepper
+ * - 3-Page Fixed-Screen Router (Homepage, Personal Info, Achievements)
+ * - Zero outer page scroll on desktop; smooth in-place section transitions
+ * - Previous / Continue directional buttons & 01 / 02 / 03 numbered page indicators
+ * - Keyboard navigation (Left / Right Arrow keys clamped to the 3 pages)
+ * - Personal Info section filter (All / More About Me / Skills / My Advancement)
  * - Theme management (Dark / Light with localStorage persistence)
  * - Ambient floating dust particles canvas (#dust-canvas)
  */
@@ -13,8 +14,12 @@
 (function () {
   'use strict';
 
-  // Section Configuration (Ordered)
-  const SECTIONS = ['home', 'about', 'education', 'skills', 'projects'];
+  // Exact Three-Page Configuration
+  const SECTIONS = ['home', 'personal-info', 'achievements'];
+  const SECTION_ALIASES = {
+    about: 'personal-info',
+    education: 'achievements',
+  };
   let currentSectionIndex = 0;
 
   // DOM Elements
@@ -22,13 +27,16 @@
   const navItems = document.querySelectorAll('.nav-item');
   const sectionViews = document.querySelectorAll('.section-view');
   const footerPageIndicator = document.getElementById('footer-page-indicator');
+  const btnPrev = document.getElementById('btn-prev');
   const btnContinue = document.getElementById('btn-continue');
+  const pageNumBtns = document.querySelectorAll('.page-num-btn');
   const themeToggleBtn = document.getElementById('theme-toggle');
 
   // ==========================================
-  // 1. Fixed-Screen Section Switcher
+  // 1. Fixed-Screen 3-Page Section Switcher
   // ==========================================
-  function showSection(sectionId, updateHash = true) {
+  function showSection(rawSectionId, updateHash = true) {
+    const sectionId = SECTION_ALIASES[rawSectionId] || rawSectionId;
     const index = SECTIONS.indexOf(sectionId);
     if (index === -1) return;
 
@@ -43,7 +51,7 @@
       }
     });
 
-    // Update Nav Item States
+    // Update Top Nav Item States
     navItems.forEach((item) => {
       const link = item.querySelector('a');
       if (link && link.getAttribute('data-target') === sectionId) {
@@ -53,18 +61,36 @@
       }
     });
 
-    // Update Footer Pager
+    // Update Numbered Page Buttons (01, 02, 03)
+    pageNumBtns.forEach((btn) => {
+      const target = btn.getAttribute('data-go-section');
+      const isActive = target === sectionId;
+      btn.classList.toggle('active', isActive);
+      if (isActive) {
+        btn.setAttribute('aria-current', 'page');
+      } else {
+        btn.removeAttribute('aria-current');
+      }
+    });
+
+    // Update Page Counter (01 / 03, 02 / 03, 03 / 03)
     if (footerPageIndicator) {
       const currentFormatted = String(index + 1).padStart(2, '0');
       const totalFormatted = String(SECTIONS.length).padStart(2, '0');
       footerPageIndicator.textContent = `${currentFormatted} / ${totalFormatted}`;
     }
 
-    // Update Stepper Label
+    // Disable Previous on Page 01, Disable Continue on Page 03
+    if (btnPrev) {
+      const isFirst = index === 0;
+      btnPrev.disabled = isFirst;
+      btnPrev.setAttribute('aria-disabled', String(isFirst));
+    }
+
     if (btnContinue) {
-      btnContinue.innerHTML = index === SECTIONS.length - 1
-        ? `<span>Back to Start</span> <span aria-hidden="true">↺</span>`
-        : `<span>Continue</span> <span aria-hidden="true">→</span>`;
+      const isLast = index === SECTIONS.length - 1;
+      btnContinue.disabled = isLast;
+      btnContinue.setAttribute('aria-disabled', String(isLast));
     }
 
     // Update Hash without jumping
@@ -74,13 +100,15 @@
   }
 
   function nextSection() {
-    const nextIndex = (currentSectionIndex + 1) % SECTIONS.length;
-    showSection(SECTIONS[nextIndex]);
+    if (currentSectionIndex < SECTIONS.length - 1) {
+      showSection(SECTIONS[currentSectionIndex + 1]);
+    }
   }
 
   function prevSection() {
-    const prevIndex = (currentSectionIndex - 1 + SECTIONS.length) % SECTIONS.length;
-    showSection(SECTIONS[prevIndex]);
+    if (currentSectionIndex > 0) {
+      showSection(SECTIONS[currentSectionIndex - 1]);
+    }
   }
 
   // Nav Links click listener
@@ -95,15 +123,18 @@
     }
   });
 
-  // Footer Continue button listener
+  // Footer Previous & Continue buttons
+  if (btnPrev) {
+    btnPrev.addEventListener('click', prevSection);
+  }
+
   if (btnContinue) {
     btnContinue.addEventListener('click', nextSection);
   }
 
-  // Keyboard Navigation: Left & Right arrow keys
+  // Keyboard Navigation: Left & Right arrow keys (bounded to the 3 pages)
   window.addEventListener('keydown', (e) => {
-    // Ignore if typing inside input or textarea
-    if (['INPUT', 'TEXTAREA'].includes(e.target.tagName)) return;
+    if (e.target && ['INPUT', 'TEXTAREA', 'SELECT'].includes(e.target.tagName)) return;
 
     if (e.key === 'ArrowRight') {
       e.preventDefault();
@@ -116,9 +147,10 @@
 
   // Initial Section from URL Hash
   function initRoute() {
-    const hash = window.location.hash.replace('#', '').toLowerCase();
-    if (SECTIONS.includes(hash)) {
-      showSection(hash, false);
+    const rawHash = window.location.hash.replace('#', '').toLowerCase();
+    const resolved = SECTION_ALIASES[rawHash] || rawHash;
+    if (SECTIONS.includes(resolved)) {
+      showSection(resolved, false);
     } else {
       showSection('home', false);
     }
@@ -126,12 +158,13 @@
 
   window.addEventListener('popstate', initRoute);
 
-  // Hook in-page navigation links (e.g. "Explore About", "View Projects")
+  // Hook in-page navigation links and numbered footer buttons
   document.addEventListener('click', (e) => {
     const btn = e.target.closest('[data-go-section]');
     if (btn) {
       e.preventDefault();
-      const sec = btn.getAttribute('data-go-section');
+      const rawSec = btn.getAttribute('data-go-section');
+      const sec = SECTION_ALIASES[rawSec] || rawSec;
       if (sec && SECTIONS.includes(sec)) {
         showSection(sec);
       }
@@ -139,79 +172,35 @@
   });
 
   // ==========================================
-  // About Page Sub-Tabs Handler
+  // Personal Info Section Filter (All / More About Me / Skills / My Advancement)
   // ==========================================
-  const abTabs = document.querySelectorAll('.ab-tab');
-  const abPanels = document.querySelectorAll('.ab-panel');
+  const piTabs = document.querySelectorAll('[data-pi-filter]');
+  const piBlocks = document.querySelectorAll('[data-pi-section]');
+  const piScrollStage = document.getElementById('pi-scroll-stage');
 
-  function selectAboutTab(tabName) {
-    abTabs.forEach((tab) => {
-      const match = tab.getAttribute('data-tab') === tabName;
+  function selectPersonalInfoFilter(filterName) {
+    piTabs.forEach((tab) => {
+      const match = tab.getAttribute('data-pi-filter') === filterName;
       tab.classList.toggle('active', match);
       tab.setAttribute('aria-selected', match ? 'true' : 'false');
     });
 
-    abPanels.forEach((panel) => {
-      if (panel.id === `ab-panel-${tabName}`) {
-        panel.classList.add('active');
-      } else {
-        panel.classList.remove('active');
-      }
+    piBlocks.forEach((block) => {
+      const section = block.getAttribute('data-pi-section');
+      const visible = filterName === 'all' || section === filterName;
+      block.classList.toggle('active', visible);
     });
+
+    if (piScrollStage) {
+      piScrollStage.scrollTop = 0;
+    }
   }
 
-  abTabs.forEach((tab) => {
+  piTabs.forEach((tab) => {
     tab.addEventListener('click', () => {
-      const target = tab.getAttribute('data-tab');
-      if (target) selectAboutTab(target);
+      const target = tab.getAttribute('data-pi-filter');
+      if (target) selectPersonalInfoFilter(target);
     });
-  });
-
-  // ==========================================
-  // Inventory Hotbar Slots & Lore Inspector
-  // ==========================================
-  const invSlots = document.querySelectorAll('.inv-slot');
-  const loreIcon = document.getElementById('lore-icon');
-  const loreType = document.getElementById('lore-type');
-  const loreTitle = document.getElementById('lore-title');
-  const loreDesc = document.getElementById('lore-desc');
-
-  function selectInventorySlot(slotButton) {
-    if (!slotButton) return;
-    invSlots.forEach(s => s.classList.remove('selected'));
-    slotButton.classList.add('selected');
-
-    const name = slotButton.getAttribute('data-name');
-    const type = slotButton.getAttribute('data-type');
-    const desc = slotButton.getAttribute('data-desc');
-    const slotNum = slotButton.getAttribute('data-slot');
-    const iconContainer = slotButton.querySelector('.inv-slot-icon');
-
-    if (loreIcon && iconContainer) {
-      loreIcon.innerHTML = iconContainer.innerHTML;
-    }
-    if (loreType) loreType.textContent = `${type} · Slot ${slotNum}`;
-    if (loreTitle) loreTitle.textContent = name;
-    if (loreDesc) loreDesc.textContent = desc;
-  }
-
-  invSlots.forEach((slot) => {
-    slot.addEventListener('click', () => selectInventorySlot(slot));
-  });
-
-  // Hotkeys 1-5 for inventory inspection when on About section
-  window.addEventListener('keydown', (e) => {
-    if (['INPUT', 'TEXTAREA'].includes(e.target.tagName)) return;
-    if (currentSectionIndex === 1) { // Index 1 is 'about'
-      const keyNum = parseInt(e.key, 10);
-      if (keyNum >= 1 && keyNum <= 5) {
-        selectAboutTab('inventory');
-        const targetSlot = document.querySelector(`.inv-slot[data-slot="${keyNum}"]`);
-        if (targetSlot) {
-          selectInventorySlot(targetSlot);
-        }
-      }
-    }
   });
 
   // ==========================================
@@ -245,7 +234,7 @@
       const isLight = theme === 'light';
       themeToggleBtn.setAttribute('title', isLight ? 'Switch to Dark Gothic theme' : 'Switch to Light Scriptorium theme');
       themeToggleBtn.setAttribute('aria-label', isLight ? 'Switch to Dark Gothic theme' : 'Switch to Light Scriptorium theme');
-      
+
       themeToggleBtn.innerHTML = isLight
         ? `<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
             <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
@@ -285,7 +274,7 @@
       const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       dustCanvas.width = window.innerWidth * dpr;
       dustCanvas.height = window.innerHeight * dpr;
-      dctx.scale(dpr, dpr);
+      dctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     }
 
     function initParticles() {
@@ -364,5 +353,4 @@
 
   // Initialize route on load
   initRoute();
-
 })();
