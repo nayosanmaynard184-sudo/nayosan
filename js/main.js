@@ -293,91 +293,138 @@
   }
 
   // ==========================================
-  // 3. Ambient Dust Motes Canvas
+  // 3. Ambient Dust Motes Canvas (Lightweight Continuous Backdrop)
   // ==========================================
   const dustCanvas = document.getElementById('dust-canvas');
   if (dustCanvas) {
-    const dctx = dustCanvas.getContext('2d');
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const dctx = dustCanvas.getContext('2d', { alpha: true });
+    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
     let particles = [];
-    const COUNT = 36;
+    let dustSprite = null;
+    let dustSpriteTheme = null;
+    let viewW = window.innerWidth;
+    let viewH = window.innerHeight;
+
+    function getTargetCount() {
+      return window.innerWidth < 768 ? 24 : 42;
+    }
+
+    function createDustSprite(isLight) {
+      const size = 32;
+      const off = document.createElement('canvas');
+      off.width = size;
+      off.height = size;
+      const g = off.getContext('2d');
+      const grad = g.createRadialGradient(16, 16, 0.5, 16, 16, 15);
+
+      if (isLight) {
+        grad.addColorStop(0, 'rgba(146, 108, 56, 0.95)');
+        grad.addColorStop(0.35, 'rgba(176, 134, 76, 0.45)');
+        grad.addColorStop(1, 'rgba(176, 134, 76, 0)');
+      } else {
+        grad.addColorStop(0, 'rgba(235, 200, 142, 0.95)');
+        grad.addColorStop(0.35, 'rgba(201, 164, 108, 0.42)');
+        grad.addColorStop(1, 'rgba(201, 164, 108, 0)');
+      }
+
+      g.fillStyle = grad;
+      g.fillRect(0, 0, size, size);
+      return off;
+    }
 
     function resizeDust() {
       const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
-      dustCanvas.width = window.innerWidth * dpr;
-      dustCanvas.height = window.innerHeight * dpr;
+      viewW = window.innerWidth;
+      viewH = window.innerHeight;
+      dustCanvas.width = Math.floor(viewW * dpr);
+      dustCanvas.height = Math.floor(viewH * dpr);
       dctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     }
 
     function initParticles() {
       particles = [];
-      const w = window.innerWidth;
-      const h = window.innerHeight;
-      for (let i = 0; i < COUNT; i++) {
+      const count = getTargetCount();
+      for (let i = 0; i < count; i++) {
         particles.push({
-          x: Math.random() * w,
-          y: Math.random() * h,
-          size: Math.random() * 1.5 + 0.6,
-          vx: (Math.random() - 0.45) * 0.2,
-          vy: -Math.random() * 0.3 - 0.08,
-          alpha: Math.random() * 0.45 + 0.15,
-          pulse: Math.random() * Math.PI * 2,
-          pulseSpeed: Math.random() * 0.02 + 0.01,
+          x: Math.random() * viewW,
+          y: Math.random() * viewH,
+          radius: Math.random() * 4.5 + 3.2,
+          vx: (Math.random() - 0.5) * 0.14,
+          vy: -(Math.random() * 0.24 + 0.08),
+          swayAmp: Math.random() * 0.22 + 0.08,
+          swayFreq: Math.random() * 0.6 + 0.35,
+          phase: Math.random() * Math.PI * 2,
+          alpha: Math.random() * 0.38 + 0.18,
+          pulseSpeed: Math.random() * 0.9 + 0.5,
         });
       }
     }
 
     resizeDust();
     initParticles();
+
+    let resizeTimer;
     window.addEventListener('resize', () => {
-      resizeDust();
-      initParticles();
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        resizeDust();
+        initParticles();
+      }, 150);
     }, { passive: true });
 
-    let rafId;
-    function renderDust() {
-      rafId = requestAnimationFrame(renderDust);
-      const w = window.innerWidth;
-      const h = window.innerHeight;
-      dctx.clearRect(0, 0, w, h);
+    let rafId = null;
+    let lastStamp = 0;
 
-      const isLight = html.getAttribute('data-theme') === 'light';
-      const r = isLight ? 140 : 215;
-      const g = isLight ? 110 : 185;
-      const b = isLight ? 75 : 135;
+    function renderDust(now) {
+      rafId = requestAnimationFrame(renderDust);
+      const dt = lastStamp ? Math.min((now - lastStamp) / 1000, 0.05) : 0.016;
+      lastStamp = now;
+
+      dctx.clearRect(0, 0, viewW, viewH);
+
+      const theme = html.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+      if (!dustSprite || dustSpriteTheme !== theme) {
+        dustSprite = createDustSprite(theme === 'light');
+        dustSpriteTheme = theme;
+      }
+
+      const t = now * 0.001;
+      const motionAllowed = !motionQuery.matches;
 
       for (let i = 0; i < particles.length; i++) {
         const p = particles[i];
 
-        if (!prefersReducedMotion) {
-          p.x += p.vx;
-          p.y += p.vy;
-          p.pulse += p.pulseSpeed;
+        if (motionAllowed) {
+          const stepScale = dt * 60;
+          p.x += (p.vx + Math.sin(t * p.swayFreq + p.phase) * p.swayAmp) * stepScale;
+          p.y += p.vy * stepScale;
 
-          if (p.y < -10) {
-            p.y = h + 10;
-            p.x = Math.random() * w;
+          if (p.y < -16) {
+            p.y = viewH + 16;
+            p.x = Math.random() * viewW;
           }
-          if (p.x < -10) p.x = w + 10;
-          if (p.x > w + 10) p.x = -10;
+          if (p.x < -16) p.x = viewW + 16;
+          if (p.x > viewW + 16) p.x = -16;
         }
 
-        const currentAlpha = p.alpha * (0.6 + 0.4 * Math.sin(p.pulse));
-        dctx.beginPath();
-        dctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        dctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${currentAlpha})`;
-        dctx.shadowColor = `rgba(${r}, ${g}, ${b}, 0.4)`;
-        dctx.shadowBlur = 3;
-        dctx.fill();
+        const twinkle = 0.62 + 0.38 * Math.sin(t * p.pulseSpeed + p.phase);
+        dctx.globalAlpha = p.alpha * twinkle;
+        const drawSize = p.radius * 2;
+        dctx.drawImage(dustSprite, p.x - p.radius, p.y - p.radius, drawSize, drawSize);
       }
+
+      dctx.globalAlpha = 1;
     }
 
     rafId = requestAnimationFrame(renderDust);
 
     document.addEventListener('visibilitychange', () => {
       if (document.hidden) {
-        cancelAnimationFrame(rafId);
-      } else {
+        if (rafId !== null) cancelAnimationFrame(rafId);
+        rafId = null;
+        lastStamp = 0;
+      } else if (rafId === null) {
+        lastStamp = 0;
         rafId = requestAnimationFrame(renderDust);
       }
     });

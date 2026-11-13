@@ -132,17 +132,84 @@ body {
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  background: 
-    radial-gradient(ellipse 55% 40% at 20% 70%, var(--gold-glow), transparent 70%),
-    radial-gradient(ellipse 45% 45% at 85% 30%, rgba(200, 160, 100, 0.08), transparent 60%);
-  opacity: 0.65;
-  animation: atmosphericBreathe 20s ease-in-out infinite alternate;
+  overflow: hidden;
 }
 
-@keyframes atmosphericBreathe {
-  0% { transform: scale(1) translateY(0); opacity: 0.55; }
-  50% { transform: scale(1.03) translateY(-8px); opacity: 0.75; }
-  100% { transform: scale(1.01) translateY(4px); opacity: 0.6; }
+.atmospheric-mist::before,
+.atmospheric-mist::after {
+  content: "";
+  position: absolute;
+  inset: -18%;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+/* Primary Warm Candlelight / Parchment Mist Drift */
+.atmospheric-mist::before {
+  background:
+    radial-gradient(ellipse 52% 40% at 22% 68%, rgba(201, 164, 108, 0.16), transparent 68%),
+    radial-gradient(ellipse 46% 42% at 78% 28%, rgba(220, 180, 118, 0.11), transparent 65%);
+  animation: mistDriftPrimary 32s ease-in-out infinite alternate;
+}
+
+/* Secondary Opposing Gothic Fog Veil */
+.atmospheric-mist::after {
+  background:
+    radial-gradient(ellipse 60% 38% at 72% 76%, rgba(138, 152, 178, 0.09), transparent 70%),
+    radial-gradient(ellipse 44% 36% at 28% 24%, rgba(201, 164, 108, 0.08), transparent 64%);
+  animation: mistDriftSecondary 42s ease-in-out infinite alternate;
+}
+
+[data-theme="light"] .atmospheric-mist::before {
+  background:
+    radial-gradient(ellipse 54% 42% at 22% 68%, rgba(196, 150, 82, 0.2), transparent 68%),
+    radial-gradient(ellipse 46% 44% at 80% 26%, rgba(255, 250, 236, 0.34), transparent 64%);
+}
+
+[data-theme="light"] .atmospheric-mist::after {
+  background:
+    radial-gradient(ellipse 58% 38% at 72% 76%, rgba(164, 134, 92, 0.14), transparent 70%),
+    radial-gradient(ellipse 44% 38% at 26% 24%, rgba(255, 252, 242, 0.26), transparent 64%);
+}
+
+/* Subtle Cathedral Window Ambient Light Shafts */
+.cathedral-beams {
+  position: fixed;
+  inset: -12%;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+  background:
+    linear-gradient(122deg, transparent 16%, rgba(212, 175, 114, 0.055) 26%, transparent 38%),
+    linear-gradient(122deg, transparent 48%, rgba(230, 197, 143, 0.045) 57%, transparent 69%),
+    linear-gradient(122deg, transparent 74%, rgba(201, 164, 108, 0.04) 82%, transparent 92%);
+  will-change: transform, opacity;
+  animation: cathedralBeamsSway 26s ease-in-out infinite alternate;
+}
+
+[data-theme="light"] .cathedral-beams {
+  background:
+    linear-gradient(122deg, transparent 16%, rgba(255, 249, 232, 0.32) 26%, transparent 38%),
+    linear-gradient(122deg, transparent 48%, rgba(201, 164, 108, 0.11) 57%, transparent 69%),
+    linear-gradient(122deg, transparent 74%, rgba(255, 249, 232, 0.24) 82%, transparent 92%);
+}
+
+@keyframes mistDriftPrimary {
+  0%   { transform: translate3d(-4%, 2%, 0) scale(1); opacity: 0.72; }
+  50%  { transform: translate3d(2%, -3%, 0) scale(1.05); opacity: 0.95; }
+  100% { transform: translate3d(5%, 2%, 0) scale(1.02); opacity: 0.78; }
+}
+
+@keyframes mistDriftSecondary {
+  0%   { transform: translate3d(4%, -2%, 0) scale(1.04); opacity: 0.65; }
+  50%  { transform: translate3d(-3%, 3%, 0) scale(1); opacity: 0.9; }
+  100% { transform: translate3d(-5%, -1%, 0) scale(1.06); opacity: 0.7; }
+}
+
+@keyframes cathedralBeamsSway {
+  0%   { transform: translate3d(-2.5%, -1.5%, 0) rotate(-0.6deg); opacity: 0.6; }
+  50%  { transform: translate3d(1.5%, 1%, 0) rotate(0.4deg); opacity: 0.92; }
+  100% { transform: translate3d(3%, -0.5%, 0) rotate(0.9deg); opacity: 0.68; }
 }
 
 /* Smoke Canvas Layer (Cursor Trail) */
@@ -2736,7 +2803,11 @@ body {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
-  .astrolabe-outer, .astrolabe-inner {
+  .astrolabe-outer,
+  .astrolabe-inner,
+  .atmospheric-mist::before,
+  .atmospheric-mist::after,
+  .cathedral-beams {
     animation: none !important;
   }
 }

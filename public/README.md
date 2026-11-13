@@ -2,7 +2,7 @@
 
 Personal portfolio for **Maynard Nay-osan**, aspiring software developer and first-year BS Computer Science student at the **University of the Cordilleras (Baguio City, Philippines)**.
 
-Built around an **Ancient Gothic Library / Sunlit Scriptorium** dual-theme aesthetic with a **fixed-screen desktop layout (`100dvh`)**, an interactive **Canvas 2D smoke cursor trail**, and **strictly three main pages**.
+Built around an **Ancient Gothic Library / Sunlit Scriptorium** dual-theme aesthetic with a **fixed-screen desktop layout (`100dvh`)**, dual ambient layers (**continuous drifting fog, cathedral light rays & floating dust motes** paired with the interactive **Canvas 2D smoke cursor trail**), and **strictly three main pages**.
 
 ---
 
