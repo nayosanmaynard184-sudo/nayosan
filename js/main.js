@@ -463,10 +463,10 @@
       caption: 'Maynard K. Nay-osan · Technical Education and Skills Development Authority (TESDA) · Issued: March 10, 2026 · Valid Until: March 9, 2031',
     },
     {
-      src: 'assets/achievements/uc-student-id-front.jpg',
-      alt: 'University of the Cordilleras front Student ID supporting current BS Computer Science enrollment',
+      src: 'assets/achievements/uc-crest-dark.png',
+      alt: 'University of the Cordilleras Official Seal (Est. 1946) on dark gothic backdrop',
       kicker: '05 — UNIVERSITY OF THE CORDILLERAS',
-      title: 'University of the Cordilleras Student ID (Front · Supporting Enrollment Evidence)',
+      title: 'University of the Cordilleras — Official University Seal',
       caption: 'Maynard K. Nay-osan · Bachelor of Science in Computer Science · First Year | AY 2026–2027 · Currently Enrolled',
     },
   ];

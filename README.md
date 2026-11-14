@@ -20,8 +20,8 @@ Built around an **Ancient Gothic Library / Sunlit Scriptorium** dual-theme aesth
      2. **02 — Junior High School**: Sadanga National Technical-Vocational & Skills Training High School (`Certificate of Junior High School Completion`, Grades 7–10, Department of Education, Philippines · May 29, 2024)
      3. **03 — Senior High School**: Sadanga National Technical-Vocational & Skills Training High School (`Senior High School Diploma`, Academic Track — HUMSS, Grades 11–12, Department of Education, Philippines · March 31, 2026)
      4. **04 — National Certificate II (NC II)**: TESDA Carpentry Qualification (Issued March 10, 2026 · Valid Until March 9, 2031), with an interactive **View Qualification Details** modal listing all **21 Units of Competency** (9 Basic, 4 Common, 8 Core)
-     5. **05 — University of the Cordilleras**: Bachelor of Science in Computer Science (`First Year | AY 2026–2027`, labeled **Currently Enrolled** with front Student ID supporting evidence)
-   - Includes a clickable certificate & Student ID **Lightbox Viewer** preserving the authentic uploaded document photographs cleanly via `object-fit: contain`.
+     5. **05 — University of the Cordilleras**: Bachelor of Science in Computer Science (`First Year | AY 2026–2027`, labeled **Currently Enrolled** with the University of the Cordilleras official seal on a dark gothic backdrop)
+   - Includes a clickable certificate, diploma & university seal **Lightbox Viewer** preserving each image cleanly via `object-fit: contain`.
 
 ---
 
@@ -45,12 +45,12 @@ Built around an **Ancient Gothic Library / Sunlit Scriptorium** dual-theme aesth
 │   └── main.js                  # 3-page router, modals, section filters, theme & dust canvas
 ├── assets/
 │   ├── profile-picture.png              # Formal portrait headshot
-│   ├── achievements/                    # Authoritative original educational certificates, diploma, and UC Student ID (front)
+│   ├── achievements/                    # Original educational certificates, diploma, and UC seal
 │   │   ├── elementary-school.jpg
 │   │   ├── junior-high-school.jpg
 │   │   ├── senior-high-school.jpg
 │   │   ├── tesda-nc2.jpg
-│   │   └── uc-student-id-front.jpg
+│   │   └── uc-crest-dark.png
 │   ├── medieval-interior-dark.webp      # Dark Gothic library interior background
 │   ├── medieval-interior-light.webp     # Sunlit Gothic scriptorium background
 │   ├── medieval-interior-dark.jpg       # High-res JPG fallback
