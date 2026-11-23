@@ -42,12 +42,13 @@
         </span>
       </a>
 
-      <!-- Zone 2: Navigation Links (Strictly 3 Pages) -->
+      <!-- Zone 2: Navigation Links (4 Pages) -->
       <nav aria-label="Main Navigation">
         <ul class="nav-links">
           <li class="nav-item active"><a href="#home" data-target="home"><span class="nav-num">01</span> — Homepage</a></li>
           <li class="nav-item"><a href="#personal-info" data-target="personal-info"><span class="nav-num">02</span> — Personal Info</a></li>
           <li class="nav-item"><a href="#achievements" data-target="achievements"><span class="nav-num">03</span> — Achievements</a></li>
+          <li class="nav-item"><a href="#family-friends" data-target="family-friends"><span class="nav-num">04</span> — Family and Friends</a></li>
         </ul>
       </nav>
 
@@ -792,6 +793,194 @@
           </div>
         </section>
 
+        <!-- ============================================================
+             PAGE 04: FAMILY AND FRIENDS
+             ============================================================ -->
+        <section class="section-view" id="view-family-friends" aria-label="Family and Friends Section">
+          <div class="ff-container">
+            <!-- Compact Top Header -->
+            <header class="ff-head">
+              <div class="ff-head-left">
+                <div class="kicker archive-kicker">
+                  <span class="archive-ornament" aria-hidden="true">✦</span>
+                  <span>04 — KINSHIP &amp; COMPANIONSHIP</span>
+                  <span class="kicker-line"></span>
+                  <span>PERSONAL GALLERY</span>
+                </div>
+                <h2 class="archive-title">Family and Friends</h2>
+              </div>
+              <p class="ff-head-intro">
+                The people who shaped my roots in Sadanga and the companions who shared the journey along the way.
+              </p>
+            </header>
+
+            <!-- Coordinated Split Composition: Family (Left) | Friends Slideshow (Right) -->
+            <div class="ff-split-grid">
+
+              <!-- LEFT: FAMILY SECTION (Father, Mother, Siblings) -->
+              <section class="ff-section-col ff-family-col" aria-label="Family Photographs">
+                <div class="ff-section-bar">
+                  <span class="ff-section-kicker"><span class="ff-diamond" aria-hidden="true">✦</span> FAMILY</span>
+                  <span class="ff-section-rule" aria-hidden="true"></span>
+                  <span class="ff-section-meta">PARENTS &amp; SIBLINGS</span>
+                </div>
+
+                <div class="ff-family-grid">
+                  <!-- Top Row: Father & Mother -->
+                  <div class="ff-parents-row">
+                    <!-- Father: Morris Nay-osan -->
+                    <article class="ff-card ff-card--parent ff-card--dad">
+                      <div class="ff-photo-mat">
+                        <img
+                          src="assets/family-friends/pic%20of%20dad.jpg"
+                          alt="Maynard shaking hands with his father Morris Nay-osan"
+                          loading="lazy"
+                        >
+                      </div>
+                      <div class="ff-card-body">
+                        <span class="ff-role-tag">Father</span>
+                        <h3 class="ff-person-name">Morris Nay-osan</h3>
+                        <p class="ff-origin">Poblacion, Sadanga</p>
+                        <p class="ff-desc">
+                          A person whose guidance and presence have been an important part of my life.
+                        </p>
+                      </div>
+                    </article>
+
+                    <!-- Mother: Conception Kis-ing -->
+                    <article class="ff-card ff-card--parent ff-card--mom">
+                      <div class="ff-photo-mat ff-photo-mat--portrait">
+                        <img
+                          src="assets/family-friends/pic%20of%20mom.png"
+                          alt="Conception Kis-ing standing alongside Maynard"
+                          loading="lazy"
+                        >
+                      </div>
+                      <div class="ff-card-body">
+                        <span class="ff-role-tag">Mother</span>
+                        <h3 class="ff-person-name">Conception Kis-ing</h3>
+                        <p class="ff-origin">Betwagan, Sadanga</p>
+                        <p class="ff-desc">
+                          A constant source of care, support, and guidance throughout my life.
+                        </p>
+                      </div>
+                    </article>
+                  </div>
+
+                  <!-- Bottom Row: Siblings (Special Emphasis) -->
+                  <article class="ff-card ff-card--siblings">
+                    <div class="ff-photo-mat ff-photo-mat--siblings">
+                      <img
+                        src="assets/family-friends/sibling%20pic(1).jpg"
+                        alt="Maynard together with his siblings on a mountain suspension bridge"
+                        loading="lazy"
+                      >
+                    </div>
+                    <div class="ff-card-body ff-card-body--siblings">
+                      <div class="ff-siblings-top">
+                        <span class="ff-role-tag ff-role-tag--gold">Siblings</span>
+                        <span class="ff-keepsake-note">All Together</span>
+                      </div>
+                      <h3 class="ff-person-name ff-person-name--featured">Together as One</h3>
+                      <div class="ff-siblings-divider" aria-hidden="true">
+                        <span class="rule-wing"></span>
+                        <span class="rule-diamond">✦</span>
+                        <span class="rule-wing"></span>
+                      </div>
+                      <p class="ff-desc ff-desc--featured">
+                        A rare moment when all of us were present in one picture. A memory worth keeping.
+                      </p>
+                    </div>
+                  </article>
+                </div>
+              </section>
+
+              <!-- RIGHT: FRIENDS SECTION (Automatic Slideshow) -->
+              <section class="ff-section-col ff-friends-col" aria-label="Friends Slideshow Gallery">
+                <div class="ff-section-bar">
+                  <span class="ff-section-kicker"><span class="ff-diamond" aria-hidden="true">✦</span> FRIENDS</span>
+                  <span class="ff-section-rule" aria-hidden="true"></span>
+                  <span class="ff-section-meta">AUTOMATIC GALLERY</span>
+                </div>
+
+                <div
+                  class="ff-slideshow-card"
+                  id="friends-slideshow"
+                  role="region"
+                  aria-roledescription="carousel"
+                  aria-label="Friends photo gallery slideshow"
+                >
+                  <div class="ff-slideshow-top">
+                    <span class="ff-slide-counter" id="ff-slide-counter">01 / 04</span>
+                    <span class="ff-playback-status" id="ff-playback-status" aria-live="off">AUTO · 5S</span>
+                  </div>
+
+                  <div class="ff-slide-viewport">
+                    <figure class="ff-slide is-active" data-slide-index="0" aria-hidden="false">
+                      <img
+                        src="assets/family-friends/friend%20pic%20(1).jpg"
+                        alt="Group photo with classmates in hard hats and safety vests inside a training room"
+                      >
+                    </figure>
+                    <figure class="ff-slide" data-slide-index="1" aria-hidden="true">
+                      <img
+                        src="assets/family-friends/friend%20pic%20(2).jpg"
+                        alt="Group photo with graduating classmates and teachers on stage"
+                      >
+                    </figure>
+                    <figure class="ff-slide" data-slide-index="2" aria-hidden="true">
+                      <img
+                        src="assets/family-friends/friend%20pic%20(3).jpg"
+                        alt="Group photo with friends overlooking mountain scenery"
+                      >
+                    </figure>
+                    <figure class="ff-slide" data-slide-index="3" aria-hidden="true">
+                      <img
+                        src="assets/family-friends/friend%20pic%20(4).jpg"
+                        alt="Group photo with friends gathered in front of a school stage"
+                      >
+                    </figure>
+
+                    <button
+                      type="button"
+                      class="ff-slide-nav ff-slide-prev"
+                      id="ff-slide-prev"
+                      aria-label="Previous friend photograph"
+                    >
+                      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+                    </button>
+
+                    <button
+                      type="button"
+                      class="ff-slide-nav ff-slide-next"
+                      id="ff-slide-next"
+                      aria-label="Next friend photograph"
+                    >
+                      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+                    </button>
+                  </div>
+
+                  <div class="ff-slide-footer">
+                    <div class="ff-slide-caption" aria-live="polite">
+                      <span class="ff-slide-label" id="ff-slide-label">Picture 1</span>
+                      <h3 class="ff-slide-title" id="ff-slide-title">Good Company</h3>
+                      <p class="ff-slide-desc" id="ff-slide-desc">The people who make ordinary moments memorable.</p>
+                    </div>
+
+                    <div class="ff-slide-indicators" role="tablist" aria-label="Select friend photograph">
+                      <button type="button" class="ff-indicator-btn is-active" data-slide-to="0" role="tab" aria-selected="true" aria-label="Picture 1: Good Company"></button>
+                      <button type="button" class="ff-indicator-btn" data-slide-to="1" role="tab" aria-selected="false" aria-label="Picture 2: Shared Memories"></button>
+                      <button type="button" class="ff-indicator-btn" data-slide-to="2" role="tab" aria-selected="false" aria-label="Picture 3: Along the Way"></button>
+                      <button type="button" class="ff-indicator-btn" data-slide-to="3" role="tab" aria-selected="false" aria-label="Picture 4: The Good Times"></button>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+            </div>
+          </div>
+        </section>
+
       </div>
     </main>
 
@@ -810,9 +999,10 @@
           <button class="page-num-btn active" type="button" data-go-section="home" aria-label="Page 01: Homepage" aria-current="page" title="01 — Homepage">01</button>
           <button class="page-num-btn" type="button" data-go-section="personal-info" aria-label="Page 02: Personal Info" title="02 — Personal Info">02</button>
           <button class="page-num-btn" type="button" data-go-section="achievements" aria-label="Page 03: Achievements" title="03 — Achievements">03</button>
+          <button class="page-num-btn" type="button" data-go-section="family-friends" aria-label="Page 04: Family and Friends" title="04 — Family and Friends">04</button>
         </div>
 
-        <span id="footer-page-indicator" class="page-counter">01 / 03</span>
+        <span id="footer-page-indicator" class="page-counter">01 / 04</span>
 
         <button id="btn-continue" class="footer-btn-nav" type="button" aria-label="Continue to next page">
           <span>Continue</span>

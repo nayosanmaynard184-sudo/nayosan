@@ -14,13 +14,16 @@
 (function () {
   'use strict';
 
-  // Exact Three-Page Configuration
-  const SECTIONS = ['home', 'personal-info', 'achievements'];
+  // Exact Four-Page Configuration
+  const SECTIONS = ['home', 'personal-info', 'achievements', 'family-friends'];
   const SECTION_ALIASES = {
     about: 'personal-info',
     education: 'achievements',
+    family: 'family-friends',
+    friends: 'family-friends',
   };
   let currentSectionIndex = 0;
+  let syncFriendsSlideshowPlayback = null;
 
   // DOM Elements
   const html = document.documentElement;
@@ -97,6 +100,10 @@
     if (updateHash && window.location.hash !== `#${sectionId}`) {
       history.pushState(null, '', `#${sectionId}`);
     }
+
+    if (typeof syncFriendsSlideshowPlayback === 'function') {
+      syncFriendsSlideshowPlayback();
+    }
   }
 
   function nextSection() {
@@ -168,6 +175,18 @@
         closeNc2Modal();
       }
       return;
+    }
+
+    if (e.target && e.target.closest && e.target.closest('#friends-slideshow')) {
+      if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        stepFriendsSlide(1);
+        return;
+      } else if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        stepFriendsSlide(-1);
+        return;
+      }
     }
 
     if (e.key === 'ArrowRight') {
@@ -623,6 +642,203 @@
     });
   }
 
+  // ==========================================
+  // 5. Page 04: Friends Automatic Slideshow (5s Loop)
+  // ==========================================
+  const FRIENDS_SLIDES = [
+    {
+      label: 'Picture 1',
+      title: 'Good Company',
+      desc: 'The people who make ordinary moments memorable.',
+    },
+    {
+      label: 'Picture 2',
+      title: 'Shared Memories',
+      desc: 'Different moments, same unforgettable friendship.',
+    },
+    {
+      label: 'Picture 3',
+      title: 'Along the Way',
+      desc: "Grateful for the people I've met along the journey.",
+    },
+    {
+      label: 'Picture 4',
+      title: 'The Good Times',
+      desc: 'Simple moments and memories worth keeping.',
+    },
+  ];
+
+  const familyViewEl = document.getElementById('view-family-friends');
+  const slideshowEl = document.getElementById('friends-slideshow');
+  const slideFigures = slideshowEl ? slideshowEl.querySelectorAll('.ff-slide') : [];
+  const slideIndicators = slideshowEl ? slideshowEl.querySelectorAll('.ff-indicator-btn') : [];
+  const slidePrevBtn = document.getElementById('ff-slide-prev');
+  const slideNextBtn = document.getElementById('ff-slide-next');
+  const slideCounterEl = document.getElementById('ff-slide-counter');
+  const playbackStatusEl = document.getElementById('ff-playback-status');
+  const slideLabelEl = document.getElementById('ff-slide-label');
+  const slideTitleEl = document.getElementById('ff-slide-title');
+  const slideDescEl = document.getElementById('ff-slide-desc');
+
+  const SLIDE_INTERVAL_MS = 5000;
+  let currentFriendSlide = 0;
+  let slideTimerId = null;
+  let isSlideshowHovered = false;
+  let isSlideshowFocused = false;
+  let lastInputWasPointer = false;
+
+  document.addEventListener('pointerdown', () => {
+    lastInputWasPointer = true;
+  }, true);
+
+  document.addEventListener('keydown', () => {
+    lastInputWasPointer = false;
+  }, true);
+
+  function renderFriendsSlide(index) {
+    if (!slideshowEl || !slideFigures.length) return;
+    const total = FRIENDS_SLIDES.length;
+    const safeIdx = ((index % total) + total) % total;
+    currentFriendSlide = safeIdx;
+    const meta = FRIENDS_SLIDES[safeIdx];
+
+    slideFigures.forEach((fig, idx) => {
+      const active = idx === safeIdx;
+      fig.classList.toggle('is-active', active);
+      fig.setAttribute('aria-hidden', active ? 'false' : 'true');
+    });
+
+    slideIndicators.forEach((btn, idx) => {
+      const active = idx === safeIdx;
+      btn.classList.toggle('is-active', active);
+      btn.setAttribute('aria-selected', active ? 'true' : 'false');
+    });
+
+    if (slideCounterEl) {
+      slideCounterEl.textContent = `${String(safeIdx + 1).padStart(2, '0')} / ${String(total).padStart(2, '0')}`;
+    }
+    if (slideLabelEl) slideLabelEl.textContent = meta.label;
+    if (slideTitleEl) slideTitleEl.textContent = meta.title;
+    if (slideDescEl) slideDescEl.textContent = meta.desc;
+  }
+
+  function stopFriendsSlideshowTimer() {
+    if (slideTimerId !== null) {
+      window.clearInterval(slideTimerId);
+      slideTimerId = null;
+    }
+  }
+
+  function isFamilyPageActive() {
+    if (familyViewEl) {
+      return familyViewEl.classList.contains('active');
+    }
+    return SECTIONS[currentSectionIndex] === 'family-friends';
+  }
+
+  function updateSlideshowPlaybackState() {
+    if (!slideshowEl) return;
+
+    const isPageActive = isFamilyPageActive();
+    if (!isPageActive) {
+      isSlideshowHovered = false;
+      isSlideshowFocused = false;
+      stopFriendsSlideshowTimer();
+      return;
+    }
+
+    const shouldPause = document.hidden || isSlideshowHovered || isSlideshowFocused;
+
+    stopFriendsSlideshowTimer();
+
+    if (!shouldPause) {
+      slideTimerId = window.setInterval(() => {
+        renderFriendsSlide(currentFriendSlide + 1);
+      }, SLIDE_INTERVAL_MS);
+    }
+
+    if (playbackStatusEl) {
+      playbackStatusEl.textContent = shouldPause ? 'PAUSED' : 'AUTO · 5S';
+    }
+  }
+
+  function goToFriendsSlide(index, resetTimer = true) {
+    renderFriendsSlide(index);
+    if (resetTimer) {
+      updateSlideshowPlaybackState();
+    }
+  }
+
+  function stepFriendsSlide(delta) {
+    goToFriendsSlide(currentFriendSlide + delta, true);
+  }
+
+  syncFriendsSlideshowPlayback = updateSlideshowPlaybackState;
+
+  if (slideshowEl) {
+    if (slidePrevBtn) {
+      slidePrevBtn.addEventListener('click', () => stepFriendsSlide(-1));
+    }
+    if (slideNextBtn) {
+      slideNextBtn.addEventListener('click', () => stepFriendsSlide(1));
+    }
+
+    slideIndicators.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const idx = parseInt(btn.getAttribute('data-slide-to') || '0', 10);
+        if (!Number.isNaN(idx)) {
+          goToFriendsSlide(idx, true);
+        }
+      });
+    });
+
+    slideshowEl.addEventListener('pointerenter', (e) => {
+      if (e.pointerType !== 'touch') {
+        isSlideshowHovered = true;
+        updateSlideshowPlaybackState();
+      }
+    });
+
+    slideshowEl.addEventListener('pointerleave', (e) => {
+      if (e.pointerType !== 'touch') {
+        isSlideshowHovered = false;
+        updateSlideshowPlaybackState();
+      }
+    });
+
+    slideshowEl.addEventListener('focusin', (e) => {
+      const target = e.target;
+      const isKeyboardFocus =
+        !lastInputWasPointer ||
+        (target && typeof target.matches === 'function' && target.matches(':focus-visible'));
+      if (isKeyboardFocus) {
+        isSlideshowFocused = true;
+        updateSlideshowPlaybackState();
+      }
+    });
+
+    slideshowEl.addEventListener('focusout', (e) => {
+      if (!slideshowEl.contains(e.relatedTarget)) {
+        isSlideshowFocused = false;
+        updateSlideshowPlaybackState();
+      }
+    });
+
+    if (familyViewEl && typeof MutationObserver === 'function') {
+      const viewObserver = new MutationObserver(() => {
+        updateSlideshowPlaybackState();
+      });
+      viewObserver.observe(familyViewEl, { attributes: true, attributeFilter: ['class'] });
+    }
+
+    document.addEventListener('visibilitychange', updateSlideshowPlaybackState);
+    window.addEventListener('hashchange', updateSlideshowPlaybackState);
+    window.addEventListener('pagehide', stopFriendsSlideshowTimer);
+
+    renderFriendsSlide(0);
+  }
+
   // Initialize route on load
   initRoute();
+  updateSlideshowPlaybackState();
 })();
