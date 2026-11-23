@@ -71,21 +71,74 @@
              ============================================================ -->
         <section class="section-view active" id="view-home" aria-label="Homepage Section">
           <div class="home-grid">
-            <!-- Left: Portrait & Celestial Astrolabe -->
+            <!-- Left: Full-Body Portrait & Celestial Astrolabe -->
             <div class="portrait-stage">
-              <div class="astrolabe-ring astrolabe-outer">
-                <span class="astrolabe-star star-top">✦</span>
-                <span class="astrolabe-star star-right">✦</span>
-                <span class="astrolabe-star star-bottom">✦</span>
-                <span class="astrolabe-star star-left">✦</span>
+              <div class="astrolabe-backdrop" aria-hidden="true">
+                <div class="astrolabe-ring astrolabe-outer">
+                  <span class="astrolabe-star star-top">✦</span>
+                  <span class="astrolabe-star star-right">✦</span>
+                  <span class="astrolabe-star star-bottom">✦</span>
+                  <span class="astrolabe-star star-left">✦</span>
+                </div>
+                <div class="astrolabe-ring astrolabe-mid"></div>
+                <div class="astrolabe-ring astrolabe-inner"></div>
               </div>
-              <div class="astrolabe-ring astrolabe-mid"></div>
-              <div class="astrolabe-ring astrolabe-inner"></div>
 
-              <figure class="portrait-frame">
-                <img class="portrait-img" src="assets/profile-picture.png" alt="Professional headshot portrait of Maynard Nay-osan in a dark suit jacket and white collared shirt">
-                <div class="portrait-vignette" aria-hidden="true"></div>
-              </figure>
+              <!-- SVG ClipPath Definition for Narrower Gothic Pointed Arch + Notched Base (normalized 330x630) -->
+              <svg class="portrait-arch-defs" width="0" height="0" aria-hidden="true" focusable="false">
+                <defs>
+                  <clipPath id="gothic-arch-clip" clipPathUnits="objectBoundingBox">
+                    <path d="M 0.0303 0.27619 C 0.0303 0.14603, 0.24242 0.05079, 0.5 0.0127 C 0.75758 0.05079, 0.9697 0.14603, 0.9697 0.27619 L 0.9697 0.91429 Q 0.93333 0.91905, 0.92121 0.93968 C 0.83636 0.96984, 0.66061 0.98254, 0.5 0.99206 C 0.33939 0.98254, 0.16364 0.96984, 0.07879 0.93968 Q 0.06667 0.91905, 0.0303 0.91429 Z"/>
+                  </clipPath>
+                </defs>
+              </svg>
+
+              <button
+                type="button"
+                id="open-portrait-lightbox"
+                class="portrait-arch-trigger"
+                aria-label="Enlarge full-body portrait of Maynard Nay-osan"
+                aria-haspopup="dialog"
+              >
+                <span class="portrait-arch-shell">
+                  <figure class="portrait-frame">
+                    <img class="portrait-img" src="assets/full-body-portrait.png" alt="Full-body formal portrait of Maynard Nay-osan standing in a dark tailored suit, white collared shirt, dark tie, and black dress shoes">
+                    <div class="portrait-vignette" aria-hidden="true"></div>
+                  </figure>
+
+                  <!-- Exact Gothic Double Gold Border, Notched Pointed Base & Ornamental Flourishes -->
+                  <svg class="portrait-arch-overlay" viewBox="0 0 330 630" fill="none" aria-hidden="true">
+                    <!-- Outer Gold Lancet Arch & Notched Pointed Base -->
+                    <path
+                      class="arch-border-outer"
+                      d="M 10 174 C 10 92, 80 32, 165 8 C 250 32, 320 92, 320 174 L 320 576 Q 308 579, 304 592 C 276 611, 218 619, 165 625 C 112 619, 54 611, 26 592 Q 22 579, 10 576 Z"
+                    />
+                    <!-- Inner Gold Double Line -->
+                    <path
+                      class="arch-border-inner"
+                      d="M 16 176 C 16 96, 84 38, 165 15 C 246 38, 314 96, 314 176 L 314 572 Q 303 576, 299 588 C 272 606, 216 613, 165 619 C 114 613, 58 606, 31 588 Q 27 576, 16 572 Z"
+                    />
+                    <!-- Arch Springline Flourishes (Left & Right) -->
+                    <path class="arch-flourish" d="M 4 174 H 22 M 10 164 L 15 174 L 10 184" />
+                    <path class="arch-flourish" d="M 308 174 H 326 M 320 164 L 315 174 L 320 184" />
+                    <!-- Bottom Notched Gothic Corner Flourishes & Apex Accent -->
+                    <path class="arch-flourish" d="M 10 554 V 576 Q 22 579, 26 592 C 40 601, 56 608, 72 612 M 10 576 L 19 573 M 26 592 L 31 588" />
+                    <path class="arch-flourish" d="M 320 554 V 576 Q 308 579, 304 592 C 290 601, 274 608, 258 612 M 320 576 L 311 573 M 304 592 L 299 588" />
+                    <path class="arch-flourish" d="M 151 621 L 165 625 L 179 621" />
+                    <!-- Left & Right Mid-Frame ✦ Ornaments -->
+                    <path
+                      class="arch-side-ornament"
+                      d="M 10 367 L 12.2 372 L 17 374 L 12.2 376 L 10 381 L 7.8 376 L 3 374 L 7.8 372 Z"
+                    />
+                    <path
+                      class="arch-side-ornament"
+                      d="M 320 367 L 322.2 372 L 327 374 L 322.2 376 L 320 381 L 317.8 376 L 313 374 L 317.8 372 Z"
+                    />
+                  </svg>
+
+                  <span class="portrait-zoom-hint" aria-hidden="true">View Full Portrait</span>
+                </span>
+              </button>
             </div>
 
             <!-- Right: Introduction & Key Details -->
@@ -873,6 +926,28 @@
             </section>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Homepage Full-Body Portrait Lightbox Viewer -->
+  <div class="archive-modal-overlay portrait-lightbox-overlay" id="portrait-lightbox" role="dialog" aria-modal="true" aria-labelledby="portrait-lightbox-title" aria-hidden="true">
+    <div class="portrait-lightbox-panel">
+      <div class="archive-modal-header">
+        <div class="archive-modal-heading">
+          <span class="archive-modal-kicker">01 — FULL-BODY PORTRAIT</span>
+          <h3 id="portrait-lightbox-title">Maynard Nay-osan</h3>
+        </div>
+        <button type="button" class="archive-modal-close" id="portrait-lightbox-close" aria-label="Close full portrait viewer">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+
+      <div class="portrait-lightbox-stage">
+        <img
+          src="assets/full-body-portrait.png"
+          alt="Full uncropped formal portrait of Maynard Nay-osan standing in a dark tailored suit, white shirt, dark tie, and black dress shoes"
+        >
       </div>
     </div>
   </div>

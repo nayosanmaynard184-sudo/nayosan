@@ -9,8 +9,8 @@ Built around an **Ancient Gothic Library / Sunlit Scriptorium** dual-theme aesth
 ## Three-Page Structure
 
 1. **01 — Homepage (`#home`)**:
-   - Features Maynard's updated headshot portrait (`assets/profile-picture.png`) framed inside the animated celestial astrolabe.
-   - Displays core identity, academic program (BS Computer Science · 1st Year, University of the Cordilleras), location (Sadanga, Mountain Province / Baguio City, PH), introductory summary, active learning focus (**Java** & **Python**), and quick actions.
+   - Features Maynard's full-body 2:3 formal portrait (`assets/full-body-portrait.png`) aligned toward the bottom of a 42% left stage backed by the animated celestial astrolabe.
+   - Displays core identity, academic program (BS Computer Science · 1st Year, University of the Cordilleras), location (Sadanga, Mountain Province / Baguio City, PH), introductory summary, active learning focus (**Java** & **Python**), and quick actions in the 58% right column.
 2. **02 — Personal Info (`#personal-info`)**:
    - **Player Info (Left Column)**: Full Name, Gender (`Male`), Birthday (`May 20, 2008`), Age (`18`), Location (`Sadanga, Mountain Province`), Status (`Single`), Phone (`09272977135`), University (`University of the Cordilleras`), Program (`BS Computer Science`), Year Level (`First Year`), and Class / Role (`Aspiring Software Developer`).
    - **Section Selector (3 Sections)**: Independently switch between **More About Me**, **Skills & Knowledge** (5 compact cards in a balanced 3-column, 2-row desktop grid), and **My Advancement** (4 milestones).
@@ -44,7 +44,8 @@ Built around an **Ancient Gothic Library / Sunlit Scriptorium** dual-theme aesth
 │   ├── smoke.js                 # Interactive Canvas 2D smoke cursor trail
 │   └── main.js                  # 3-page router, modals, section filters, theme & dust canvas
 ├── assets/
-│   ├── profile-picture.png              # Formal portrait headshot
+│   ├── full-body-portrait.png           # Full-body 2:3 Homepage formal portrait
+│   ├── profile-picture.png              # Formal headshot avatar for Page 2 Personal Info
 │   ├── achievements/                    # Original educational certificates, diploma, and UC seal
 │   │   ├── elementary-school.jpg
 │   │   ├── junior-high-school.jpg

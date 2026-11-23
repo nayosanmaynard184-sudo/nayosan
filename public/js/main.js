@@ -136,8 +136,17 @@
   window.addEventListener('keydown', (e) => {
     if (e.target && ['INPUT', 'TEXTAREA', 'SELECT'].includes(e.target.tagName)) return;
 
+    const portraitLightboxEl = document.getElementById('portrait-lightbox');
     const lightboxEl = document.getElementById('achievement-lightbox');
     const nc2El = document.getElementById('nc2-modal');
+
+    if (portraitLightboxEl && portraitLightboxEl.classList.contains('open')) {
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        closePortraitLightbox();
+      }
+      return;
+    }
 
     if (lightboxEl && lightboxEl.classList.contains('open')) {
       if (e.key === 'Escape') {
@@ -569,6 +578,48 @@
   if (nc2ModalOverlay) {
     nc2ModalOverlay.addEventListener('click', (e) => {
       if (e.target === nc2ModalOverlay) closeNc2Modal();
+    });
+  }
+
+  // Homepage Full-Body Portrait Lightbox
+  const portraitLightboxOverlay = document.getElementById('portrait-lightbox');
+  const openPortraitLightboxBtn = document.getElementById('open-portrait-lightbox');
+  const closePortraitLightboxBtn = document.getElementById('portrait-lightbox-close');
+
+  function openPortraitLightbox() {
+    if (!portraitLightboxOverlay) return;
+    lastFocusedBeforeModal = document.activeElement;
+    document.documentElement.classList.add('modal-open');
+    document.body.classList.add('modal-open');
+    portraitLightboxOverlay.classList.add('open');
+    portraitLightboxOverlay.setAttribute('aria-hidden', 'false');
+    if (closePortraitLightboxBtn) closePortraitLightboxBtn.focus();
+  }
+
+  function closePortraitLightbox() {
+    if (!portraitLightboxOverlay) return;
+    portraitLightboxOverlay.classList.remove('open');
+    portraitLightboxOverlay.setAttribute('aria-hidden', 'true');
+    document.documentElement.classList.remove('modal-open');
+    document.body.classList.remove('modal-open');
+    const returnTarget =
+      lastFocusedBeforeModal && typeof lastFocusedBeforeModal.focus === 'function'
+        ? lastFocusedBeforeModal
+        : openPortraitLightboxBtn;
+    if (returnTarget && typeof returnTarget.focus === 'function') {
+      returnTarget.focus();
+    }
+  }
+
+  if (openPortraitLightboxBtn) {
+    openPortraitLightboxBtn.addEventListener('click', openPortraitLightbox);
+  }
+  if (closePortraitLightboxBtn) {
+    closePortraitLightboxBtn.addEventListener('click', closePortraitLightbox);
+  }
+  if (portraitLightboxOverlay) {
+    portraitLightboxOverlay.addEventListener('click', (e) => {
+      if (e.target === portraitLightboxOverlay) closePortraitLightbox();
     });
   }
 
