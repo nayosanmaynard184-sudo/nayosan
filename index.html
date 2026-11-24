@@ -797,7 +797,84 @@
              PAGE 04: FAMILY AND FRIENDS
              ============================================================ -->
         <section class="section-view" id="view-family-friends" aria-label="Family and Friends Section">
-          <div class="ff-container">
+          <!-- Temporary Passcode Gate (Displayed Until Unlocked in Session) -->
+          <div class="ff-gate-stage" id="ff-gate">
+            <div class="ff-gate-card" id="ff-gate-card">
+              <div class="ff-gate-crest" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="4" y="11" width="16" height="10" rx="2"/>
+                  <path d="M8 11V7a4 4 0 0 1 8 0v4"/>
+                  <circle cx="12" cy="16" r="1.2" fill="currentColor"/>
+                </svg>
+              </div>
+
+              <div class="ff-gate-kicker">
+                <span class="ff-diamond" aria-hidden="true">✦</span>
+                <span>04 — FAMILY AND FRIENDS</span>
+                <span class="ff-diamond" aria-hidden="true">✦</span>
+              </div>
+
+              <h2 class="ff-gate-title">Private Memories</h2>
+              <p class="ff-gate-desc">
+                This page contains personal memories. Please enter the passcode to continue.
+              </p>
+
+              <div class="ff-gate-divider" aria-hidden="true">
+                <span class="rule-wing"></span>
+                <span class="rule-diamond">✦</span>
+                <span class="rule-wing"></span>
+              </div>
+
+              <form class="ff-gate-form" id="ff-gate-form" novalidate>
+                <label class="ff-gate-label" for="ff-passcode-input">Passcode</label>
+                <div class="ff-gate-input-wrap">
+                  <input
+                    id="ff-passcode-input"
+                    class="ff-gate-input"
+                    type="password"
+                    name="passcode"
+                    autocomplete="off"
+                    spellcheck="false"
+                    placeholder="Enter passcode"
+                    aria-describedby="ff-gate-error"
+                    required
+                  >
+                  <button
+                    type="button"
+                    id="ff-toggle-visibility"
+                    class="ff-gate-eye-btn"
+                    aria-label="Show passcode"
+                    aria-pressed="false"
+                    title="Show passcode"
+                  >
+                    <svg class="eye-icon eye-show" viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/>
+                      <circle cx="12" cy="12" r="3"/>
+                    </svg>
+                    <svg class="eye-icon eye-hide" viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" hidden>
+                      <path d="M17.94 17.94A10.94 10.94 0 0 1 12 19c-7 0-11-7-11-7a21.8 21.8 0 0 1 5.06-5.94"/>
+                      <path d="M9.9 4.24A10.94 10.94 0 0 1 12 4c7 0 11 7 11 7a21.8 21.8 0 0 1-2.16 3.19"/>
+                      <path d="M14.12 14.12a3 3 0 1 1-4.24-4.24"/>
+                      <line x1="1" y1="1" x2="23" y2="23"/>
+                    </svg>
+                  </button>
+                </div>
+
+                <p class="ff-gate-error" id="ff-gate-error" role="alert" aria-live="polite" hidden></p>
+
+                <div class="ff-gate-actions">
+                  <button type="submit" class="archive-btn archive-btn-gold ff-gate-submit" id="ff-gate-submit">
+                    Unlock
+                  </button>
+                  <button type="button" class="archive-btn ff-gate-return" id="ff-gate-return">
+                    Return to Portfolio
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <div class="ff-container" id="ff-protected-content" hidden aria-hidden="true">
             <!-- Compact Top Header -->
             <header class="ff-head">
               <div class="ff-head-left">

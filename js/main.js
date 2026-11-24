@@ -23,7 +23,9 @@
     friends: 'family-friends',
   };
   let currentSectionIndex = 0;
+  let lastPublicSection = 'home';
   let syncFriendsSlideshowPlayback = null;
+  let syncFamilyGateView = null;
 
   // DOM Elements
   const html = document.documentElement;
@@ -36,7 +38,7 @@
   const themeToggleBtn = document.getElementById('theme-toggle');
 
   // ==========================================
-  // 1. Fixed-Screen 3-Page Section Switcher
+  // 1. Fixed-Screen 4-Page Section Switcher
   // ==========================================
   function showSection(rawSectionId, updateHash = true) {
     const sectionId = SECTION_ALIASES[rawSectionId] || rawSectionId;
@@ -44,6 +46,9 @@
     if (index === -1) return;
 
     currentSectionIndex = index;
+    if (sectionId !== 'family-friends') {
+      lastPublicSection = sectionId;
+    }
 
     // Update Section Views
     sectionViews.forEach((view) => {
@@ -64,7 +69,7 @@
       }
     });
 
-    // Update Numbered Page Buttons (01, 02, 03)
+    // Update Numbered Page Buttons (01, 02, 03, 04)
     pageNumBtns.forEach((btn) => {
       const target = btn.getAttribute('data-go-section');
       const isActive = target === sectionId;
@@ -76,14 +81,14 @@
       }
     });
 
-    // Update Page Counter (01 / 03, 02 / 03, 03 / 03)
+    // Update Page Counter (01 / 04 .. 04 / 04)
     if (footerPageIndicator) {
       const currentFormatted = String(index + 1).padStart(2, '0');
       const totalFormatted = String(SECTIONS.length).padStart(2, '0');
       footerPageIndicator.textContent = `${currentFormatted} / ${totalFormatted}`;
     }
 
-    // Disable Previous on Page 01, Disable Continue on Page 03
+    // Disable Previous on Page 01, Disable Continue on Page 04
     if (btnPrev) {
       const isFirst = index === 0;
       btnPrev.disabled = isFirst;
@@ -99,6 +104,10 @@
     // Update Hash without jumping
     if (updateHash && window.location.hash !== `#${sectionId}`) {
       history.pushState(null, '', `#${sectionId}`);
+    }
+
+    if (typeof syncFamilyGateView === 'function') {
+      syncFamilyGateView(sectionId === 'family-friends');
     }
 
     if (typeof syncFriendsSlideshowPlayback === 'function') {
@@ -210,6 +219,7 @@
   }
 
   window.addEventListener('popstate', initRoute);
+  window.addEventListener('hashchange', initRoute);
 
   // Hook in-page navigation links and numbered footer buttons
   document.addEventListener('click', (e) => {
@@ -643,8 +653,133 @@
   }
 
   // ==========================================
-  // 5. Page 04: Friends Automatic Slideshow (5s Loop)
+  // 5. Page 04: Temporary Passcode Gate & Friends Slideshow
   // ==========================================
+  const FF_PASSCODE = 'RYZEN7';
+  const FF_SESSION_KEY = 'mn-ff-unlocked';
+  let ffMemoryUnlocked = false;
+
+  const familyViewEl = document.getElementById('view-family-friends');
+  const ffGateEl = document.getElementById('ff-gate');
+  const ffGateCardEl = document.getElementById('ff-gate-card');
+  const ffGateFormEl = document.getElementById('ff-gate-form');
+  const ffPasscodeInputEl = document.getElementById('ff-passcode-input');
+  const ffToggleVisibilityBtn = document.getElementById('ff-toggle-visibility');
+  const ffGateErrorEl = document.getElementById('ff-gate-error');
+  const ffGateReturnBtn = document.getElementById('ff-gate-return');
+  const ffProtectedContentEl = document.getElementById('ff-protected-content');
+  const ffEyeShowIcon = ffToggleVisibilityBtn ? ffToggleVisibilityBtn.querySelector('.eye-show') : null;
+  const ffEyeHideIcon = ffToggleVisibilityBtn ? ffToggleVisibilityBtn.querySelector('.eye-hide') : null;
+
+  function readFamilySessionUnlock() {
+    try {
+      return window.sessionStorage.getItem(FF_SESSION_KEY) === 'true';
+    } catch {
+      return false;
+    }
+  }
+
+  function writeFamilySessionUnlock() {
+    ffMemoryUnlocked = true;
+    try {
+      window.sessionStorage.setItem(FF_SESSION_KEY, 'true');
+    } catch {
+      // Fallback to in-memory tab state when sessionStorage is restricted
+    }
+  }
+
+  function isFamilyPageUnlocked() {
+    return ffMemoryUnlocked || readFamilySessionUnlock();
+  }
+
+  function setPasscodeVisibility(showPlainText) {
+    if (!ffPasscodeInputEl || !ffToggleVisibilityBtn) return;
+    ffPasscodeInputEl.type = showPlainText ? 'text' : 'password';
+    ffToggleVisibilityBtn.setAttribute('aria-pressed', String(showPlainText));
+    const label = showPlainText ? 'Hide passcode' : 'Show passcode';
+    ffToggleVisibilityBtn.setAttribute('aria-label', label);
+    ffToggleVisibilityBtn.setAttribute('title', label);
+    if (ffEyeShowIcon) ffEyeShowIcon.hidden = showPlainText;
+    if (ffEyeHideIcon) ffEyeHideIcon.hidden = !showPlainText;
+  }
+
+  function clearGateError() {
+    if (ffGateErrorEl) {
+      ffGateErrorEl.textContent = '';
+      ffGateErrorEl.hidden = true;
+    }
+    if (ffPasscodeInputEl) {
+      ffPasscodeInputEl.classList.remove('has-error');
+      ffPasscodeInputEl.removeAttribute('aria-invalid');
+    }
+  }
+
+  function showGateError(message) {
+    if (ffGateErrorEl) {
+      ffGateErrorEl.textContent = message;
+      ffGateErrorEl.hidden = false;
+    }
+    if (ffPasscodeInputEl) {
+      ffPasscodeInputEl.classList.add('has-error');
+      ffPasscodeInputEl.setAttribute('aria-invalid', 'true');
+    }
+    if (ffGateCardEl) {
+      ffGateCardEl.classList.remove('is-shaking');
+      void ffGateCardEl.offsetWidth;
+      ffGateCardEl.classList.add('is-shaking');
+    }
+  }
+
+  function applyFamilyGateState(shouldFocusInput = false) {
+    const unlocked = isFamilyPageUnlocked();
+
+    if (ffGateEl) {
+      ffGateEl.hidden = unlocked;
+      ffGateEl.setAttribute('aria-hidden', String(unlocked));
+    }
+
+    if (ffProtectedContentEl) {
+      ffProtectedContentEl.hidden = !unlocked;
+      ffProtectedContentEl.setAttribute('aria-hidden', String(!unlocked));
+    }
+
+    if (!unlocked && shouldFocusInput && ffPasscodeInputEl) {
+      window.requestAnimationFrame(() => {
+        if (!isFamilyPageUnlocked() && isFamilyPageActive()) {
+          ffPasscodeInputEl.focus({ preventScroll: true });
+        }
+      });
+    }
+  }
+
+  syncFamilyGateView = (isEnteringFamilyPage) => {
+    applyFamilyGateState(isEnteringFamilyPage);
+  };
+
+  if (ffToggleVisibilityBtn) {
+    ffToggleVisibilityBtn.addEventListener('click', () => {
+      if (!ffPasscodeInputEl) return;
+      const shouldReveal = ffPasscodeInputEl.type === 'password';
+      setPasscodeVisibility(shouldReveal);
+      ffPasscodeInputEl.focus({ preventScroll: true });
+    });
+  }
+
+  if (ffPasscodeInputEl) {
+    ffPasscodeInputEl.addEventListener('input', () => {
+      if (ffGateErrorEl && !ffGateErrorEl.hidden) {
+        clearGateError();
+      }
+    });
+  }
+
+  if (ffGateReturnBtn) {
+    ffGateReturnBtn.addEventListener('click', () => {
+      clearGateError();
+      showSection(lastPublicSection || 'home');
+    });
+  }
+
   const FRIENDS_SLIDES = [
     {
       label: 'Picture 1',
@@ -668,7 +803,6 @@
     },
   ];
 
-  const familyViewEl = document.getElementById('view-family-friends');
   const slideshowEl = document.getElementById('friends-slideshow');
   const slideFigures = slideshowEl ? slideshowEl.querySelectorAll('.ff-slide') : [];
   const slideIndicators = slideshowEl ? slideshowEl.querySelectorAll('.ff-indicator-btn') : [];
@@ -739,7 +873,7 @@
   function updateSlideshowPlaybackState() {
     if (!slideshowEl) return;
 
-    const isPageActive = isFamilyPageActive();
+    const isPageActive = isFamilyPageActive() && isFamilyPageUnlocked();
     if (!isPageActive) {
       isSlideshowHovered = false;
       isSlideshowFocused = false;
@@ -774,6 +908,30 @@
   }
 
   syncFriendsSlideshowPlayback = updateSlideshowPlaybackState;
+
+  if (ffGateFormEl) {
+    ffGateFormEl.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (!ffPasscodeInputEl) return;
+
+      const entered = ffPasscodeInputEl.value;
+      if (entered === FF_PASSCODE) {
+        writeFamilySessionUnlock();
+        clearGateError();
+        ffPasscodeInputEl.value = '';
+        setPasscodeVisibility(false);
+        applyFamilyGateState(false);
+        renderFriendsSlide(0);
+        updateSlideshowPlaybackState();
+      } else {
+        showGateError('Incorrect passcode. Please try again.');
+        ffPasscodeInputEl.focus({ preventScroll: true });
+        if (typeof ffPasscodeInputEl.select === 'function') {
+          ffPasscodeInputEl.select();
+        }
+      }
+    });
+  }
 
   if (slideshowEl) {
     if (slidePrevBtn) {
@@ -838,7 +996,8 @@
     renderFriendsSlide(0);
   }
 
-  // Initialize route on load
+  // Initialize passcode gate & route on load
+  applyFamilyGateState(false);
   initRoute();
   updateSlideshowPlaybackState();
 })();
