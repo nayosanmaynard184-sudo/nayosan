@@ -1130,14 +1130,14 @@ body.modal-open {
 
 /* ==========================================================================
    Page 02: PERSONAL INFO VIEW
-   1. Player Info (Left) -> 2. More About Me -> 3. Skills -> 4. My Advancement
+   Personal Identity (Left) -> 1. Personal Profile -> 2. More About Me -> 3. Skills & Knowledge
    ========================================================================== */
 .about-grid {
   width: 100%;
   height: 100%;
   display: grid;
-  grid-template-columns: 355px 1fr;
-  gap: 1.75rem;
+  grid-template-columns: 365px 1fr;
+  gap: 1.65rem;
   align-items: stretch;
   min-height: 0;
 }
@@ -1147,33 +1147,32 @@ body.modal-open {
   background: var(--bg-card);
   border: 1px solid var(--border-gold);
   border-radius: var(--card-radius);
-  padding: 1.05rem 1.25rem;
+  padding: 0.95rem 1.2rem;
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   box-shadow: var(--shadow-card);
   display: flex;
   flex-direction: column;
-  gap: 0.65rem;
+  gap: 0.55rem;
   height: 100%;
-  overflow-y: visible;
+  overflow: hidden;
 }
 
 .player-header {
   display: flex;
   align-items: center;
-  gap: 0.9rem;
+  gap: 1rem;
   padding-bottom: 0.65rem;
   border-bottom: 1px solid var(--border-line);
 }
 
 .player-thumb-ring {
-  width: 68px;
-  height: 68px;
-  aspect-ratio: 1 / 1;
-  border-radius: 50%;
+  width: 86px;
+  aspect-ratio: 1122 / 1402;
+  border-radius: 10px;
   overflow: hidden;
   border: 2px solid var(--border-gold);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4), 0 0 12px var(--gold-glow);
   background: var(--bg-surface);
   flex-shrink: 0;
 }
@@ -1181,15 +1180,14 @@ body.modal-open {
 .player-thumb-ring img {
   width: 100%;
   height: 100%;
-  aspect-ratio: 1 / 1;
   object-fit: cover;
-  object-position: center 18%;
+  object-position: center top;
   display: block;
 }
 
 .player-title-block h3 {
   font-family: var(--font-serif);
-  font-size: 1.3rem;
+  font-size: 1.32rem;
   font-weight: 500;
   color: var(--text-main);
   line-height: 1.15;
@@ -1201,7 +1199,7 @@ body.modal-open {
   color: var(--accent-gold);
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  margin-top: 0.2rem;
+  margin-top: 0.24rem;
 }
 
 /* Level & XP Gauge */
@@ -1253,7 +1251,7 @@ body.modal-open {
 .player-specs-table {
   display: flex;
   flex-direction: column;
-  gap: 0.28rem;
+  gap: 0.2rem;
   font-size: 0.76rem;
 }
 
@@ -1262,7 +1260,7 @@ body.modal-open {
   justify-content: space-between;
   align-items: baseline;
   gap: 0.75rem;
-  padding: 0.24rem 0;
+  padding: 0.21rem 0;
   border-bottom: 1px solid var(--border-subtle);
 }
 
@@ -1342,15 +1340,6 @@ body.modal-open {
   box-shadow: 0 0 10px var(--gold-glow);
 }
 
-.ab-tab-badge {
-  font-family: var(--font-mono);
-  font-size: 0.62rem;
-  padding: 0.08rem 0.35rem;
-  border-radius: 3px;
-  background: rgba(201, 164, 108, 0.18);
-  color: var(--accent-gold);
-}
-
 .pi-tab-counter {
   margin-left: auto;
   font-family: var(--font-mono);
@@ -1363,11 +1352,11 @@ body.modal-open {
   background: var(--bg-card);
 }
 
-/* Single-Panel Desktop Stage (No Internal Scrollbar) */
+/* Single-Panel Desktop Stage (Contained Height for Dense Dashboard Panels) */
 .pi-panels-stage {
   flex: 1 1 auto;
   min-height: 0;
-  overflow: visible;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -1378,10 +1367,13 @@ body.modal-open {
   opacity: 0;
   transform: translateY(6px);
   transition: opacity 0.25s ease, transform 0.25s ease;
+  min-height: 0;
+  max-height: 100%;
 }
 
 .pi-block.active {
-  display: block;
+  display: flex;
+  flex-direction: column;
   opacity: 1;
   transform: translateY(0);
 }
@@ -1425,10 +1417,55 @@ body.modal-open {
 }
 
 /* ==========================================================================
-   2. More About Me (Personal Biography & Interests)
+   Smaller-Screen Clickable Subsection Switcher Bars (Hidden on Desktop)
    ========================================================================== */
-.bio-card {
-  padding: 1.25rem 1.45rem;
+.mobile-subbar {
+  display: none;
+  align-items: center;
+  gap: 0.35rem;
+  flex-wrap: nowrap;
+  overflow: hidden;
+  width: 100%;
+  flex-shrink: 0;
+}
+
+.mob-sub-btn {
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 0.36rem 0.48rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-line);
+  border-radius: 5px;
+  color: var(--text-muted);
+  font-family: var(--font-gothic);
+  font-size: 0.64rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.mob-sub-btn:hover {
+  color: var(--text-main);
+  border-color: var(--border-gold);
+}
+
+.mob-sub-btn.active {
+  background: rgba(201, 164, 108, 0.16);
+  border-color: var(--accent-gold);
+  color: var(--accent-gold);
+  font-weight: 600;
+  box-shadow: 0 0 8px var(--gold-glow);
+}
+
+/* ==========================================================================
+   1. Personal Profile (Default Page 02 Section)
+   ========================================================================== */
+.pp-dashboard {
+  padding: 0.85rem 1.15rem;
   background: var(--bg-surface);
   border: 1px solid var(--border-line);
   border-radius: var(--card-radius);
@@ -1437,53 +1474,473 @@ body.modal-open {
   box-shadow: var(--shadow-card);
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.62rem;
+  max-height: 100%;
+  overflow: hidden;
 }
 
-.bio-text-content {
-  display: flex;
-  flex-direction: column;
-  gap: 0.65rem;
-  font-size: 0.87rem;
-  line-height: 1.65;
-  color: var(--text-muted);
-}
-
-.bio-text-content p strong {
-  color: var(--text-main);
+.pp-subhead {
+  font-family: var(--font-gothic);
+  font-size: 0.7rem;
   font-weight: 600;
-}
-
-.hobbies-inline-strip {
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--accent-gold);
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
-  gap: 0.5rem;
-  padding-top: 0.6rem;
-  border-top: 1px solid var(--border-subtle);
+  gap: 0.45rem;
+  flex-shrink: 0;
 }
 
-.hobby-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-size: 0.78rem;
-  color: var(--text-main);
-  padding: 0.25rem 0.6rem;
+.pp-subhead::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--border-subtle);
+}
+
+.pp-main-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.94fr) minmax(0, 1.06fr);
+  gap: 0.72rem;
+  align-items: stretch;
+  min-height: 0;
+}
+
+.pp-panel-box {
+  padding: 0.65rem 0.78rem;
   background: var(--bg-card);
   border: 1px solid var(--border-line);
-  border-radius: 5px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  min-width: 0;
+  min-height: 0;
 }
 
-.hobby-tag svg {
+.pp-two-col-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.36rem;
+}
+
+.pp-field {
+  padding: 0.32rem 0.52rem;
+  background: rgba(201, 164, 108, 0.055);
+  border: 1px solid var(--border-subtle);
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.06rem;
+  min-width: 0;
+}
+
+[data-theme="light"] .pp-field,
+[data-theme="light"] .pp-extra-card {
+  background: rgba(140, 103, 56, 0.06);
+}
+
+.pp-field--span2 {
+  grid-column: 1 / -1;
+}
+
+.pp-key {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent-gold);
+  line-height: 1.2;
+}
+
+.pp-val {
+  font-size: 0.77rem;
+  font-weight: 500;
+  color: var(--text-main);
+  line-height: 1.25;
+  overflow-wrap: break-word;
+}
+
+/* Prominent Height, Weight & BMI Cards */
+.pp-vitals-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.42rem;
+}
+
+.pp-vital-card {
+  padding: 0.38rem 0.58rem;
+  background:
+    radial-gradient(ellipse 90% 60% at 50% 0%, rgba(201, 164, 108, 0.1), transparent 72%),
+    rgba(201, 164, 108, 0.06);
+  border: 1px solid var(--border-gold);
+  border-top: 2px solid var(--accent-gold);
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.08rem;
+  min-width: 0;
+}
+
+.pp-vital-val-row {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+.pp-vital-num {
+  font-family: var(--font-serif);
+  font-size: 1.32rem;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--text-main);
+  font-variant-numeric: tabular-nums;
+}
+
+.pp-vital-unit {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--accent-gold);
+}
+
+.pp-vital-note {
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  color: var(--status-done-color);
+  font-weight: 500;
+}
+
+/* Bottom Strip: Additional Details */
+.pp-bottom-strip {
+  padding: 0.56rem 0.78rem;
+}
+
+.pp-extra-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+.pp-extra-card {
+  padding: 0.36rem 0.6rem;
+  background: rgba(201, 164, 108, 0.07);
+  border: 1px solid var(--border-line);
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.08rem;
+  min-width: 0;
+}
+
+/* ==========================================================================
+   2. More About Me (4-Area Card Arrangement)
+   ========================================================================== */
+.mam-dashboard {
+  padding: 0.85rem 1.15rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-line);
+  border-radius: var(--card-radius);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  gap: 0.58rem;
+  max-height: 100%;
+  overflow: hidden;
+}
+
+.mam-top-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1.48fr) minmax(0, 1fr);
+  gap: 0.68rem;
+  align-items: stretch;
+  min-height: 0;
+}
+
+.mam-area-card {
+  padding: 0.62rem 0.78rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-line);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  min-width: 0;
+  min-height: 0;
+}
+
+/* Area 1: Hobbies (4 Horizontal Icon Cards) */
+.hobbies-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.5rem;
+  flex: 1;
+  align-items: stretch;
+}
+
+.hobby-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 0.36rem;
+  padding: 0.52rem 0.4rem;
+  background: rgba(201, 164, 108, 0.055);
+  border: 1px solid var(--border-line);
+  border-radius: 7px;
+  transition: transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hobby-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--border-gold);
+  background: var(--bg-card-hover);
+  box-shadow: 0 6px 14px -4px rgba(0, 0, 0, 0.35), 0 0 8px var(--gold-glow);
+}
+
+.hobby-card-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 7px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(201, 164, 108, 0.12);
+  border: 1px solid var(--border-gold);
   color: var(--accent-gold);
   flex-shrink: 0;
 }
 
-.hobby-sep {
-  color: var(--accent-gold);
-  opacity: 0.55;
+.hobby-card-icon svg {
+  width: 17px;
+  height: 17px;
+  display: block;
+}
+
+.hobby-card-label {
+  font-family: var(--font-serif);
+  font-size: 0.88rem;
   font-weight: 600;
+  color: var(--text-main);
+  line-height: 1.15;
+}
+
+/* Area 2: Favorites (2 Distinct Cards) */
+.favorites-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+  flex: 1;
+  align-items: stretch;
+}
+
+.favorite-card {
+  padding: 0.55rem 0.65rem;
+  background: rgba(201, 164, 108, 0.06);
+  border: 1px solid var(--border-line);
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  min-width: 0;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.favorite-card:hover {
+  transform: translateY(-1px);
+  border-color: var(--border-gold);
+}
+
+.fav-swatch-badge {
+  width: 32px;
+  height: 32px;
+  border-radius: 7px;
+  flex-shrink: 0;
+  background: linear-gradient(135deg, #22c55e, #15803d);
+  border: 1px solid rgba(52, 211, 153, 0.6);
+  box-shadow: 0 0 12px rgba(34, 197, 94, 0.28);
+}
+
+[data-theme="light"] .fav-swatch-badge {
+  background: linear-gradient(135deg, #16a34a, #166534);
+  border-color: rgba(21, 128, 61, 0.65);
+  box-shadow: 0 0 10px rgba(21, 128, 61, 0.2);
+}
+
+.fav-game-badge {
+  width: 32px;
+  height: 32px;
+  border-radius: 7px;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(201, 164, 108, 0.14);
+  border: 1px solid var(--border-gold);
+  color: var(--accent-gold);
+}
+
+.fav-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.06rem;
+  min-width: 0;
+}
+
+.fav-val {
+  font-family: var(--font-serif);
+  font-size: 1.04rem;
+  font-weight: 600;
+  color: var(--text-main);
+  line-height: 1.15;
+}
+
+/* Area 3: Personality (Two Equal Columns) */
+.personality-cols {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.65rem;
+}
+
+.personality-col {
+  padding: 0.5rem 0.72rem;
+  background: rgba(201, 164, 108, 0.05);
+  border: 1px solid var(--border-subtle);
+  border-radius: 7px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.28rem;
+  min-width: 0;
+}
+
+[data-theme="light"] .personality-col,
+[data-theme="light"] .hobby-card,
+[data-theme="light"] .favorite-card {
+  background: rgba(140, 103, 56, 0.06);
+}
+
+.personality-col--strengths {
+  border-top: 2px solid var(--status-done-border);
+}
+
+.personality-col--weaknesses {
+  border-top: 2px solid var(--border-gold);
+}
+
+.personality-col-title {
+  font-family: var(--font-gothic);
+  font-size: 0.69rem;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.personality-col--strengths .personality-glyph {
+  color: var(--status-done-color);
+}
+
+.personality-col--weaknesses .personality-glyph {
+  color: var(--accent-gold);
+}
+
+.personality-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.18rem;
+  font-size: 0.77rem;
+  line-height: 1.32;
+  color: var(--text-muted);
+}
+
+.personality-list li {
+  position: relative;
+  padding-left: 0.78rem;
+}
+
+.personality-list li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--accent-gold);
+}
+
+/* Area 4: Abilities & Decorative Personal Motto */
+.mam-bottom-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr);
+  gap: 0.68rem;
+  align-items: stretch;
+  min-height: 0;
+}
+
+.abilities-title {
+  font-family: var(--font-serif);
+  font-size: 1.06rem;
+  font-weight: 600;
+  color: var(--text-main);
+  line-height: 1.2;
+}
+
+.abilities-desc {
+  font-size: 0.79rem;
+  line-height: 1.42;
+  color: var(--text-muted);
+}
+
+.mam-motto-card {
+  border: 1px solid var(--border-gold);
+  border-top: 2px solid var(--accent-gold);
+  border-bottom: 2px solid var(--accent-gold);
+  background:
+    radial-gradient(ellipse 85% 75% at 50% 50%, rgba(201, 164, 108, 0.11), transparent 76%),
+    var(--bg-card);
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 0.4rem;
+}
+
+[data-theme="light"] .mam-motto-card {
+  background:
+    radial-gradient(ellipse 85% 75% at 50% 50%, rgba(140, 103, 56, 0.12), transparent 76%),
+    var(--bg-card);
+}
+
+.motto-ornament-rule {
+  width: 100%;
+  max-width: 260px;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.motto-label {
+  font-family: var(--font-mono);
+  font-size: 0.59rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-gold);
+  white-space: nowrap;
+}
+
+.motto-quote {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(0.98rem, 1.25vw, 1.18rem);
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--text-main);
+  max-width: 30ch;
+  margin: 0;
 }
 
 /* ==========================================================================
@@ -1500,6 +1957,8 @@ body.modal-open {
   display: flex;
   flex-direction: column;
   gap: 0.72rem;
+  max-height: 100%;
+  overflow: hidden;
 }
 
 .pi-skills-grid {
@@ -1517,171 +1976,6 @@ body.modal-open {
 /* Row 2: Two equal cards centered cleanly */
 .skill-pos-4 { grid-column: 2 / 4; }
 .skill-pos-5 { grid-column: 4 / 6; }
-
-/* ==========================================================================
-   4. My Advancement (Milestones)
-   ========================================================================== */
-.advancements-container {
-  display: flex;
-  flex-direction: column;
-  gap: 0.8rem;
-}
-
-.adv-banner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.55rem 0.95rem;
-  background: rgba(201, 164, 108, 0.1);
-  border: 1px solid var(--border-gold);
-  border-radius: 6px;
-  font-size: 0.78rem;
-}
-
-.adv-banner-title {
-  display: inline-flex;
-  align-items: center;
-  font-family: var(--font-gothic);
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  color: var(--accent-gold);
-  text-transform: uppercase;
-}
-
-.adv-banner-progress {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  color: var(--text-main);
-}
-
-.advancements-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.8rem;
-}
-
-.adv-card {
-  display: flex;
-  gap: 0.8rem;
-  padding: 0.95rem 1.1rem;
-  background: var(--bg-surface);
-  border: 1px solid var(--border-line);
-  border-radius: var(--card-radius);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  box-shadow: var(--shadow-card);
-  transition: all 0.25s ease;
-  position: relative;
-}
-
-.adv-card:hover {
-  transform: translateY(-2px);
-  border-color: var(--border-gold);
-}
-
-.adv-card.completed {
-  border-top: 2px solid var(--status-done-color);
-}
-
-.adv-card.in-progress {
-  border-top: 2px solid var(--accent-gold);
-}
-
-.adv-icon-slot {
-  width: 38px;
-  height: 38px;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  border: 1px solid var(--border-line);
-  background: var(--bg-card);
-  transition: all 0.25s ease;
-}
-
-.adv-icon-slot svg {
-  width: 21px;
-  height: 21px;
-  display: block;
-}
-
-.adv-card.completed .adv-icon-slot {
-  border-color: var(--status-done-border);
-  background: var(--status-done-bg);
-  color: var(--status-done-color);
-}
-
-.adv-card.completed .adv-icon-slot svg {
-  stroke: var(--status-done-color);
-  filter: drop-shadow(0 0 5px var(--status-done-glow));
-}
-
-.adv-card.in-progress .adv-icon-slot {
-  border-color: var(--border-gold);
-  background: rgba(201, 164, 108, 0.12);
-  color: var(--accent-gold);
-}
-
-.adv-card.in-progress .adv-icon-slot svg {
-  stroke: var(--accent-gold);
-  filter: drop-shadow(0 0 5px var(--gold-glow));
-}
-
-.adv-info {
-  display: flex;
-  flex-direction: column;
-  gap: 0.22rem;
-  flex: 1;
-}
-
-.adv-header-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.5rem;
-}
-
-.adv-num {
-  font-family: var(--font-mono);
-  font-size: 0.64rem;
-  color: var(--accent-gold);
-}
-
-.adv-status-tag {
-  font-family: var(--font-mono);
-  font-size: 0.6rem;
-  padding: 0.1rem 0.42rem;
-  border-radius: 3px;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-}
-
-.adv-status-tag.done {
-  background: var(--status-done-bg);
-  color: var(--status-done-color);
-  border: 1px solid var(--status-done-border);
-}
-
-.adv-status-tag.prog {
-  background: rgba(201, 164, 108, 0.15);
-  color: var(--accent-gold);
-  border: 1px solid var(--border-gold);
-}
-
-.adv-title {
-  font-family: var(--font-serif);
-  font-size: 1.12rem;
-  font-weight: 500;
-  color: var(--text-main);
-  line-height: 1.2;
-}
-
-.adv-desc {
-  font-size: 0.81rem;
-  color: var(--text-muted);
-  line-height: 1.48;
-}
 
 /* ==========================================================================
    Tab 3: Inventory (Hobbies & Interests Hotbar)
@@ -3733,33 +4027,123 @@ body.modal-open {
    Responsive Adaptations
    ========================================================================== */
 @media (max-height: 820px) and (min-width: 861px) {
+  .main-viewport {
+    padding: 0.65rem 2.25rem;
+  }
+
   .home-content {
-    gap: 0.68rem;
+    gap: 0.62rem;
   }
 
   .hero-name {
-    font-size: clamp(2.2rem, 3.2vw, 3.15rem);
+    font-size: clamp(2.15rem, 3.1vw, 3.05rem);
   }
 
   .hero-lead {
-    font-size: 0.86rem;
-    line-height: 1.54;
+    font-size: 0.85rem;
+    line-height: 1.5;
   }
 
   .currently-learning-box {
-    padding: 0.6rem 0.95rem;
+    padding: 0.56rem 0.9rem;
+  }
+
+  .about-grid {
+    gap: 1.25rem;
+  }
+
+  .player-card {
+    padding: 0.7rem 1rem;
+    gap: 0.38rem;
+  }
+
+  .player-header {
+    padding-bottom: 0.45rem;
+    gap: 0.8rem;
+  }
+
+  .player-thumb-ring {
+    width: 74px;
+  }
+
+  .player-title-block h3 {
+    font-size: 1.18rem;
+  }
+
+  .player-xp-strip {
+    padding: 0.3rem 0.55rem;
+  }
+
+  .spec-row {
+    padding: 0.14rem 0;
+  }
+
+  .about-stage {
+    gap: 0.52rem;
+  }
+
+  .pp-dashboard,
+  .mam-dashboard,
+  .skills-panel-wrapper {
+    padding: 0.65rem 0.95rem;
+    gap: 0.45rem;
+  }
+
+  .pi-block-head {
+    padding-bottom: 0.38rem;
+  }
+
+  .pi-block-title h3 {
+    font-size: 1.22rem;
+  }
+
+  .pp-panel-box,
+  .mam-area-card {
+    padding: 0.5rem 0.66rem;
+    gap: 0.34rem;
+  }
+
+  .pp-field {
+    padding: 0.24rem 0.45rem;
+  }
+
+  .pp-val {
+    font-size: 0.73rem;
+  }
+
+  .pp-vital-num {
+    font-size: 1.18rem;
+  }
+
+  .hobby-card {
+    padding: 0.4rem 0.32rem;
+    gap: 0.25rem;
+  }
+
+  .hobby-card-icon {
+    width: 30px;
+    height: 30px;
+  }
+
+  .personality-list {
+    font-size: 0.73rem;
+    gap: 0.12rem;
+  }
+
+  .abilities-desc {
+    font-size: 0.75rem;
   }
 }
 
 @media (max-width: 1120px) {
   .topbar, .footer-bar, .main-viewport {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
   }
 
   .home-grid {
     grid-template-columns: minmax(240px, 42%) minmax(0, 58%);
-    gap: 1.75rem;
+    gap: 1.5rem;
   }
 
   .portrait-arch-trigger {
@@ -3767,46 +4151,33 @@ body.modal-open {
   }
 
   .astrolabe-backdrop {
-    width: min(360px, 92%);
+    width: min(350px, 92%);
   }
 
   .home-content {
-    gap: 0.72rem;
+    gap: 0.65rem;
   }
 
-  .achievements-container {
-    display: flex;
-    flex-direction: column;
-    height: auto;
-    max-height: 100%;
-    overflow-y: auto;
-    justify-content: flex-start;
-    gap: 0.9rem;
-    padding-right: 0.25rem;
+  .about-grid {
+    grid-template-columns: 305px 1fr;
+    gap: 1.1rem;
   }
 
-  .achievements-showcase-grid {
-    display: grid;
-    grid-template-columns: repeat(6, minmax(0, 1fr));
-    gap: 0.9rem;
-    height: auto;
+  .pp-two-col-grid {
+    gap: 0.3rem;
   }
 
-  .archive-card {
-    grid-column: span 2;
-    height: auto;
+  .pp-val {
+    font-size: 0.72rem;
   }
 
-  .archive-card:nth-child(n+4) {
-    grid-column: span 3;
-  }
-
-  .archive-frame {
-    height: 175px;
+  .hobbies-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .pi-skills-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 0.55rem;
   }
 
   .skill-pos-1,
@@ -3823,21 +4194,64 @@ body.modal-open {
     justify-self: center;
   }
 
-  /* Tablet Adaptation for Family and Friends */
-  .ff-container {
+  /* Tablet Adaptation for Achievements (Zero Scroll via Milestone Selector) */
+  .mobile-subbar--achievements,
+  .mobile-subbar--ff {
     display: flex;
-    flex-direction: column;
-    height: auto;
+  }
+
+  .achievements-container {
+    display: grid;
+    grid-template-rows: auto auto minmax(0, 1fr) auto;
+    height: 100%;
     max-height: 100%;
-    overflow-y: auto;
-    gap: 0.9rem;
-    padding-right: 0.25rem;
+    overflow: hidden;
+    gap: 0.55rem;
+    padding-right: 0;
+  }
+
+  .achievements-showcase-grid {
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    height: 100%;
+    min-height: 0;
+  }
+
+  .archive-card,
+  .archive-card:nth-child(n+4) {
+    display: none;
+    grid-column: auto;
+  }
+
+  .archive-card.is-mob-active {
+    display: flex;
+    width: min(100%, 540px);
+    height: 100%;
+    min-height: 0;
+  }
+
+  .archive-card.is-mob-active .archive-frame {
+    flex: 1 1 auto;
+    min-height: 110px;
+    height: auto;
+  }
+
+  /* Tablet Adaptation for Family and Friends (Zero Scroll via Section Selector) */
+  .ff-container {
+    display: grid;
+    grid-template-rows: auto auto minmax(0, 1fr);
+    height: 100%;
+    max-height: 100%;
+    overflow: hidden;
+    gap: 0.55rem;
+    padding-right: 0;
   }
 
   .ff-head {
     flex-direction: column;
     align-items: flex-start;
-    gap: 0.3rem;
+    gap: 0.2rem;
   }
 
   .ff-head-intro {
@@ -3846,134 +4260,529 @@ body.modal-open {
   }
 
   .ff-split-grid {
-    grid-template-columns: 1fr;
-    height: auto;
-    gap: 1.15rem;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 0;
+    gap: 0;
   }
 
-  .ff-section-col,
+  .ff-split-grid[data-active-ff-sub="dad"] .ff-friends-col,
+  .ff-split-grid[data-active-ff-sub="mom"] .ff-friends-col,
+  .ff-split-grid[data-active-ff-sub="siblings"] .ff-friends-col,
+  .ff-split-grid[data-active-ff-sub="friends"] .ff-family-col {
+    display: none;
+  }
+
+  .ff-family-col,
+  .ff-friends-col {
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr);
+    height: 100%;
+    min-height: 0;
+    gap: 0.45rem;
+  }
+
   .ff-family-grid,
-  .ff-slideshow-card {
-    height: auto;
-  }
-
   .ff-parents-row {
-    grid-template-columns: 1.2fr 1fr;
+    display: contents;
   }
 
-  .ff-photo-mat {
-    min-height: 205px;
+  .ff-split-grid[data-active-ff-sub="dad"] .ff-card--mom,
+  .ff-split-grid[data-active-ff-sub="dad"] .ff-card--siblings,
+  .ff-split-grid[data-active-ff-sub="mom"] .ff-card--dad,
+  .ff-split-grid[data-active-ff-sub="mom"] .ff-card--siblings,
+  .ff-split-grid[data-active-ff-sub="siblings"] .ff-card--dad,
+  .ff-split-grid[data-active-ff-sub="siblings"] .ff-card--mom {
+    display: none;
   }
 
+  .ff-card--dad,
+  .ff-card--mom,
+  .ff-card--siblings {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    height: 100%;
+    min-height: 0;
+  }
+
+  .ff-photo-mat,
   .ff-photo-mat--siblings {
-    min-height: 245px;
+    height: 100%;
+    min-height: 0;
+  }
+
+  .ff-slideshow-card {
+    height: 100%;
+    min-height: 0;
   }
 
   .ff-slide-viewport {
-    aspect-ratio: 16 / 10;
-    height: auto;
+    aspect-ratio: auto;
+    height: 100%;
+    min-height: 0;
   }
 }
 
-/* Small Screens / Mobile: Allow clean internal scroll when vertical space is constrained */
+/* ==========================================================================
+   Mobile & Small Screens: Strict Zero-Scroll 100dvh Viewport via Subsection Tabs
+   ========================================================================== */
 @media (max-width: 860px) {
   html, body {
-    overflow-y: auto;
-    overflow-x: hidden;
-    height: auto;
-    min-height: 100%;
+    height: 100dvh;
+    width: 100%;
+    overflow: hidden;
   }
 
   .app-shell {
-    height: auto;
-    min-height: 100dvh;
-    overflow-x: hidden;
-    overflow-y: visible;
+    height: 100dvh;
+    overflow: hidden;
   }
 
   .topbar {
+    flex: 0 0 auto;
     height: auto;
     flex-wrap: wrap;
-    padding: 0.7rem 1rem;
-    gap: 0.75rem;
+    padding: 0.48rem 0.75rem;
+    gap: 0.35rem 0.65rem;
+  }
+
+  .brand-shield {
+    width: 30px;
+    height: 34px;
+    font-size: 0.85rem;
+  }
+
+  .brand-name {
+    font-size: 0.78rem;
+  }
+
+  .brand-sub {
+    display: none;
+  }
+
+  .theme-toggle-btn {
+    width: 32px;
+    height: 32px;
+  }
+
+  .nav-links {
+    gap: 0.55rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .nav-item a {
+    font-size: 0.65rem;
+    padding: 0.25rem 0.1rem;
+    gap: 0.28rem;
+  }
+
+  .nav-item a .nav-num {
+    font-size: 0.62rem;
+  }
+
+  .nav-item.active a::after {
+    bottom: -3px;
+    font-size: 0.5rem;
   }
 
   .main-viewport {
-    overflow: visible;
-    padding: 1.25rem 1.1rem 1.5rem;
-    height: auto;
+    flex: 1 1 auto;
+    min-height: 0;
+    height: 100%;
+    overflow: hidden;
+    padding: 0.5rem 0.75rem;
   }
 
-  .view-stage {
-    height: auto;
-  }
-
+  .view-stage,
   .section-view {
-    height: auto;
+    height: 100%;
+    min-height: 0;
+  }
+
+  .mobile-subbar--home,
+  .mobile-subbar--pi,
+  .mobile-subbar--inner {
+    display: flex;
+  }
+
+  /* Page 01: Homepage Mobile Zero-Scroll Split */
+  #view-home.active {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    height: 100%;
+    min-height: 0;
   }
 
   .home-grid {
-    grid-template-columns: 1fr;
+    flex: 1 1 auto;
+    min-height: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     text-align: center;
-    gap: 1.5rem;
-    height: auto;
+    gap: 0;
+  }
+
+  .home-grid[data-active-home-sub="portrait"] .home-content {
+    display: none;
+  }
+
+  .home-grid[data-active-home-sub="details"] .portrait-stage {
+    display: none;
   }
 
   .portrait-stage {
-    height: auto;
+    height: 100%;
+    min-height: 0;
     align-items: center;
-    padding: 0.35rem 0 0.25rem;
+    justify-content: center;
+    padding: 0.2rem 0;
     margin: 0 auto;
   }
 
   .astrolabe-backdrop {
-    width: min(320px, 80vw);
+    width: min(300px, 76vw);
   }
 
   .portrait-arch-trigger {
-    width: min(70vw, 270px, calc(58dvh * 330 / 630));
-    max-height: none;
+    width: min(72vw, 275px, calc((100dvh - 215px) * 330 / 630));
+    max-height: 100%;
     margin: 0 auto;
   }
 
   .home-content {
     padding-right: 0;
+    gap: 0.48rem;
   }
 
-  .kicker, .hero-role, .hero-actions, .hero-chips-row, .currently-learning-box {
+  .kicker {
+    font-size: 0.64rem;
+    gap: 0.45rem;
+    flex-wrap: wrap;
     justify-content: center;
   }
 
-  .about-grid {
-    grid-template-columns: 1fr;
+  .kicker-line {
+    width: 22px;
   }
 
-  .pi-panels-stage {
-    overflow: visible;
+  .hero-name {
+    font-size: clamp(1.85rem, 6.2vw, 2.35rem);
+  }
+
+  .hero-role {
+    font-size: 0.8rem;
+    justify-content: center;
+  }
+
+  .hero-chips-row {
+    justify-content: center;
+    gap: 0.35rem;
+  }
+
+  .lang-chip {
+    font-size: 0.65rem;
+    padding: 0.2rem 0.48rem;
+  }
+
+  .hero-lead {
+    font-size: 0.79rem;
+    line-height: 1.42;
+  }
+
+  .hero-lead-stack {
+    gap: 0.32rem;
+  }
+
+  .currently-learning-box {
+    justify-content: center;
+    padding: 0.48rem 0.68rem;
+    gap: 0.42rem;
+  }
+
+  .hero-actions {
+    justify-content: center;
+    gap: 0.48rem;
+  }
+
+  .btn {
+    padding: 0.5rem 0.95rem;
+    font-size: 0.68rem;
+  }
+
+  /* Page 02: Personal Info Mobile Zero-Scroll Switching */
+  #view-personal-info.active {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    height: 100%;
+    min-height: 0;
+  }
+
+  .about-grid {
+    flex: 1 1 auto;
+    min-height: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .about-grid[data-active-pi-pane="identity"] .about-stage {
+    display: none;
+  }
+
+  .about-grid[data-active-pi-pane="content"] .player-card {
+    display: none;
+  }
+
+  .player-card {
+    height: auto;
+    max-height: 100%;
+    padding: 0.68rem 0.88rem;
+    gap: 0.34rem;
+    margin: auto 0;
+  }
+
+  .player-header {
+    padding-bottom: 0.4rem;
+    gap: 0.72rem;
+  }
+
+  .player-thumb-ring {
+    width: 66px;
+  }
+
+  .player-title-block h3 {
+    font-size: 1.12rem;
+  }
+
+  .player-xp-strip {
+    padding: 0.28rem 0.52rem;
+  }
+
+  .spec-row {
+    padding: 0.13rem 0;
+  }
+
+  .spec-key {
+    font-size: 0.6rem;
+  }
+
+  .spec-val {
+    font-size: 0.72rem;
+  }
+
+  .about-stage {
+    flex: 1 1 auto;
+    min-height: 0;
+    height: 100%;
+    gap: 0.42rem;
+  }
+
+  .about-tabbar {
+    gap: 0.35rem;
+  }
+
+  .ab-tab {
+    padding: 0.34rem 0.56rem;
+    font-size: 0.63rem;
+    gap: 0.28rem;
+  }
+
+  .ab-tab-icon {
+    margin-right: 0.1rem;
+  }
+
+  .ab-tab-icon svg {
+    width: 14px;
+    height: 14px;
   }
 
   .pi-tab-counter {
-    margin-left: 0;
+    margin-left: auto;
+    font-size: 0.62rem;
+    padding: 0.2rem 0.42rem;
   }
 
-  .pi-skills-grid,
-  .advancements-grid,
-  .achievements-showcase-grid {
+  .pi-panels-stage {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .pi-block.active {
+    height: 100%;
+    max-height: 100%;
+  }
+
+  .pp-dashboard,
+  .mam-dashboard,
+  .skills-panel-wrapper {
+    height: 100%;
+    max-height: 100%;
+    overflow: hidden;
+    padding: 0.62rem 0.75rem;
+    gap: 0.44rem;
+  }
+
+  .pi-block-head {
+    padding-bottom: 0.34rem;
+  }
+
+  .pi-block-title h3 {
+    font-size: 1.12rem;
+  }
+
+  .pi-order-tag {
+    font-size: 0.56rem;
+    padding: 0.12rem 0.38rem;
+  }
+
+  /* Personal Profile Mobile Subsections */
+  .pp-main-grid {
+    display: contents;
+  }
+
+  .pp-dashboard[data-active-pp-sub="basic"] .pp-group--physical,
+  .pp-dashboard[data-active-pp-sub="basic"] .pp-group--additional,
+  .pp-dashboard[data-active-pp-sub="physical"] .pp-group--basic,
+  .pp-dashboard[data-active-pp-sub="physical"] .pp-group--additional,
+  .pp-dashboard[data-active-pp-sub="additional"] .pp-group--basic,
+  .pp-dashboard[data-active-pp-sub="additional"] .pp-group--physical {
+    display: none;
+  }
+
+  .pp-panel-box {
+    padding: 0.55rem 0.66rem;
+    gap: 0.36rem;
+  }
+
+  .pp-field {
+    padding: 0.25rem 0.44rem;
+  }
+
+  .pp-val {
+    font-size: 0.73rem;
+  }
+
+  .pp-vital-card {
+    padding: 0.32rem 0.48rem;
+  }
+
+  .pp-vital-num {
+    font-size: 1.15rem;
+  }
+
+  .pp-extra-grid {
     grid-template-columns: 1fr;
+    gap: 0.42rem;
   }
 
-  .achievements-container {
-    overflow: visible;
-    padding-right: 0;
+  /* More About Me Mobile Subsections */
+  .mam-top-row {
+    display: contents;
   }
 
-  .archive-card,
-  .archive-card:nth-child(n+4) {
+  .mam-dashboard[data-active-mam-sub="hobbies-favorites"] .mam-group--personality,
+  .mam-dashboard[data-active-mam-sub="hobbies-favorites"] .mam-group--abilities-motto,
+  .mam-dashboard[data-active-mam-sub="personality"] .mam-group--hobbies-favorites,
+  .mam-dashboard[data-active-mam-sub="personality"] .mam-group--abilities-motto,
+  .mam-dashboard[data-active-mam-sub="abilities-motto"] .mam-group--hobbies-favorites,
+  .mam-dashboard[data-active-mam-sub="abilities-motto"] .mam-group--personality {
+    display: none;
+  }
+
+  .mam-area-card {
+    padding: 0.52rem 0.65rem;
+    gap: 0.36rem;
+  }
+
+  .hobbies-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.42rem;
+  }
+
+  .hobby-card {
+    padding: 0.44rem 0.36rem;
+    gap: 0.28rem;
+  }
+
+  .hobby-card-icon {
+    width: 30px;
+    height: 30px;
+  }
+
+  .hobby-card-label {
+    font-size: 0.84rem;
+  }
+
+  .personality-cols {
+    grid-template-columns: 1fr;
+    gap: 0.42rem;
+  }
+
+  .personality-list {
+    font-size: 0.74rem;
+    gap: 0.14rem;
+  }
+
+  .mam-bottom-row {
+    grid-template-columns: 1fr;
+    gap: 0.45rem;
+  }
+
+  /* Skills & Knowledge Mobile Subsections */
+  .pi-skills-grid {
+    grid-template-columns: 1fr;
+    gap: 0.42rem;
+  }
+
+  .skills-panel-wrapper[data-active-skills-sub="core"] .skill-group--web-tools,
+  .skills-panel-wrapper[data-active-skills-sub="web-tools"] .skill-group--core {
+    display: none;
+  }
+
+  .skill-card {
+    padding: 0.55rem 0.72rem;
+    gap: 0.34rem;
+  }
+
+  .skill-item {
+    padding: 0.25rem 0.45rem;
+    font-size: 0.73rem;
+  }
+
+  .skill-pos-5 {
     grid-column: auto;
+    max-width: none;
   }
 
-  .archive-frame {
-    height: 210px;
+  /* Page 03: Achievements Mobile */
+  .achievements-container {
+    gap: 0.4rem;
+  }
+
+  .archive-title {
+    font-size: 1.25rem;
+  }
+
+  .archive-intro {
+    font-size: 0.74rem;
+    line-height: 1.32;
+  }
+
+  .achievement-card-body {
+    padding: 0.5rem 0.68rem 0.55rem;
+    gap: 0.2rem;
+  }
+
+  .archive-closing-text {
+    font-size: 0.7rem;
+    line-height: 1.28;
   }
 
   .nc2-competency-columns {
@@ -4003,53 +4812,46 @@ body.modal-open {
     height: 32px;
   }
 
-  .skill-pos-5 {
-    grid-column: auto;
-    max-width: none;
-  }
-
-  /* Mobile Adaptation for Family and Friends */
+  /* Page 04: Family and Friends Mobile */
   .ff-gate-stage {
-    padding: 0.75rem 0.25rem;
+    padding: 0.5rem 0.25rem;
   }
 
   .ff-gate-card {
-    padding: 1.65rem 1.25rem 1.5rem;
+    padding: 1.35rem 1.05rem 1.2rem;
+    gap: 0.5rem;
   }
 
   .ff-gate-actions {
     grid-template-columns: 1fr;
   }
 
-  .ff-container {
-    overflow: visible;
-    padding-right: 0;
+  .ff-head-intro {
+    font-size: 0.74rem;
+    line-height: 1.32;
   }
 
-  .ff-parents-row,
   .ff-card--dad,
   .ff-card--mom,
   .ff-card--siblings {
     grid-template-columns: 1fr;
+    grid-template-rows: minmax(0, 1fr) auto;
   }
 
-  .ff-photo-mat {
+  .ff-photo-mat,
+  .ff-photo-mat--portrait,
+  .ff-photo-mat--siblings {
     border-right: 0;
     border-bottom: 1px solid var(--border-line);
     min-height: 0;
-    height: 240px;
+    height: 100%;
+    padding: 0.38rem;
   }
 
-  .ff-photo-mat--portrait {
-    height: 320px;
-  }
-
-  .ff-photo-mat--siblings {
-    height: 240px;
-  }
-
-  .ff-slide-viewport {
-    aspect-ratio: 4 / 3;
+  .ff-card-body,
+  .ff-card-body--siblings {
+    padding: 0.55rem 0.75rem;
+    gap: 0.18rem;
   }
 
   .ff-slide {
@@ -4070,31 +4872,60 @@ body.modal-open {
   }
 
   .ff-slide-footer {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.65rem;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.55rem;
+    padding: 0.48rem 0.75rem;
   }
 
-  .nav-links {
-    gap: 0.85rem;
-    flex-wrap: wrap;
-    justify-content: center;
+  .ff-slide-caption {
+    min-height: 44px;
   }
 
-  .nav-item a {
-    font-size: 0.72rem;
-  }
-
+  /* Compact Mobile Footer */
   .footer-bar {
     display: flex;
     flex-direction: column;
+    flex: 0 0 auto;
     height: auto;
-    gap: 0.6rem;
-    padding: 0.9rem 1.1rem;
+    gap: 0.26rem;
+    padding: 0.4rem 0.75rem;
+  }
+
+  .footer-pager {
+    gap: 0.4rem;
+  }
+
+  .footer-btn-nav {
+    padding: 0.2rem 0.5rem;
+    font-size: 0.62rem;
+  }
+
+  .page-num-btn {
+    min-width: 24px;
+    height: 22px;
+    font-size: 0.62rem;
   }
 
   .footer-links {
     justify-content: center;
+    font-size: 0.62rem;
+    gap: 0.6rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .ab-tab-icon {
+    display: none;
+  }
+
+  .favorites-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .player-thumb-ring {
+    width: 60px;
   }
 }
 

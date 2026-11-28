@@ -1,12 +1,13 @@
 /**
- * Maynard Nay-osan — Portfolio Main Interactivity & 3-Page Router
+ * Maynard Nay-osan — Portfolio Main Interactivity & 4-Page Router
  *
  * Features:
- * - 3-Page Fixed-Screen Router (Homepage, Personal Info, Achievements)
+ * - 4-Page Fixed-Screen Router (Homepage, Personal Info, Achievements, Family and Friends)
  * - Zero outer page scroll on desktop; smooth in-place section transitions
- * - Previous / Continue directional buttons & 01 / 02 / 03 numbered page indicators
- * - Keyboard navigation (Left / Right Arrow keys clamped to the 3 pages)
- * - Personal Info section filter (All / More About Me / Skills / My Advancement)
+ * - Previous / Continue directional buttons & 01 / 02 / 03 / 04 numbered page indicators
+ * - Keyboard navigation (Left / Right Arrow keys clamped to the 4 pages)
+ * - Personal Info section filter (Personal Profile / More About Me / Skills & Knowledge)
+ * - Temporary passcode gate on Family and Friends
  * - Theme management (Dark / Light with localStorage persistence)
  * - Ambient floating dust particles canvas (#dust-canvas)
  */
@@ -235,15 +236,15 @@
   });
 
   // ==========================================
-  // Personal Info Section Selector (3 Sections: More About Me / Skills / My Advancement)
+  // Personal Info Section Selector (3 Sections: Personal Profile / More About Me / Skills & Knowledge)
   // ==========================================
-  const PI_SECTIONS = ['bio', 'skills', 'advancement'];
+  const PI_SECTIONS = ['profile', 'bio', 'skills'];
   const piTabs = document.querySelectorAll('[data-pi-filter]');
   const piBlocks = document.querySelectorAll('[data-pi-section]');
   const piTabCounter = document.getElementById('pi-tab-counter');
 
   function selectPersonalInfoFilter(filterName) {
-    const safeFilter = PI_SECTIONS.includes(filterName) ? filterName : 'bio';
+    const safeFilter = PI_SECTIONS.includes(filterName) ? filterName : 'profile';
     const sectionIndex = PI_SECTIONS.indexOf(safeFilter);
 
     piTabs.forEach((tab) => {
@@ -271,7 +272,51 @@
     });
   });
 
-  selectPersonalInfoFilter('bio');
+  selectPersonalInfoFilter('profile');
+
+  // ==========================================
+  // Smaller-Screen Zero-Scroll Subsection Selectors
+  // ==========================================
+  function bindSubSelector(btnAttr, targetSelector, targetAttr, onChange) {
+    const buttons = document.querySelectorAll(`[${btnAttr}]`);
+    const container = document.querySelector(targetSelector);
+    if (!buttons.length || !container) return;
+
+    function activate(value) {
+      container.setAttribute(targetAttr, value);
+      buttons.forEach((btn) => {
+        const match = btn.getAttribute(btnAttr) === value;
+        btn.classList.toggle('active', match);
+        btn.setAttribute('aria-selected', match ? 'true' : 'false');
+      });
+      if (typeof onChange === 'function') {
+        onChange(value);
+      }
+    }
+
+    buttons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const val = btn.getAttribute(btnAttr);
+        if (val) activate(val);
+      });
+    });
+  }
+
+  bindSubSelector('data-home-sub', '.home-grid', 'data-active-home-sub');
+  bindSubSelector('data-pi-pane', '.about-grid', 'data-active-pi-pane');
+  bindSubSelector('data-pp-sub', '.pp-dashboard', 'data-active-pp-sub');
+  bindSubSelector('data-mam-sub', '.mam-dashboard', 'data-active-mam-sub');
+  bindSubSelector('data-skills-sub', '.skills-panel-wrapper', 'data-active-skills-sub');
+  bindSubSelector('data-ach-sub', '#achievements-track', 'data-active-ach-sub', (val) => {
+    document.querySelectorAll('#achievements-track .archive-card[data-milestone]').forEach((card) => {
+      card.classList.toggle('is-mob-active', card.getAttribute('data-milestone') === val);
+    });
+  });
+  bindSubSelector('data-ff-sub', '.ff-split-grid', 'data-active-ff-sub', () => {
+    if (typeof syncFriendsSlideshowPlayback === 'function') {
+      syncFriendsSlideshowPlayback();
+    }
+  });
 
   // ==========================================
   // 2. Dual-Theme Management

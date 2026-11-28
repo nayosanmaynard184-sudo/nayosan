@@ -71,7 +71,11 @@
              PAGE 01: HOMEPAGE
              ============================================================ -->
         <section class="section-view active" id="view-home" aria-label="Homepage Section">
-          <div class="home-grid">
+          <div class="mobile-subbar mobile-subbar--home" role="tablist" aria-label="Homepage View Selector">
+            <button type="button" class="mob-sub-btn active" role="tab" aria-selected="true" data-home-sub="portrait">Portrait &amp; Title</button>
+            <button type="button" class="mob-sub-btn" role="tab" aria-selected="false" data-home-sub="details">Biography &amp; Links</button>
+          </div>
+          <div class="home-grid" data-active-home-sub="portrait">
             <!-- Left: Full-Body Portrait & Celestial Astrolabe -->
             <div class="portrait-stage">
               <div class="astrolabe-backdrop" aria-hidden="true">
@@ -237,17 +241,19 @@
 
         <!-- ============================================================
              PAGE 02: PERSONAL INFO
-             Strict Order:
-               1. Player Info (Left Column)
-               2. More About Me
-               3. Skills and Technical Knowledge
-               4. My Advancement
+             Left Panel: Personal Identity
+             Right Panel: 1. Personal Profile (Default) -> 2. More About Me -> 3. Skills & Knowledge
              ============================================================ -->
         <section class="section-view" id="view-personal-info" aria-label="Personal Info Section">
-          <div class="about-grid">
+          <div class="mobile-subbar mobile-subbar--pi" role="tablist" aria-label="Personal Info Panel Selector">
+            <button type="button" class="mob-sub-btn" role="tab" aria-selected="false" data-pi-pane="identity">Personal Identity</button>
+            <button type="button" class="mob-sub-btn active" role="tab" aria-selected="true" data-pi-pane="content">Profile Sections</button>
+          </div>
 
-            <!-- 1. PLAYER INFO (Left Column) -->
-            <aside class="player-card" aria-label="Player Information Profile">
+          <div class="about-grid" data-active-pi-pane="content">
+
+            <!-- LEFT PANEL — PERSONAL IDENTITY -->
+            <aside class="player-card" aria-label="Personal Identity Profile">
               <div class="player-header">
                 <div class="player-thumb-ring">
                   <img src="assets/profile-picture.png" alt="Maynard Nay-osan profile avatar">
@@ -267,8 +273,8 @@
                 <span class="xp-percent">CS YEAR 1</span>
               </div>
 
-              <!-- Player Details Table (Exact Required Fields) -->
-              <div class="player-specs-table" aria-label="Player Info Details">
+              <!-- Personal Identity Details Table -->
+              <div class="player-specs-table" aria-label="Personal Identity Details">
                 <div class="spec-row">
                   <span class="spec-key">Full Name</span>
                   <span class="spec-val">Maynard Nay-osan</span>
@@ -286,12 +292,12 @@
                   <span class="spec-val">18</span>
                 </div>
                 <div class="spec-row">
-                  <span class="spec-key">Location</span>
-                  <span class="spec-val">Sadanga, Mountain Province</span>
+                  <span class="spec-key">Civil Status</span>
+                  <span class="spec-val">Single</span>
                 </div>
                 <div class="spec-row">
-                  <span class="spec-key">Status</span>
-                  <span class="spec-val">Single</span>
+                  <span class="spec-key">Current Address</span>
+                  <span class="spec-val">Holy Ghost Extension, Bunguet</span>
                 </div>
                 <div class="spec-row">
                   <span class="spec-key">Phone</span>
@@ -316,11 +322,17 @@
               </div>
             </aside>
 
-            <!-- Right Column: 2. More About Me -> 3. Skills -> 4. My Advancement -->
+            <!-- RIGHT PANEL — SECTION CONTENT -->
             <div class="about-stage">
               <!-- Section Selector (3 Sections Only) -->
               <div class="about-tabbar" role="tablist" aria-label="Personal Info Section Selector">
-                <button class="ab-tab active" type="button" role="tab" id="tab-btn-bio" aria-selected="true" data-pi-filter="bio">
+                <button class="ab-tab active" type="button" role="tab" id="tab-btn-profile" aria-selected="true" data-pi-filter="profile">
+                  <span class="ab-tab-icon">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="3.2"/><path d="M5 20a7 7 0 0 1 14 0"/></svg>
+                  </span>
+                  <span>Personal Profile</span>
+                </button>
+                <button class="ab-tab" type="button" role="tab" id="tab-btn-bio" aria-selected="false" data-pi-filter="bio">
                   <span class="ab-tab-icon">
                     <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a2.5 2.5 0 0 1-2.5-2.5z"/><path d="M7 2v20M11 7h5M11 11h5M11 15h3"/></svg>
                   </span>
@@ -332,22 +344,180 @@
                   </span>
                   <span>Skills &amp; Knowledge</span>
                 </button>
-                <button class="ab-tab" type="button" role="tab" id="tab-btn-advancement" aria-selected="false" data-pi-filter="advancement">
-                  <span class="ab-tab-icon">
-                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l7 3.5v5.5c0 5-3.5 9-7 11-3.5-2-7-6-7-11V5.5L12 2z"/><path d="M12 7v8M9 10h6"/></svg>
-                  </span>
-                  <span>My Advancement</span>
-                  <span class="ab-tab-badge">2/4</span>
-                </button>
                 <span class="pi-tab-counter" id="pi-tab-counter" aria-live="polite">01 / 03</span>
               </div>
 
               <!-- Ordered Content Container -->
               <div class="pi-panels-stage" id="pi-panels-stage">
 
-                <!-- 2. MORE ABOUT ME -->
-                <article class="pi-block active" id="pi-block-bio" data-pi-section="bio" aria-label="More About Me">
-                  <div class="bio-card">
+                <!-- 1. PERSONAL PROFILE (Default Active) -->
+                <article class="pi-block active" id="pi-block-profile" data-pi-section="profile" aria-label="Personal Profile">
+                  <div class="pp-dashboard" data-active-pp-sub="basic">
+                    <div class="pi-block-head">
+                      <div class="pi-block-title">
+                        <span class="med-chip-icon">
+                          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="3.2"/><path d="M5 20a7 7 0 0 1 14 0"/></svg>
+                        </span>
+                        <h3>Personal Profile</h3>
+                      </div>
+                      <span class="pi-order-tag">Identity &amp; Physical Attributes</span>
+                    </div>
+
+                    <!-- Smaller-screen clickable subsection selector -->
+                    <div class="mobile-subbar mobile-subbar--inner" role="tablist" aria-label="Personal Profile Subsections">
+                      <button type="button" class="mob-sub-btn active" role="tab" aria-selected="true" data-pp-sub="basic">Basic Info</button>
+                      <button type="button" class="mob-sub-btn" role="tab" aria-selected="false" data-pp-sub="physical">Physical Profile</button>
+                      <button type="button" class="mob-sub-btn" role="tab" aria-selected="false" data-pp-sub="additional">Additional</button>
+                    </div>
+
+                    <!-- Structured Two-Column Grid -->
+                    <div class="pp-main-grid">
+                      <!-- TOP LEFT: BASIC INFORMATION -->
+                      <section class="pp-panel-box pp-group--basic" aria-label="Basic Information">
+                        <h4 class="pp-subhead">Basic Information</h4>
+                        <div class="pp-two-col-grid">
+                          <div class="pp-field">
+                            <span class="pp-key">Nationality</span>
+                            <span class="pp-val">Filipino</span>
+                          </div>
+                          <div class="pp-field">
+                            <span class="pp-key">Religion</span>
+                            <span class="pp-val">Roman Catholic</span>
+                          </div>
+                          <div class="pp-field">
+                            <span class="pp-key">Ethnicity</span>
+                            <span class="pp-val">Kankana-ey / Igorot</span>
+                          </div>
+                          <div class="pp-field">
+                            <span class="pp-key">Birth Order</span>
+                            <span class="pp-val">Youngest</span>
+                          </div>
+                          <div class="pp-field">
+                            <span class="pp-key">Civil Status</span>
+                            <span class="pp-val">Single</span>
+                          </div>
+                          <div class="pp-field">
+                            <span class="pp-key">Zodiac Sign</span>
+                            <span class="pp-val">Taurus</span>
+                          </div>
+                          <div class="pp-field">
+                            <span class="pp-key">Professional Status</span>
+                            <span class="pp-val">Student</span>
+                          </div>
+                          <div class="pp-field">
+                            <span class="pp-key">Languages Spoken</span>
+                            <span class="pp-val">English / Tagalog</span>
+                          </div>
+                          <div class="pp-field">
+                            <span class="pp-key">Place of Birth</span>
+                            <span class="pp-val">Bontoc General Hospital</span>
+                          </div>
+                          <div class="pp-field">
+                            <span class="pp-key">Current Address</span>
+                            <span class="pp-val">Holy Ghost Extension, Bunguet</span>
+                          </div>
+                        </div>
+                      </section>
+
+                      <!-- TOP RIGHT: PHYSICAL PROFILE -->
+                      <section class="pp-panel-box pp-group--physical" aria-label="Physical Profile">
+                        <h4 class="pp-subhead">Physical Profile</h4>
+
+                        <!-- Prominent Height, Weight & BMI Strip -->
+                        <div class="pp-vitals-row">
+                          <div class="pp-vital-card">
+                            <span class="pp-key">Height</span>
+                            <div class="pp-vital-val-row">
+                              <span class="pp-vital-num">169</span>
+                              <span class="pp-vital-unit">cm</span>
+                            </div>
+                          </div>
+                          <div class="pp-vital-card">
+                            <span class="pp-key">Weight</span>
+                            <div class="pp-vital-val-row">
+                              <span class="pp-vital-num">57</span>
+                              <span class="pp-vital-unit">kg</span>
+                            </div>
+                          </div>
+                          <div class="pp-vital-card">
+                            <span class="pp-key">BMI</span>
+                            <div class="pp-vital-val-row">
+                              <span class="pp-vital-num">19.96</span>
+                              <span class="pp-vital-note">— Normal</span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- Compact Two-Column Physical Attributes Grid -->
+                        <div class="pp-two-col-grid pp-phys-grid">
+                          <div class="pp-field">
+                            <span class="pp-key">Body Type</span>
+                            <span class="pp-val">Ectomorph</span>
+                          </div>
+                          <div class="pp-field">
+                            <span class="pp-key">Skin Color</span>
+                            <span class="pp-val">Light skin tone</span>
+                          </div>
+                          <div class="pp-field">
+                            <span class="pp-key">Eye Color</span>
+                            <span class="pp-val">Brown</span>
+                          </div>
+                          <div class="pp-field">
+                            <span class="pp-key">Natural Hair Color</span>
+                            <span class="pp-val">Black</span>
+                          </div>
+                          <div class="pp-field">
+                            <span class="pp-key">Hair Type</span>
+                            <span class="pp-val">Wavy</span>
+                          </div>
+                          <div class="pp-field">
+                            <span class="pp-key">Face Shape</span>
+                            <span class="pp-val">Oval</span>
+                          </div>
+                          <div class="pp-field">
+                            <span class="pp-key">Blood Type</span>
+                            <span class="pp-val">O</span>
+                          </div>
+                          <div class="pp-field">
+                            <span class="pp-key">Dominant Hand</span>
+                            <span class="pp-val">Right</span>
+                          </div>
+                          <div class="pp-field">
+                            <span class="pp-key">Shoe Size</span>
+                            <span class="pp-val">EU 41 (US 8)</span>
+                          </div>
+                          <div class="pp-field">
+                            <span class="pp-key">Clothing Size</span>
+                            <span class="pp-val">Small (S)</span>
+                          </div>
+                          <div class="pp-field pp-field--span2">
+                            <span class="pp-key">Disability</span>
+                            <span class="pp-val">None</span>
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+
+                    <!-- BOTTOM STRIP: ADDITIONAL DETAILS -->
+                    <section class="pp-panel-box pp-bottom-strip pp-group--additional" aria-label="Additional Details">
+                      <h4 class="pp-subhead">Additional Details</h4>
+                      <div class="pp-extra-grid">
+                        <div class="pp-extra-card">
+                          <span class="pp-key">MBTI</span>
+                          <span class="pp-val">INTJ (Suggested, not formally tested)</span>
+                        </div>
+                        <div class="pp-extra-card">
+                          <span class="pp-key">Work Experience</span>
+                          <span class="pp-val">Construction</span>
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </article>
+
+                <!-- 2. MORE ABOUT ME (4-Area Card Arrangement) -->
+                <article class="pi-block" id="pi-block-bio" data-pi-section="bio" aria-label="More About Me">
+                  <div class="mam-dashboard" data-active-mam-sub="hobbies-favorites">
                     <div class="pi-block-head">
                       <div class="pi-block-title">
                         <span class="med-chip-icon">
@@ -355,48 +525,162 @@
                         </span>
                         <h3>More About Me</h3>
                       </div>
-                      <span class="pi-order-tag">Biography</span>
+                      <span class="pi-order-tag">Interests &amp; Character</span>
                     </div>
 
-                    <div class="bio-text-content">
-                      <p>
-                        I am <strong>Maynard Nay-osan</strong>, a first-year BS Computer Science student at the <strong>University of the Cordilleras</strong>. I come from <strong>Sadanga, Mountain Province</strong>, and was born in <strong>Bontoc</strong>.
-                      </p>
-                      <p>
-                        I am currently developing my programming foundation, particularly in <strong>Java</strong> and <strong>Python</strong>. I am interested in software development, technology, logical thinking, and improving my problem-solving abilities.
-                      </p>
-                      <p>
-                        Outside academics, I enjoy <strong>drawing and painting, playing chess, reading manhwa, and watching anime</strong>.
-                      </p>
+                    <!-- Smaller-screen clickable subsection selector -->
+                    <div class="mobile-subbar mobile-subbar--inner" role="tablist" aria-label="More About Me Subsections">
+                      <button type="button" class="mob-sub-btn active" role="tab" aria-selected="true" data-mam-sub="hobbies-favorites">Hobbies &amp; Favs</button>
+                      <button type="button" class="mob-sub-btn" role="tab" aria-selected="false" data-mam-sub="personality">Personality</button>
+                      <button type="button" class="mob-sub-btn" role="tab" aria-selected="false" data-mam-sub="abilities-motto">Abilities &amp; Motto</button>
                     </div>
 
-                    <div class="hobbies-inline-strip" aria-label="Personal Interests">
-                      <span class="hobby-tag">
-                        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 14l-5 5-2-1 1-2 5-5 1 3z"/><path d="M6 3h12v18H6z"/></svg>
-                        Drawing &amp; Painting
-                      </span>
-                      <span class="hobby-sep" aria-hidden="true">·</span>
-                      <span class="hobby-tag">
-                        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 21h10v-2H7v2z"/><path d="M9 15c-1.5-2-1.5-5 0-7l1.5-3 3 1c1.5.5 2.5 2 2.5 3.5 0 1.5-1.5 3-3 3.5"/></svg>
-                        Chess
-                      </span>
-                      <span class="hobby-sep" aria-hidden="true">·</span>
-                      <span class="hobby-tag">
-                        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="5" y="3" width="14" height="18" rx="2"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="9" y1="12" x2="15" y2="12"/></svg>
-                        Manhwa
-                      </span>
-                      <span class="hobby-sep" aria-hidden="true">·</span>
-                      <span class="hobby-tag">
-                        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 9c0-4 2.7-7 6-7s6 3 6 7c0 5-2.5 10-6 12-3.5-2-6-7-6-12z"/></svg>
-                        Anime
-                      </span>
+                    <!-- TOP ROW: AREA 1 (HOBBIES) + AREA 2 (FAVORITES) -->
+                    <div class="mam-top-row">
+                      <!-- AREA 1 — HOBBIES -->
+                      <section class="mam-area-card mam-group--hobbies-favorites" aria-label="Hobbies">
+                        <h4 class="pp-subhead">Hobbies</h4>
+                        <div class="hobbies-grid">
+                          <div class="hobby-card">
+                            <span class="hobby-card-icon" aria-hidden="true">
+                              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M18.37 2.63a2.12 2.12 0 0 1 3 3L14 13l-4 1 1-4 7.37-7.37z"/>
+                                <path d="M9 14c-1.8 0-3 1.2-3 2.8 0 1-.6 1.7-1.5 2.2 1.8.6 3.5.3 4.8-.8A3.2 3.2 0 0 0 10.5 15"/>
+                                <path d="M4 20h16"/>
+                              </svg>
+                            </span>
+                            <span class="hobby-card-label">Drawing &amp; Painting</span>
+                          </div>
+                          <div class="hobby-card">
+                            <span class="hobby-card-icon" aria-hidden="true">
+                              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M6 20h12"/>
+                                <path d="M7.5 20l1-4.5c-1.5-1.2-2-3.4-1.2-5.4L9 5.5 11.5 4l2.2 2c2 .7 3.3 2.5 3.3 4.5 0 2.3-1.7 3.8-3.5 4.2l1 5.3"/>
+                                <circle cx="11.5" cy="7.8" r="0.8" fill="currentColor" stroke="none"/>
+                              </svg>
+                            </span>
+                            <span class="hobby-card-label">Chess</span>
+                          </div>
+                          <div class="hobby-card">
+                            <span class="hobby-card-icon" aria-hidden="true">
+                              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M2 5.5A2.5 2.5 0 0 1 4.5 3H11v17H4.5A2.5 2.5 0 0 0 2 22V5.5z"/>
+                                <path d="M22 5.5A2.5 2.5 0 0 0 19.5 3H13v17h6.5A2.5 2.5 0 0 1 22 22V5.5z"/>
+                                <line x1="5.5" y1="8" x2="8.5" y2="8"/>
+                                <line x1="5.5" y1="12" x2="8.5" y2="12"/>
+                                <line x1="15.5" y1="8" x2="18.5" y2="8"/>
+                                <line x1="15.5" y1="12" x2="18.5" y2="12"/>
+                              </svg>
+                            </span>
+                            <span class="hobby-card-label">Manhwa</span>
+                          </div>
+                          <div class="hobby-card">
+                            <span class="hobby-card-icon" aria-hidden="true">
+                              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="2.5" y="4.5" width="19" height="13" rx="2"/>
+                                <polygon points="10 8.5 15.5 11 10 13.5 10 8.5" fill="currentColor" stroke="none"/>
+                                <line x1="8" y1="20.5" x2="16" y2="20.5"/>
+                                <line x1="12" y1="17.5" x2="12" y2="20.5"/>
+                              </svg>
+                            </span>
+                            <span class="hobby-card-label">Anime</span>
+                          </div>
+                        </div>
+                      </section>
+
+                      <!-- AREA 2 — FAVORITES -->
+                      <section class="mam-area-card mam-group--hobbies-favorites" aria-label="Favorites">
+                        <h4 class="pp-subhead">Favorites</h4>
+                        <div class="favorites-grid">
+                          <div class="favorite-card favorite-card--color">
+                            <span class="fav-swatch-badge" aria-hidden="true"></span>
+                            <div class="fav-meta">
+                              <span class="pp-key">Favorite Color</span>
+                              <span class="fav-val">Green</span>
+                            </div>
+                          </div>
+                          <div class="favorite-card favorite-card--game">
+                            <span class="fav-game-badge" aria-hidden="true">
+                              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="8"/>
+                                <line x1="12" y1="2" x2="12" y2="6"/>
+                                <line x1="12" y1="18" x2="12" y2="22"/>
+                                <line x1="2" y1="12" x2="6" y2="12"/>
+                                <line x1="18" y1="12" x2="22" y2="12"/>
+                                <circle cx="12" cy="12" r="2"/>
+                              </svg>
+                            </span>
+                            <div class="fav-meta">
+                              <span class="pp-key">Favorite Game</span>
+                              <span class="fav-val">PUBG</span>
+                            </div>
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+
+                    <!-- AREA 3 — PERSONALITY (Two Equal Columns) -->
+                    <section class="mam-area-card mam-group--personality" aria-label="Personality">
+                      <h4 class="pp-subhead">Personality</h4>
+                      <div class="personality-cols">
+                        <div class="personality-col personality-col--strengths">
+                          <h5 class="personality-col-title">
+                            <span class="personality-glyph" aria-hidden="true">✦</span> Strengths
+                          </h5>
+                          <ul class="personality-list">
+                            <li>Analytical Thinking</li>
+                            <li>Creativity</li>
+                            <li>Patience</li>
+                            <li>Independent Learning</li>
+                            <li>Strategic Problem-Solving</li>
+                          </ul>
+                        </div>
+                        <div class="personality-col personality-col--weaknesses">
+                          <h5 class="personality-col-title">
+                            <span class="personality-glyph" aria-hidden="true">◇</span> Weaknesses
+                          </h5>
+                          <ul class="personality-list">
+                            <li>Sometimes overthinks details.</li>
+                            <li>Can be quiet in unfamiliar situations.</li>
+                            <li>Sometimes hesitates to ask for help.</li>
+                            <li>Still improving confidence and communication.</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </section>
+
+                    <!-- AREA 4 — ABILITIES AND MOTTO -->
+                    <div class="mam-bottom-row mam-group--abilities-motto">
+                      <section class="mam-area-card mam-abilities-card" aria-label="Abilities">
+                        <h4 class="pp-subhead">Abilities</h4>
+                        <div class="abilities-title">Strategic Thinking &amp; Creative Problem-Solving</div>
+                        <p class="abilities-desc">
+                          Enjoys analyzing situations, finding possible solutions, and approaching challenges through logical and creative thinking.
+                        </p>
+                      </section>
+
+                      <section class="mam-area-card mam-motto-card" aria-label="Personal Motto">
+                        <div class="motto-ornament-rule" aria-hidden="true">
+                          <span class="rule-wing"></span>
+                          <span class="motto-label">PERSONAL MOTTO</span>
+                          <span class="rule-wing"></span>
+                        </div>
+                        <blockquote class="motto-quote">
+                          “Learn with purpose, think strategically, and keep improving.”
+                        </blockquote>
+                        <div class="motto-ornament-rule" aria-hidden="true">
+                          <span class="rule-wing"></span>
+                          <span class="rule-diamond">✦</span>
+                          <span class="rule-wing"></span>
+                        </div>
+                      </section>
                     </div>
                   </div>
                 </article>
 
                 <!-- 3. SKILLS AND TECHNICAL KNOWLEDGE -->
                 <article class="pi-block" id="pi-block-skills" data-pi-section="skills" aria-label="Skills and Technical Knowledge">
-                  <div class="skills-panel-wrapper">
+                  <div class="skills-panel-wrapper" data-active-skills-sub="core">
                     <div class="pi-block-head">
                       <div class="pi-block-title">
                         <span class="med-chip-icon">
@@ -407,9 +691,15 @@
                       <span class="pi-order-tag">Beginner Foundation</span>
                     </div>
 
+                    <!-- Smaller-screen clickable subsection selector -->
+                    <div class="mobile-subbar mobile-subbar--inner" role="tablist" aria-label="Skills Subsections">
+                      <button type="button" class="mob-sub-btn active" role="tab" aria-selected="true" data-skills-sub="core">01–02 Core</button>
+                      <button type="button" class="mob-sub-btn" role="tab" aria-selected="false" data-skills-sub="web-tools">03–05 Web &amp; Tools</button>
+                    </div>
+
                     <div class="pi-skills-grid">
                       <!-- 01. Programming Skills -->
-                      <div class="skill-card skill-pos-1">
+                      <div class="skill-card skill-pos-1 skill-group--core">
                         <div class="skill-card-head">
                           <span>✦</span> 01. Programming Skills
                         </div>
@@ -426,7 +716,7 @@
                       </div>
 
                       <!-- 02. Programming Fundamentals -->
-                      <div class="skill-card skill-pos-2">
+                      <div class="skill-card skill-pos-2 skill-group--core">
                         <div class="skill-card-head">
                           <span>✦</span> 02. Programming Fundamentals
                         </div>
@@ -451,7 +741,7 @@
                       </div>
 
                       <!-- 03. Web Development -->
-                      <div class="skill-card skill-pos-3">
+                      <div class="skill-card skill-pos-3 skill-group--web-tools">
                         <div class="skill-card-head">
                           <span>✦</span> 03. Web Development
                         </div>
@@ -470,7 +760,7 @@
                       </div>
 
                       <!-- 04. Development Tools -->
-                      <div class="skill-card skill-pos-4">
+                      <div class="skill-card skill-pos-4 skill-group--web-tools">
                         <div class="skill-card-head">
                           <span>✦</span> 04. Development Tools
                         </div>
@@ -491,7 +781,7 @@
                       </div>
 
                       <!-- 05. Currently Developing -->
-                      <div class="skill-card skill-pos-5">
+                      <div class="skill-card skill-pos-5 skill-group--web-tools">
                         <div class="skill-card-head">
                           <span>✦</span> 05. Currently Developing
                         </div>
@@ -508,99 +798,6 @@
                           <div class="skill-item">
                             <span>Algorithmic Problem-Solving</span>
                           </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </article>
-
-                <!-- 4. MY ADVANCEMENT -->
-                <article class="pi-block" id="pi-block-advancement" data-pi-section="advancement" aria-label="My Advancement">
-                  <div class="advancements-container">
-                    <div class="adv-banner">
-                      <span class="adv-banner-title">
-                        <span class="med-chip-icon">
-                          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l7 3.5v5.5c0 5-3.5 9-7 11-3.5-2-7-6-7-11V5.5L12 2z"/><path d="M12 7v8M9 10h6"/></svg>
-                        </span>
-                        My Advancement
-                      </span>
-                      <span class="adv-banner-progress">2 / 4 Milestones Completed</span>
-                    </div>
-
-                    <div class="advancements-grid">
-                      <!-- 01 — First Steps -->
-                      <div class="adv-card completed">
-                        <div class="adv-icon-slot" title="First Steps">
-                          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M12 3v6"/>
-                            <path d="M7 11c0-2.5 2-4.5 5-4.5s5 2 5 4.5H7z"/>
-                            <path d="M8 11c0 5 4 9 4 10.5 0-1.5 4-5.5 4-10.5"/>
-                            <line x1="12" y1="14" x2="12" y2="18"/>
-                          </svg>
-                        </div>
-                        <div class="adv-info">
-                          <div class="adv-header-row">
-                            <span class="adv-num">01 — MILESTONE</span>
-                            <span class="adv-status-tag done">Completed</span>
-                          </div>
-                          <h4 class="adv-title">First Steps</h4>
-                          <p class="adv-desc">Started my journey in Computer Science.</p>
-                        </div>
-                      </div>
-
-                      <!-- 02 — Programming Foundations -->
-                      <div class="adv-card in-progress">
-                        <div class="adv-icon-slot" title="Programming Foundations">
-                          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                            <polygon points="12 2 15 8 22 9 17 14 18 21 12 17 6 21 7 14 2 9 9 8 12 2"/>
-                            <circle cx="12" cy="12" r="2.5" fill="currentColor"/>
-                          </svg>
-                        </div>
-                        <div class="adv-info">
-                          <div class="adv-header-row">
-                            <span class="adv-num">02 — MILESTONE</span>
-                            <span class="adv-status-tag prog">In Progress</span>
-                          </div>
-                          <h4 class="adv-title">Programming Foundations</h4>
-                          <p class="adv-desc">Studying Java and Python and learning fundamental programming concepts.</p>
-                        </div>
-                      </div>
-
-                      <!-- 03 — Coding Practice -->
-                      <div class="adv-card completed">
-                        <div class="adv-icon-slot" title="Coding Practice">
-                          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M5 5l14 14M19 5L5 19"/>
-                            <path d="M7 4l2 2-3 3-2-2zM17 4l-2 2 3 3 2-2z"/>
-                            <circle cx="12" cy="12" r="3"/>
-                          </svg>
-                        </div>
-                        <div class="adv-info">
-                          <div class="adv-header-row">
-                            <span class="adv-num">03 — MILESTONE</span>
-                            <span class="adv-status-tag done">Completed</span>
-                          </div>
-                          <h4 class="adv-title">Coding Practice</h4>
-                          <p class="adv-desc">Completed programming exercises and coursework using Java and Python.</p>
-                        </div>
-                      </div>
-
-                      <!-- 04 — Portfolio Development -->
-                      <div class="adv-card in-progress">
-                        <div class="adv-icon-slot" title="Portfolio Development">
-                          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M4 21V9l2-2 2 2v2h8V9l2-2 2 2v12H4z"/>
-                            <path d="M10 21v-5a2 2 0 0 1 4 0v5"/>
-                            <path d="M6 7V4l2 1 2-1v3M14 7V4l2 1 2-1v3"/>
-                          </svg>
-                        </div>
-                        <div class="adv-info">
-                          <div class="adv-header-row">
-                            <span class="adv-num">04 — MILESTONE</span>
-                            <span class="adv-status-tag prog">In Progress</span>
-                          </div>
-                          <h4 class="adv-title">Portfolio Development</h4>
-                          <p class="adv-desc">Building my personal developer portfolio to showcase my progress and future projects.</p>
                         </div>
                       </div>
                     </div>
@@ -631,10 +828,17 @@
             </header>
 
             <!-- Main Section (~75% height): All Five Educational Milestones Visible Together -->
-            <div class="achievements-showcase-grid" id="achievements-track">
+            <div class="mobile-subbar mobile-subbar--achievements" role="tablist" aria-label="Achievement Milestone Selector">
+              <button type="button" class="mob-sub-btn active" role="tab" aria-selected="true" data-ach-sub="0">01 Elem</button>
+              <button type="button" class="mob-sub-btn" role="tab" aria-selected="false" data-ach-sub="1">02 JHS</button>
+              <button type="button" class="mob-sub-btn" role="tab" aria-selected="false" data-ach-sub="2">03 SHS</button>
+              <button type="button" class="mob-sub-btn" role="tab" aria-selected="false" data-ach-sub="3">04 NC II</button>
+              <button type="button" class="mob-sub-btn" role="tab" aria-selected="false" data-ach-sub="4">05 UC</button>
+            </div>
+            <div class="achievements-showcase-grid" id="achievements-track" data-active-ach-sub="0">
 
               <!-- 01 — ELEMENTARY EDUCATION -->
-              <article class="achievement-showcase-card archive-card" data-milestone="0">
+              <article class="achievement-showcase-card archive-card is-mob-active" data-milestone="0">
                 <div class="archive-card-top">
                   <span class="archive-numeral" aria-hidden="true">01</span>
                   <span class="archive-seal-tag">Elementary</span>
@@ -891,8 +1095,16 @@
               </p>
             </header>
 
+            <!-- Smaller-screen clickable subsection selector for Family and Friends -->
+            <div class="mobile-subbar mobile-subbar--ff" role="tablist" aria-label="Family and Friends Section Selector">
+              <button type="button" class="mob-sub-btn active" role="tab" aria-selected="true" data-ff-sub="dad">Father</button>
+              <button type="button" class="mob-sub-btn" role="tab" aria-selected="false" data-ff-sub="mom">Mother</button>
+              <button type="button" class="mob-sub-btn" role="tab" aria-selected="false" data-ff-sub="siblings">Siblings</button>
+              <button type="button" class="mob-sub-btn" role="tab" aria-selected="false" data-ff-sub="friends">Friends</button>
+            </div>
+
             <!-- Coordinated Split Composition: Family (Left) | Friends Slideshow (Right) -->
-            <div class="ff-split-grid">
+            <div class="ff-split-grid" data-active-ff-sub="dad">
 
               <!-- LEFT: FAMILY SECTION (Father, Mother, Siblings) -->
               <section class="ff-section-col ff-family-col" aria-label="Family Photographs">
